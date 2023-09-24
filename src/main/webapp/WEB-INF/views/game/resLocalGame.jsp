@@ -4,9 +4,9 @@
 
 <CUPES:layout title="Resultado de la partida">
     <div class = "doBody">
-    <p>${winnerMsg}</p>
-    <p>${shiftsP1}</p>
-    <p>${shiftsP2}</p>
+    <c:out value="${winnerMsg}"/>
+    <c:out value="${shiftsP1}"/>
+    <c:out value="${shiftsP2}"/>
     <h1>Estos son vuestros logos completos:</h1>
 
     <div class="gameResult">
@@ -17,6 +17,6 @@
         <img class="gameRes" src="${imageUrl2}" alt="Estamos teniendo problemas">  
     </div>
 
-    <p>${message}</p>
+    <c:out value="${message}"/>
 </div>
 </CUPES:layout>

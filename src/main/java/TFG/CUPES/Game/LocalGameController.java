@@ -2,9 +2,6 @@ package TFG.CUPES.Game;
 
 import java.time.LocalDateTime;
 import java.time.Duration;
-import java.util.List;
-import java.util.Random;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,15 +20,11 @@ import TFG.CUPES.Image.ImageService;
 public class LocalGameController {
 
     public static final String NEW_LOCAL_GAME = "game/newLocalGame";
-
     public static final String PLAY_LOCAL_GAME = "game/playLocalGame";
-
-    public static final List<Integer> footballLogoPositions = List.of(0,500,1000,1500);
-
     public static final String RES_LOCAL_GAME ="game/resLocalGame";
+    GameUtils gameUtils = new GameUtils();  
     
     LocalGameService localGameService;
-
     ImageService imageService;
 
     LocalGameController(LocalGameService localGameService, ImageService imageService){
@@ -81,7 +74,11 @@ public class LocalGameController {
                 imageSelected = "/images/"+game.getPlayer2Image().getImageType()+"/"+game.getPlayer2Image().getResourceName()+".png";
                 res.addObject("imageUrl", imageSelected);
             }
-            String imageStyle = generateStyle(imageSelected, game);
+            Position p = new Position(game.getX(),game.getY());
+            p = gameUtils.randomImagePortion(imageSelected, p);
+            game.setX(p.getX());
+            game.setY(p.getY());
+            String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
             res.addObject("imageStyle", imageStyle);
         }
         return res;
@@ -106,7 +103,7 @@ public class LocalGameController {
                     game.setPlayer2Finish(LocalDateTime.now());
                     res = new ModelAndView("redirect:/localGame/res/"+game.getId());
                     game.setActualPlayer(null);
-                    game.setWinner(checkWinner(game));
+                    game.setWinner(gameUtils.checkWinner(game));
                 }
                 res = new ModelAndView("redirect:/localGame/play/"+game.getId());
             }
@@ -128,32 +125,8 @@ public class LocalGameController {
                 res = new ModelAndView("redirect:/localGame/play/"+game.getId());
             }
         }
-
         return res;
     }
-
-
-    private String checkWinner(LocalGame game) {
-        String winner;
-        if(game.getPlayer1Shifts()<game.getPlayer2Shifts()){
-            winner = game.getPlayer1Name();
-        }else if(game.getPlayer2Shifts()<game.getPlayer1Shifts()){
-            winner = game.getPlayer2Name();
-        }else{
-            Duration player1Time = Duration.between(game.getPlayer1Start(),game.getPlayer1FInish());
-            Duration player2Time = Duration.between(game.getPlayer2Start(),game.getPlayer2Finish());
-            if(player1Time.compareTo(player2Time)<0){
-                winner =game.getPlayer1Name();
-            }else if(player2Time.compareTo(player1Time)<0){
-                 winner = game.getPlayer2Name();
-            }else{
-                winner = "draw";
-            }
-        }
-        return winner;
-    }
-
-
 
     public ModelAndView gameResult(LocalGame game,ModelAndView res){
         if(game.getWinner().equals("draw")){
@@ -172,17 +145,5 @@ public class LocalGameController {
         return res;
     }
 
-    public String generateStyle(String imageSelected,LocalGame game) {
-        Random rand = new Random();
-        int x = 999;
-        int y = 999;
-        while(game.getX()==null && game.getY()==null ||(game.getX()!=x && game.getY()!=y)){
-            x = footballLogoPositions.get(rand.nextInt(0, footballLogoPositions.size()));
-            y = footballLogoPositions.get(rand.nextInt(0, footballLogoPositions.size()));
-            game.setX(x);
-            game.setY(y);
-        }
-        localGameService.save(game);
-        return "backgroud-color: white;background-image: url('" + imageSelected + "'); width: " + 500+"px; height: " + 500 + "px; background-position: -" + game.getX() + "px -" + game.getY() + "px;";
-    }
+    
 }

@@ -1,11 +1,4 @@
-INSERT INTO player(username, password,enabled) VALUES ('usuario1', 'password1',true);
-INSERT INTO player(username, password,enabled) VALUES ('usuario2', 'password2',true);
-INSERT INTO player(username,password,enabled) VALUES ('Guaje','1111',true);
-
-INSERT INTO authorities(id,username,authority) VALUES (1, 'usuario1', 'player');
-INSERT INTO authorities(id,username,authority) VALUES (2, 'usuario2', 'player');
-INSERT INTO authorities(id,username,authority) VALUES (3, 'Guaje', 'player');
-
+-- encoding: UTF-8
 INSERT INTO image(id,name,resource_name,image_type) VALUES (1,'Real Madrid','Madrid','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (2,'Rayo Vallecano','Rayo','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (3,'Fútbol Club Barcelona','Barca','Logo');

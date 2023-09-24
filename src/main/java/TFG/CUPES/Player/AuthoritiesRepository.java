@@ -1,9 +1,9 @@
-package TFG.CUPES.Game;
+package TFG.CUPES.Player;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GameAloneRepository extends CrudRepository<GameAlone, Integer> {
-
+public interface AuthoritiesRepository extends CrudRepository<Authorities, Integer>{
+    
 }

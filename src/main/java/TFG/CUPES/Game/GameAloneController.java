@@ -1,11 +1,5 @@
 package TFG.CUPES.Game;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +20,9 @@ public class GameAloneController {
     public static final String RES_GAME= "game/gameResult";
     public static final String SELECT_MODE="game/selectMode";
     public static final Integer maxShift = 3;
-    public static final List<Integer> footballLogoPositions = List.of(0,500,1000,1500);
+    GameUtils gameUtils = new GameUtils();
 
     private GameAloneService gameService;
-
     private ImageService logoService;
 
     @Autowired
@@ -70,9 +63,11 @@ public class GameAloneController {
             res.addObject("game",game);
             String imageSelected = "/images/"+game.getSelected().getImageType()+"/"+game.getSelected().getResourceName()+".png";
             res.addObject("imageUrl", imageSelected);
-
-            String imageStyle = generateStyle(imageSelected, game);
-    
+            Position p = new Position(game.getX(),game.getY());
+            p = gameUtils.randomImagePortion(imageSelected, p);
+            game.setX(p.getX());
+            game.setY(p.getY());
+            String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
             res.addObject("imageStyle", imageStyle);
         }
         return res;
@@ -97,7 +92,6 @@ public class GameAloneController {
                 res = new ModelAndView("redirect:/game/play/"+game.getId());
             }
         }
-        
         this.gameService.saveGame(game);
         return res;
     }
@@ -115,19 +109,5 @@ public class GameAloneController {
             res.addObject("message2", "¡Lo siento! Has gastado todos tus intentos y no has conseguido adivinar el equipo");
         }
         return res;
-    }
-
-    public String generateStyle(String imageSelected,GameAlone game) {
-        Random rand = new Random();
-        int x = 999;
-        int y = 999;
-        while(game.getX()==null && game.getY()==null ||(game.getX()!=x && game.getY()!=y)){
-            x = footballLogoPositions.get(rand.nextInt(0, footballLogoPositions.size()));
-            y = footballLogoPositions.get(rand.nextInt(0, footballLogoPositions.size()));
-            game.setX(x);
-            game.setY(y);
-        }
-        gameService.saveGame(game);
-        return "backgroud-color: white;background-image: url('" + imageSelected + "'); width: " + 500+"px; height: " + 500 + "px; background-position: -" + game.getX() + "px -" + game.getY() + "px;";
-    }
+    }    
 }

@@ -1,14 +1,11 @@
 package TFG.CUPES.Image;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 
 @Service
 public class ImageService {
@@ -19,6 +16,7 @@ public class ImageService {
     public ImageService(ImageRepository logoRepo){
         this.logoRepository = logoRepo;
     }
+    
     @Transactional(readOnly = true)
     public Image getRandomLogo(){
         List<Image> logos = (List<Image>) this.logoRepository.findAll();

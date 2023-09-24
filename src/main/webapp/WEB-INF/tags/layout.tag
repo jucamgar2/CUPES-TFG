@@ -1,11 +1,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ tag description="Global Layout" %>
 <%@ attribute name="title" required="true" rtexprvalue="true" description="Title for the page" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     <title>${title}</title>
 
     <link rel="stylesheet" type="text/css" href="/css/CUPES.css">
@@ -36,7 +38,15 @@
         <li><a class="active" href="/"><i class="fas fa-home"></i> Inicio</a></li>
         <li><a href="/game/select"><i class="fas fa-gamepad"></i> Jugar</a></li>
         <li><a href="#"><i class="fas fa-book"></i> Manual</a></li>
-        <li><a href="/players/new"><i class="fas fa-edit"></i>Registrarse</a></li>
+        <sec:authorize access="!isAuthenticated()">
+          <li><a href="/players/new"><i class="fas fa-edit"></i> Registrarse</a></li>
+        </sec:authorize>
+        <sec:authorize access="!isAuthenticated()">
+          <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Iniciar sesi&oacute;n</a></li>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+          <li><a href="/logout"><i class="fas fa-sign-in-alt"></i> Cerrar sesi&oacute;n</a></li>
+        </sec:authorize>
       </ul>
     </nav>
 

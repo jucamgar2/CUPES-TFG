@@ -19,8 +19,8 @@ import lombok.Setter;
 public class Authorities {
 	
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "username")
