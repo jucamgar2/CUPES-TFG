@@ -1,0 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="CUPES" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<CUPES:layout title="Unirse a una partida onine">
+    <div>
+        <p>Jugador 1:</p><c:out value="${game.getPlayer1()}" />
+        <p>Jugador 2:</p><c:out vlaue="${game.getPlayer2()}" />
+        <a href="/onlineGame/start/${game.getId()}">Estoy Listo</a>
+        <a href="/onlineGame/leave/${game.getId()}">Salir</a>
+    </div>
+</CUPES:layout>

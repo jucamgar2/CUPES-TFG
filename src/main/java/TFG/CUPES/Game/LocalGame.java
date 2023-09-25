@@ -1,6 +1,5 @@
 package TFG.CUPES.Game;
 
-import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +15,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class LocalGame {
+public class LocalGame  extends MultiplayerGame{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,23 +30,9 @@ public class LocalGame {
     private Image player1Image;
 
     @ManyToOne
-    private Image player2Image;
-    
-    private Integer player1Shifts;
-
-    private Integer player2Shifts;
-
-    private LocalDateTime player1Start;
-
-    private LocalDateTime player2Start;
-
-    private LocalDateTime player1FInish;
-
-    private LocalDateTime player2Finish;
+    private Image player2Image;   
 
     private String actualPlayer;
-
-    private String winner;
 
     private Integer x;
 

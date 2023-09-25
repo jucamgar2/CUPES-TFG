@@ -18,4 +18,8 @@ public class PlayerService {
     public boolean exists(String username) {
         return this.playerRepo.existsById(username);
     }
+
+    public Player findByUsername(String name) {
+        return this.playerRepo.findByUsername(name);
+    }
 }

@@ -10,6 +10,8 @@
             <p>Temática de futbol</p>
             <a href="/game/new">Un jugador</a>
             <a href="/localGame/new">Uno contra uno local</a>
+            <a href="/onlineGame/new">Crear una partida uno contra uno en linea</a>
+            <a href="/onlineGame/join">unirse a una partida uno contra uno en linea</a>
         </div>
     </div>
 </CUPES:layout>

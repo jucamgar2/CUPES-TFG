@@ -28,6 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/","welcome","/oups","/home","/instrucciones", "/diaHistorico").permitAll()
 				.antMatchers("/game/**").permitAll()
 				.antMatchers("/localGame/**").permitAll()
+				.antMatchers("/onlineGame/**").authenticated()
 				.anyRequest().denyAll()
 				.and()
 				 	.formLogin()
