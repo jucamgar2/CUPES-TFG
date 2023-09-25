@@ -1,7 +1,9 @@
 package TFG.CUPES.Player;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthoritiesService {
@@ -13,8 +15,16 @@ public class AuthoritiesService {
         this.authoritiesRepository = authoritiesRepository;
     }
 
+    @Transactional
     public void save(Authorities a){
         authoritiesRepository.save(a);
     }
+
+    @Transactional(readOnly=true)
+    public Integer findMaxId(){
+        return authoritiesRepository.findMaxId();
+    }
+
+    
     
 }

@@ -50,6 +50,8 @@ public class PlayerController {
         Authorities a = new Authorities();
         a.setAuthority("player");
         a.setPlayer(p);
+        a.setId(this.authoritiesService.findMaxId()+1);
+        System.out.println("ID: "+a.getId());
         authoritiesService.save(a);
         ModelAndView result =new ModelAndView("redirect:/");
         return result;

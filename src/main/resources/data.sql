@@ -1,4 +1,10 @@
 -- encoding: UTF-8
+INSERT INTO player(username,password,enabled) VALUES ('Guaje','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true);
+INSERT INTO authorities(id,username,authority) VALUES (1,'Guaje','player');
+INSERT INTO player(username,password,enabled) VALUES ('Antonio','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true);
+INSERT INTO authorities(id,username,authority) VALUES (2,'Antonio','player');
+
+
 INSERT INTO image(id,name,resource_name,image_type) VALUES (1,'Real Madrid','Madrid','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (2,'Rayo Vallecano','Rayo','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (3,'Fútbol Club Barcelona','Barca','Logo');
