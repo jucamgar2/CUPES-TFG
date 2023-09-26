@@ -27,4 +27,8 @@ public class OnlineGameService {
     public List<OnlineGame> getNotStartedGames(){
         return this.onlineGameRepository.findNotStartedGames();
     }
+
+    public void delete(OnlineGame onlineGame){
+        this.onlineGameRepository.delete(onlineGame);
+    }
 }

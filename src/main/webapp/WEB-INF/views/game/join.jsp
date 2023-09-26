@@ -5,7 +5,7 @@
 <CUPES:layout title="Unirse a una partida onine">
     <div>
         <c:forEach items="${games}" var="game">
-            <a href="/onlineGame/join/${game.id}">Unirse a la partida ${game.id}</a>
+            <a href="/onlineGame/joinning/${game.id}">Unirse a la partida ${game.id}</a>
         </c:forEach>
     </div>
 </CUPES:layout>

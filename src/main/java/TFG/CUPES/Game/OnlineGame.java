@@ -44,13 +44,25 @@ public class OnlineGame extends MultiplayerGame{
     @ManyToOne
     private Image player2Image3;
 
-    private Integer x;
+    private Integer player1X;
 
-    private Integer y;
+    private Integer player2X;
+
+    private Integer player1Y;
+
+    private Integer player2Y;
 
     private Boolean player1IsReady;
 
     private Boolean player2IsReady;
 
     private Boolean gameStart;
+
+    private Boolean player1Leaves;
+
+    private Boolean player2Leaves;
+
+    private Integer player1Succes;
+
+    private Integer player2Succes;
 }
