@@ -27,6 +27,8 @@ public class OnlineGameController {
     private final static String JOIN_GAME = "/game/join";
     private final static String LOBBY = "/game/lobby"; 
     private final static String PLAY_GAME = "/game/playOnlineGame";
+    private final static String STAND_GAME = "/game/stand";
+    private final static String FINISH_GAME = "/game/finish";
    
     GameUtils gameUtils = new GameUtils();
     
@@ -83,13 +85,13 @@ public class OnlineGameController {
         response.addHeader("Refresh", "1");
         ModelAndView res = new ModelAndView(LOBBY);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
-        if(game == null || (game.getPlayer2() != null && (!principal.getName().equals(game.getPlayer2().getUsername())||!principal.getName().equals(game.getPlayer1().getUsername())))){
+        if (game == null || (game.getPlayer2() != null && (!principal.getName().equals(game.getPlayer2().getUsername()) && !principal.getName().equals(game.getPlayer1().getUsername())))) {
             res = new ModelAndView("redirect:/onlineGame/join");
             res.addObject("message", "La partida a la que has intentado unirte no existe o ya ha empezado");
             return res;
         }
         if(game.getGameStart()!=null &&game.getGameStart()){
-            res = new ModelAndView("redirect:/onlineGame/play" + game.getId());
+            res = new ModelAndView("redirect:/onlineGame/play/" + game.getId());
         }
         res.addObject("game", game);
         return res;
@@ -118,6 +120,7 @@ public class OnlineGameController {
     @GetMapping("/play/{id}")
     public ModelAndView playOnlineGame(@PathVariable("id") Integer id,Principal principal){
         ModelAndView res = new ModelAndView(PLAY_GAME);
+        res.addObject("principal", principal);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         if(game !=null){
             Image logo = new Image();
@@ -134,6 +137,7 @@ public class OnlineGameController {
                 p = gameUtils.randomImagePortion(imageSelected, p);
                 game.setPlayer1X(p.getX());
                 game.setPlayer1Y(p.getY());
+                this.onlineGameService.save(game);
                 String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
                 res.addObject("imageStyle", imageStyle);
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
@@ -143,6 +147,7 @@ public class OnlineGameController {
                 game.setPlayer2Y(p.getY());
                 String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
                 res.addObject("imageStyle", imageStyle);
+                this.onlineGameService.save(game);
             }else{
                 return new ModelAndView("redirect:/");
             }
@@ -155,17 +160,61 @@ public class OnlineGameController {
     @PostMapping("/play/{id}")
     public ModelAndView playGame(@ModelAttribute("logo") Image logo,@PathVariable("id") Integer id,Principal principal){
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
-        ModelAndView res = new ModelAndView("redurect:/onlineGame/" + id);
+        ModelAndView res = new ModelAndView("redirect:/onlineGame/play/" + id);
         if(game !=null){
             if(principal.getName().equals(game.getPlayer1().getUsername())){
-                
+                checkSucces(game, principal, logo);
+                if(game.getPlayer1Succes() == 3){
+                    game.setPlayer1FInish(LocalDateTime.now());
+                    this.onlineGameService.save(game);
+                    return new ModelAndView("redirect:/onlineGame/stand/" + id);
+                }
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
-               
+                checkSucces(game, principal, logo);
+                if(game.getPlayer2Succes() == 3){
+                    game.setPlayer2Finish(LocalDateTime.now());
+                    this.onlineGameService.save(game);
+                    return new ModelAndView("redirect:/onlineGame/stand/" + id);
+                }
             }else{
                 return new ModelAndView("redirect:/");
             }
         }else{
             return new ModelAndView("redirect:/");
+        }
+        return res;
+    }
+
+    @GetMapping("/stand/{id}")
+    public ModelAndView stand(@PathVariable("id") Integer id, Principal principal, HttpServletResponse response){
+        response.addHeader("Refresh", "1");
+        ModelAndView res = new ModelAndView(STAND_GAME);
+        OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
+        if(game!=null){
+            res.addObject("game", game);
+            if(game.getPlayer1FInish()!=null && game.getPlayer2Finish()!=null){
+                game.setWinner(gameUtils.checkWinner(game));
+                this.onlineGameService.save(game);
+                res = new ModelAndView("redirect:/onlineGame/finish/" + id);
+            }
+        }else{
+            res = new ModelAndView("redirect:/");
+        }
+        return res;
+    }
+
+    @GetMapping("/finish/{id}")
+    public ModelAndView gameResult(@PathVariable("id")Integer id, Principal principal){
+        ModelAndView res = new ModelAndView(FINISH_GAME);
+        OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
+        if(game!=null){
+            if(principal.getName().equals(game.getPlayer1().getUsername()) || principal.getName().equals(game.getPlayer2().getUsername())){
+                res.addObject("game", game);
+            }else{
+                res = new ModelAndView("redirect:/");
+            }
+        }else{
+            res = new ModelAndView("redirect:/");
         }
         return res;
     }
@@ -269,6 +318,7 @@ public class OnlineGameController {
                 }
             }
         }
+        this.onlineGameService.save(game);
     }
     
 }

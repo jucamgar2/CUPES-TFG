@@ -46,7 +46,24 @@ public class GameUtils {
         }
         return winner;
     }
-     
 
-
+    public String checkWinner(OnlineGame game) {
+        String winner;
+        if(game.getPlayer1Shifts()<game.getPlayer2Shifts()){
+            winner = game.getPlayer1().getUsername();
+        }else if(game.getPlayer2Shifts()<game.getPlayer1Shifts()){
+            winner = game.getPlayer2().getUsername();
+        }else{
+            Duration player1Time = Duration.between(game.getPlayer1Start(),game.getPlayer1FInish());
+            Duration player2Time = Duration.between(game.getPlayer2Start(),game.getPlayer2Finish());
+            if(player1Time.compareTo(player2Time)<0){
+                winner =game.getPlayer1().getUsername();
+            }else if(player2Time.compareTo(player1Time)<0){
+                 winner = game.getPlayer2().getUsername();
+            }else{
+                winner = "draw";
+            }
+        }
+        return winner;
+    }
 }
