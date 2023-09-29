@@ -70,9 +70,7 @@ public class OnlineGameController {
         ModelAndView res = new ModelAndView("redirect:/onlineGame/join/" + id);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         if(game == null || game.getPlayer2() != null){
-            res = new ModelAndView("redirect:/onlineGame/join");
-            res.addObject("message", "La partida a la que has intentado unirte no existe o ya ha empezado");
-            return res;
+           return gameUtils.expelPlayer();
         }
         Player player2 = this.playerService.findByUsername(principal.getName());
         game.setPlayer2(player2);
@@ -86,9 +84,7 @@ public class OnlineGameController {
         ModelAndView res = new ModelAndView(LOBBY);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         if (game == null || (game.getPlayer2() != null && (!principal.getName().equals(game.getPlayer2().getUsername()) && !principal.getName().equals(game.getPlayer1().getUsername())))) {
-            res = new ModelAndView("redirect:/onlineGame/join");
-            res.addObject("message", "La partida a la que has intentado unirte no existe o ya ha empezado");
-            return res;
+            return gameUtils.expelPlayer();
         }
         if(game.getGameStart()!=null &&game.getGameStart()){
             res = new ModelAndView("redirect:/onlineGame/play/" + game.getId());
@@ -107,11 +103,12 @@ public class OnlineGameController {
         }else if(player.equals(game.getPlayer2())){
             game.setPlayer2IsReady(true);
         }else{
-            res = new ModelAndView("redirect:/");
-            return res;
+            return gameUtils.expelPlayer();
         }
         if(game.getPlayer1IsReady() && game.getPlayer2IsReady()){
             game.setGameStart(true);
+            game.setPlayer1Leaves(false);
+            game.setPlayer2Leaves(false);
         }
         this.onlineGameService.save(game);
         return res;
@@ -122,6 +119,9 @@ public class OnlineGameController {
         ModelAndView res = new ModelAndView(PLAY_GAME);
         res.addObject("principal", principal);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
+        if(game.getPlayer1Leaves() || game.getPlayer2Leaves()){
+            return new ModelAndView("redirect:/onlineGame/finish/" + id);
+        }
         if(game !=null){
             Image logo = new Image();
             res.addObject("logo", logo);
@@ -149,10 +149,10 @@ public class OnlineGameController {
                 res.addObject("imageStyle", imageStyle);
                 this.onlineGameService.save(game);
             }else{
-                return new ModelAndView("redirect:/");
+                return gameUtils.expelPlayer();
             }
         }else{
-            res = new ModelAndView("redirect:/");
+            return gameUtils.expelPlayer();
         }
         return res;
     }
@@ -161,6 +161,9 @@ public class OnlineGameController {
     public ModelAndView playGame(@ModelAttribute("logo") Image logo,@PathVariable("id") Integer id,Principal principal){
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         ModelAndView res = new ModelAndView("redirect:/onlineGame/play/" + id);
+        if(game.getPlayer1Leaves() || game.getPlayer2Leaves()){
+            return new ModelAndView("redirect:/onlineGame/finish/" + id);
+        }
         if(game !=null){
             if(principal.getName().equals(game.getPlayer1().getUsername())){
                 checkSucces(game, principal, logo);
@@ -177,10 +180,10 @@ public class OnlineGameController {
                     return new ModelAndView("redirect:/onlineGame/stand/" + id);
                 }
             }else{
-                return new ModelAndView("redirect:/");
+                return gameUtils.expelPlayer();
             }
         }else{
-            return new ModelAndView("redirect:/");
+            return gameUtils.expelPlayer();
         }
         return res;
     }
@@ -190,6 +193,9 @@ public class OnlineGameController {
         response.addHeader("Refresh", "1");
         ModelAndView res = new ModelAndView(STAND_GAME);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
+        if(game.getPlayer1Leaves()|| game.getPlayer2Leaves()){
+            return new ModelAndView("redirect:/onlineGame/finish/" + id);
+        }
         if(game!=null){
             res.addObject("game", game);
             if(game.getPlayer1FInish()!=null && game.getPlayer2Finish()!=null){
@@ -198,7 +204,7 @@ public class OnlineGameController {
                 res = new ModelAndView("redirect:/onlineGame/finish/" + id);
             }
         }else{
-            res = new ModelAndView("redirect:/");
+            return gameUtils.expelPlayer();
         }
         return res;
     }
@@ -211,10 +217,10 @@ public class OnlineGameController {
             if(principal.getName().equals(game.getPlayer1().getUsername()) || principal.getName().equals(game.getPlayer2().getUsername())){
                 res.addObject("game", game);
             }else{
-                res = new ModelAndView("redirect:/");
+                return gameUtils.expelPlayer();
             }
         }else{
-            res = new ModelAndView("redirect:/");
+            return gameUtils.expelPlayer();
         }
         return res;
     }
@@ -231,7 +237,9 @@ public class OnlineGameController {
                 }else{
                     game.setWinner(game.getPlayer2().getUsername());
                     game.setPlayer1Leaves(true);
+                    game.setWinner(game.getPlayer2().getUsername());
                     res.addObject("message","Has abandonado la partida y por tanto has perdido");
+                    this.onlineGameService.save(game);
                 }
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
                 if(!game.getGameStart()){
@@ -240,6 +248,8 @@ public class OnlineGameController {
                 }else{
                     game.setWinner(game.getPlayer1().getUsername());
                     game.setPlayer2Leaves(true);
+                    game.setWinner(game.getPlayer1().getUsername());
+                    this.onlineGameService.save(game);
                     res.addObject("message","Has abandonado la partida y por tanto has perdido");
                 }
             }

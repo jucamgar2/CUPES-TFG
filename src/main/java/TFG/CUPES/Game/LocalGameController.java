@@ -1,6 +1,7 @@
 package TFG.CUPES.Game;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.time.Duration;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import TFG.CUPES.Image.Image;
@@ -51,19 +53,24 @@ public class LocalGameController {
         localGame.setPlayer1Shifts(0);
         localGame.setPlayer2Shifts(0);
         localGame.setPlayer1Start(LocalDateTime.now());
+        String token = UUID.randomUUID().toString();
+        localGame.setToken(token);
         this.localGameService.save(localGame);
-        return "redirect:/localGame/play/"+localGame.getId();
+        return "redirect:/localGame/play/"+localGame.getId() + "?token=" + token;
     }
 
     @GetMapping("/play/{id}")
-    public ModelAndView playGame(@PathVariable("id") Integer id){
+    public ModelAndView playGame(@PathVariable("id") Integer id,@RequestParam(required = false) String token){
         ModelAndView res = new ModelAndView(PLAY_LOCAL_GAME);
-        LocalGame game = this.localGameService.getLocalGameById(id).orElse(null);
+        if(token ==null){
+            return gameUtils.expelPlayer();
+        }
+        LocalGame game = this.localGameService.getLocalGameByTokenAndId(token,id).orElse(null);
         if(game==null){
-            return new ModelAndView("redirect:/welcome");
+            return gameUtils.expelPlayer();
         }
         if(game!=null && game.getWinner()!=null){
-            res = new ModelAndView("redirect:/localGame/res/" + game.getId());
+            res = new ModelAndView("redirect:/localGame/res/" + game.getId() + "?token=" + token);
         }else {
             Image logo = new Image();
             res.addObject("logo", logo);
@@ -72,7 +79,6 @@ public class LocalGameController {
             if(game.getActualPlayer().equals(game.getPlayer1Name())){
                 imageSelected = "/images/"+game.getPlayer1Image().getImageType()+"/"+game.getPlayer1Image().getResourceName()+".png";
                 res.addObject("imageUrl", imageSelected);
-
             }else{
                 imageSelected = "/images/"+game.getPlayer2Image().getImageType()+"/"+game.getPlayer2Image().getResourceName()+".png";
                 res.addObject("imageUrl", imageSelected);
@@ -88,10 +94,15 @@ public class LocalGameController {
     }
 
     @PostMapping("/play/{id}")
-    public ModelAndView checkGame(@ModelAttribute("logo") Image logo,@PathVariable("id") Integer id){
+    public ModelAndView checkGame(@ModelAttribute("logo") Image logo,@PathVariable("id") Integer id,@RequestParam(required = false) String token){
         ModelAndView res = new ModelAndView("redirect:/welcome");
-        LocalGame game = this.localGameService.getLocalGameById(id).orElse(null);
-        if(game!=null){
+        if(token == null){
+            return gameUtils.expelPlayer();
+        }
+        LocalGame game = this.localGameService.getLocalGameByTokenAndId(token,id).orElse(null);
+        if(game == null){
+            return gameUtils.expelPlayer();
+        }else{
             if(game.getActualPlayer().equals(game.getPlayer1Name())){
                 game.setPlayer1Shifts(game.getPlayer1Shifts()+1);
                 if(logo.getName().equals(game.getPlayer1Image().getName())){
@@ -99,7 +110,7 @@ public class LocalGameController {
                     game.setActualPlayer(game.getPlayer2Name());
                     game.setPlayer2Start(LocalDateTime.now());
                 }
-                res = new ModelAndView("redirect:/localGame/play/"+game.getId());
+                res = new ModelAndView("redirect:/localGame/play/" + game.getId() + "?token=" + game.getToken());
             }else{
                 game.setPlayer2Shifts(game.getPlayer2Shifts()+1);
                 if(logo.getName().equals(game.getPlayer2Image().getName())){
@@ -107,8 +118,9 @@ public class LocalGameController {
                     res = new ModelAndView("redirect:/localGame/res/"+game.getId());
                     game.setActualPlayer(null);
                     game.setWinner(game.checkWinner(game.getPlayer1Name(), game.getPlayer2Name()));
+                    this.localGameService.save(game);
                 }
-                res = new ModelAndView("redirect:/localGame/play/"+game.getId());
+                res = new ModelAndView("redirect:/localGame/res/" + game.getId() + "?token=" + game.getToken());
             }
         }
         this.localGameService.save(game);
@@ -116,16 +128,19 @@ public class LocalGameController {
     }
 
     @GetMapping("/res/{id}")
-    public ModelAndView localGameRes(@PathVariable("id") Integer id){
-        LocalGame game = this.localGameService.getLocalGameById(id).orElse(null);
+    public ModelAndView localGameRes(@PathVariable("id") Integer id, @RequestParam(required = false) String token){
+        if(token == null){
+            return gameUtils.expelPlayer();
+        }
+        LocalGame game = this.localGameService.getLocalGameByTokenAndId(token,id).orElse(null);
         ModelAndView res = new ModelAndView(RES_LOCAL_GAME);
         if(game==null){
-            return new ModelAndView("redirect:/welcome");
+            return gameUtils.expelPlayer();
         }else{
-            if(game!=null && game.getWinner()!="null"){
+            if(game!=null && game.getWinner()!=null){
                 res = gameResult(game, res);
             }else {
-                res = new ModelAndView("redirect:/localGame/play/"+game.getId());
+                res = new ModelAndView("redirect:/localGame/res/" + game.getId() + "?token=" + game.getToken());
             }
         }
         return res;

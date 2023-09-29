@@ -37,4 +37,6 @@ public class LocalGame  extends MultiplayerGame{
     private Integer x;
 
     private Integer y;
+
+    private String token;
 }

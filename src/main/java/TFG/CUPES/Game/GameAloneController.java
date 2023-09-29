@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import TFG.CUPES.Image.Image;
 import TFG.CUPES.Image.ImageService;
-import antlr.Token;
 
 @Controller
 @RequestMapping("/game")
@@ -36,9 +36,8 @@ public class GameAloneController {
     }
 
     @GetMapping("/select")
-    public ModelAndView selectMode(){
-        ModelAndView res = new ModelAndView(SELECT_MODE);
-        return res;
+    public String selectMode(Model model) {
+        return SELECT_MODE;
     }
 
     @GetMapping("/new")
@@ -58,11 +57,11 @@ public class GameAloneController {
     public ModelAndView playGame(@PathVariable("id") Integer id,@RequestParam(required = false) String token) {
         ModelAndView res = new ModelAndView(PLAY_GAME);
         if(token == null){
-           gameUtils.expelPlayer();
+           return gameUtils.expelPlayer();
         }
         GameAlone game = this.gameService.getGameByTokenAndId(token, id).orElse(null);
         if(game==null){
-            gameUtils.expelPlayer();
+            return gameUtils.expelPlayer();
         }
         if(game!=null && game.getIsFinish()){
             res = gameResult(game);
@@ -87,11 +86,11 @@ public class GameAloneController {
     public ModelAndView checkGame(@ModelAttribute("logo") Image logo,@PathVariable("id") Integer id,@RequestParam(required = false) String token){
         ModelAndView res = new ModelAndView("redirect:/");
         if(token == null){
-            gameUtils.expelPlayer();
+            return gameUtils.expelPlayer();
         }
         GameAlone game = this.gameService.getGameByTokenAndId(token, id).orElse(null);
         if(game == null){
-            gameUtils.expelPlayer();
+            return gameUtils.expelPlayer();
         }else{
             game.setShift(game.getShift()+1);
             if(logo.getName().equals(game.getSelected().getName())){

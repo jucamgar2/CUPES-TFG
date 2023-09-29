@@ -14,15 +14,15 @@ public class GameUtils {
 
     public Position randomImagePortion(String imageSelected,Position position) {
         Random rand = new Random();
-        int x = 999;
-        int y = 999;
-        while(position.getX()==null && position.getY()==null ||(position.getX()!=x && position.getY()!=y)){
-            x = getFootballImagePosition().get(rand.nextInt(0, getFootballImagePosition().size()));
-            y = getFootballImagePosition().get(rand.nextInt(0, getFootballImagePosition().size()));
-            position.setX(x);
-            position.setY(y);
+        Integer newX = position.getX();
+        Integer newY = position.getY();
+        if (newX == null || newX == position.getX()) {
+            newX = getFootballImagePosition().get(rand.nextInt(getFootballImagePosition().size()));
         }
-        return position;
+        if (newY == null || newY == position.getY()) {
+            newY = getFootballImagePosition().get(rand.nextInt(getFootballImagePosition().size()));
+        }
+        return new Position(newX, newY);
     }
 
     public String generateImageStyle(String imageSelected,Position position) {

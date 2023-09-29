@@ -32,6 +32,7 @@
         </div>
         </form:form>
 
+        <a href ="/onlineGame/leave/${game.id}">Abandonar</a>
 
         <script src="/js/autocomplete.js"></script>
         
