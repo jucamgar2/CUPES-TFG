@@ -106,7 +106,7 @@ public class LocalGameController {
                     game.setPlayer2Finish(LocalDateTime.now());
                     res = new ModelAndView("redirect:/localGame/res/"+game.getId());
                     game.setActualPlayer(null);
-                    game.setWinner(gameUtils.checkWinner(game));
+                    game.setWinner(game.checkWinner(game.getPlayer1Name(), game.getPlayer2Name()));
                 }
                 res = new ModelAndView("redirect:/localGame/play/"+game.getId());
             }

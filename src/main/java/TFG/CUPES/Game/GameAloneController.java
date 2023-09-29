@@ -1,5 +1,7 @@
 package TFG.CUPES.Game;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,10 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import TFG.CUPES.Image.Image;
 import TFG.CUPES.Image.ImageService;
+import antlr.Token;
 
 @Controller
 @RequestMapping("/game")
@@ -39,21 +43,26 @@ public class GameAloneController {
 
     @GetMapping("/new")
     public String createGame(){
+        String token = UUID.randomUUID().toString();
         GameAlone g = new GameAlone();
+        g.setToken(token);
         g.setSelected(this.logoService.getRandomLogo());
         g.setIsFinish(false);
         g.setShift(0);
         g.setWin(false);
         gameService.saveGame(g);
-        return "redirect:/game/play/"+g.getId();
+        return "redirect:/game/play/" + g.getId() + "?token=" + token;
     }
 
     @GetMapping("/play/{id}")
-    public ModelAndView playGame(@PathVariable("id") Integer id) {
+    public ModelAndView playGame(@PathVariable("id") Integer id,@RequestParam(required = false) String token) {
         ModelAndView res = new ModelAndView(PLAY_GAME);
-        GameAlone game = this.gameService.getGameById(id).orElse(null);
+        if(token == null){
+           gameUtils.expelPlayer();
+        }
+        GameAlone game = this.gameService.getGameByTokenAndId(token, id).orElse(null);
         if(game==null){
-            return new ModelAndView("redirect:/welcome");
+            gameUtils.expelPlayer();
         }
         if(game!=null && game.getIsFinish()){
             res = gameResult(game);
@@ -75,24 +84,29 @@ public class GameAloneController {
 
 
     @PostMapping("/play/{id}")
-    public ModelAndView checkGame(@ModelAttribute("logo") Image logo,@PathVariable("id") Integer id){
-        ModelAndView res = new ModelAndView("redirect:/welcome");
-        GameAlone game = this.gameService.getGameById(id).orElse(null);
-        if(game!=null){
+    public ModelAndView checkGame(@ModelAttribute("logo") Image logo,@PathVariable("id") Integer id,@RequestParam(required = false) String token){
+        ModelAndView res = new ModelAndView("redirect:/");
+        if(token == null){
+            gameUtils.expelPlayer();
+        }
+        GameAlone game = this.gameService.getGameByTokenAndId(token, id).orElse(null);
+        if(game == null){
+            gameUtils.expelPlayer();
+        }else{
             game.setShift(game.getShift()+1);
             if(logo.getName().equals(game.getSelected().getName())){
                 game.setWin(true);
                 game.setIsFinish(true);
-                res = new ModelAndView("redirect:/game/play/"+game.getId());
+                res= new ModelAndView("redirect:/game/play/" + game.getId() + "?token=" + token);
             }else{
                 if(game.getShift().equals(maxShift)){
                     game.setWin(false);
-                    game.setIsFinish(true);
+                    game.setIsFinish(true);   
                 }
-                res = new ModelAndView("redirect:/game/play/"+game.getId());
+                res = new ModelAndView("redirect:/game/play/" + game.getId() + "?token=" + token);
             }
+            this.gameService.saveGame(game);
         }
-        this.gameService.saveGame(game);
         return res;
     }
 
@@ -110,4 +124,5 @@ public class GameAloneController {
         }
         return res;
     }    
+
 }

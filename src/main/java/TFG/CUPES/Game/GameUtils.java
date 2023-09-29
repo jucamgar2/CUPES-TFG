@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
+import org.springframework.web.servlet.ModelAndView;
+
 public class GameUtils {
 
     public List<Integer> getFootballImagePosition(){
@@ -27,43 +29,9 @@ public class GameUtils {
         return "backgroud-color: white;background-image: url('" + imageSelected + "'); width: " + 500+"px; height: " + 500 + "px; background-position: -" + position.getX() + "px -" + position.getY() + "px;";
     }
 
-    public String checkWinner(LocalGame game) {
-        String winner;
-        if(game.getPlayer1Shifts()<game.getPlayer2Shifts()){
-            winner = game.getPlayer1Name();
-        }else if(game.getPlayer2Shifts()<game.getPlayer1Shifts()){
-            winner = game.getPlayer2Name();
-        }else{
-            Duration player1Time = Duration.between(game.getPlayer1Start(),game.getPlayer1FInish());
-            Duration player2Time = Duration.between(game.getPlayer2Start(),game.getPlayer2Finish());
-            if(player1Time.compareTo(player2Time)<0){
-                winner =game.getPlayer1Name();
-            }else if(player2Time.compareTo(player1Time)<0){
-                 winner = game.getPlayer2Name();
-            }else{
-                winner = "draw";
-            }
-        }
-        return winner;
-    }
-
-    public String checkWinner(OnlineGame game) {
-        String winner;
-        if(game.getPlayer1Shifts()<game.getPlayer2Shifts()){
-            winner = game.getPlayer1().getUsername();
-        }else if(game.getPlayer2Shifts()<game.getPlayer1Shifts()){
-            winner = game.getPlayer2().getUsername();
-        }else{
-            Duration player1Time = Duration.between(game.getPlayer1Start(),game.getPlayer1FInish());
-            Duration player2Time = Duration.between(game.getPlayer2Start(),game.getPlayer2Finish());
-            if(player1Time.compareTo(player2Time)<0){
-                winner =game.getPlayer1().getUsername();
-            }else if(player2Time.compareTo(player1Time)<0){
-                 winner = game.getPlayer2().getUsername();
-            }else{
-                winner = "draw";
-            }
-        }
-        return winner;
+    public ModelAndView expelPlayer(){
+        ModelAndView res  = new ModelAndView("redirect:/");
+        res.addObject("errormsg", "Estas intentando acceder a una partida que no existe o que ya ha finalizado");
+        return res;
     }
 }

@@ -32,4 +32,6 @@ public class GameAlone {
 
     private Integer y;
 
+    private String token;
+
 }

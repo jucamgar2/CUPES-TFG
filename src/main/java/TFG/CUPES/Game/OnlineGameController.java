@@ -193,7 +193,7 @@ public class OnlineGameController {
         if(game!=null){
             res.addObject("game", game);
             if(game.getPlayer1FInish()!=null && game.getPlayer2Finish()!=null){
-                game.setWinner(gameUtils.checkWinner(game));
+                game.setWinner(game.checkWinner(game.getPlayer1().getUsername(), game.getPlayer2().getUsername()));
                 this.onlineGameService.save(game);
                 res = new ModelAndView("redirect:/onlineGame/finish/" + id);
             }

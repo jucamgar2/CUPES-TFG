@@ -20,8 +20,13 @@ public class GameAloneService {
         this.gameRepository.save(g);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Optional<GameAlone> getGameById(Integer id){
         return this.gameRepository.findById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<GameAlone> getGameByTokenAndId(String token, Integer id){
+        return this.gameRepository.getGameByTokenAndId(token, id);
     }
 }
