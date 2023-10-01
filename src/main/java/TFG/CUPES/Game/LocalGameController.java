@@ -2,6 +2,7 @@ package TFG.CUPES.Game;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import java.io.IOException;
 import java.time.Duration;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,7 @@ public class LocalGameController {
     }
 
     @GetMapping("/play/{id}")
-    public ModelAndView playGame(@PathVariable("id") Integer id,@RequestParam(required = false) String token){
+    public ModelAndView playGame(@PathVariable("id") Integer id,@RequestParam(required = false) String token) throws IOException{
         ModelAndView res = new ModelAndView(PLAY_LOCAL_GAME);
         if(token ==null){
             return gameUtils.expelPlayer();
@@ -85,6 +86,9 @@ public class LocalGameController {
             }
             Position p = new Position(game.getX(),game.getY());
             p = gameUtils.randomImagePortion(imageSelected, p);
+            while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                p = gameUtils.randomImagePortion(imageSelected, p);
+            }
             game.setX(p.getX());
             game.setY(p.getY());
             String imageStyle = gameUtils.generateImageStyle(imageSelected, p);

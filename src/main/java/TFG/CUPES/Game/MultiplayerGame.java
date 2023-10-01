@@ -4,8 +4,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import javax.persistence.MappedSuperclass;
-
-import TFG.CUPES.Player.Player;
 import lombok.Getter;
 import lombok.Setter;
 

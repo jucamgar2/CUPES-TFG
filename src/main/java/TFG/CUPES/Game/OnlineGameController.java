@@ -1,5 +1,6 @@
 package TFG.CUPES.Game;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -115,7 +116,7 @@ public class OnlineGameController {
     }
 
     @GetMapping("/play/{id}")
-    public ModelAndView playOnlineGame(@PathVariable("id") Integer id,Principal principal){
+    public ModelAndView playOnlineGame(@PathVariable("id") Integer id,Principal principal) throws IOException{
         ModelAndView res = new ModelAndView(PLAY_GAME);
         res.addObject("principal", principal);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
@@ -135,6 +136,9 @@ public class OnlineGameController {
             if(principal.getName().equals(game.getPlayer1().getUsername())){
                 Position p = new Position(game.getPlayer1X(),game.getPlayer1Y());
                 p = gameUtils.randomImagePortion(imageSelected, p);
+                while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                    p = gameUtils.randomImagePortion(imageSelected, p);
+                }
                 game.setPlayer1X(p.getX());
                 game.setPlayer1Y(p.getY());
                 this.onlineGameService.save(game);
@@ -143,6 +147,9 @@ public class OnlineGameController {
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
                 Position p = new Position(game.getPlayer2X(),game.getPlayer2Y());
                 p = gameUtils.randomImagePortion(imageSelected, p);
+                while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                    p = gameUtils.randomImagePortion(imageSelected, p);
+                }
                 game.setPlayer2X(p.getX());
                 game.setPlayer2Y(p.getY());
                 String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
