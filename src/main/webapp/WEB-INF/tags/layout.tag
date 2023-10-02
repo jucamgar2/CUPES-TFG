@@ -28,27 +28,40 @@
     </style>
 </head>
 <body>
-    <nav class="navbar">
-              <input type="checkbox" id="check">
-      <label for="check" class="checkbtn">
-        <i class="fas fa-bars"></i>
-      </label>
+  <nav class="navbar">
+    <div class="container">
+     <input style="display:none" type="checkbox" id="check">
+    <label for="check" class="checkbtn">
+      <i class="fas fa-bars"></i>
+    </label>
       <label class="logo">CUPES</label>
-      <ul>
-        <li><a class="active" href="/"><i class="fas fa-home"></i> Inicio</a></li>
-        <li><a href="/game/select"><i class="fas fa-gamepad"></i> Jugar</a></li>
-        <li><a href="#"><i class="fas fa-book"></i> Manual</a></li>
+      <ul class="menu">
+        <li><a class="inicio-link" href="/"><i class="fas fa-home"></i>  Inicio</a></li>
+        <li><a class="jugar-link" href="/game/select"><i class="fas fa-gamepad"></i>  Jugar</a></li>
+        <li><a class="manual-link" href="#"><i class="fas fa-book"></i> Manual</a></li>
         <sec:authorize access="!isAuthenticated()">
-          <li><a href="/players/new"><i class="fas fa-edit"></i> Registrarse</a></li>
+          <li><a class="registrarse-link" href="/players/new"><i class="fas fa-edit"></i> Registrarse</a></li>
         </sec:authorize>
         <sec:authorize access="!isAuthenticated()">
-          <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Iniciar sesi&oacute;n</a></li>
+          <li><a class="iniciar-link" href="/login"><i class="fas fa-sign-in-alt"></i> Iniciar sesi&oacute;n</a></li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
-          <li><a href="/logout"><i class="fas fa-sign-in-alt"></i> Cerrar sesi&oacute;n</a></li>
+          <li><a class="cerrar-link" href="/logout"><i class="fas fa-sign-in-alt"></i> Cerrar sesi&oacute;n</a></li>
         </sec:authorize>
       </ul>
-    </nav>
+
+      <script>
+          const currentUrl = window.location.pathname;
+          const links = document.querySelectorAll('.menu a');
+          links.forEach(link => {
+          if (link.getAttribute('href') === currentUrl) {
+              link.classList.add('active');
+          }});
+      </script>
+
+    </div>
+  </nav>
+
 
     <div class="content">
         

@@ -29,100 +29,111 @@
 }
 body{
     font-family: montserrat;
-    background-color: #eceded;
+    background-image: url('../images/fondo.png');
+    color:white
 }
 
 div.doBody{
+  backdrop-filter: blur(20px);
   margin-top: 5%;
   margin-left: 10%;
   margin-right: 10%;
+
 }
 /*BARRA DE NAVEGACIÓN*/
-nav.navbar{
-    background-color:#71C9CE;
-    height: 80px;
-    width: 100%;
+.navbar {
+  background-color: #333;
+  color: #fff;
+  overflow: hidden;
 }
-label.logo{
-    color: #E3FDFD;
-    font-size: 35px;
-    line-height: 80px;
-    padding: 0 100px;
-    font-weight: bold;
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
 }
-nav ul{
-    float: right;
-    margin-right: 10%;
+
+.logo {
+  font-size: 35px;
+  font-weight: bold;
 }
-nav ul li{
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.menu li {
+  margin-right: 20px;
+  font-size: 20px;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.menu a.active { 
+  background-color: #ebedef;
+  color: #333;
+  font-weight: bold;
+  border-radius: 3px; 
+  padding: 3px 3px;
+}
+
+
+
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    background-color: #333;
+    text-align: center;
+    display: none;
+  }
+
+  .menu.active {
+    display: flex;
+  }
+
+  .menu li {
+    margin: 10px 0;
+  }
+
+  .checkbtn i {
     display: inline-block;
-    line-height: 80px;
-    margin: 0 5px;
-}
-nav ul li a{
-    color: white;
-    font-size: 17px;
-    padding: 29.5px 14px;
-    text-transform: uppercase;
-}
-a.active,a:hover{
-    background:#719BCE;
-    transition: .5s;
-}
-.checkbtn{
-    font-size: 30px;
-    color: white;
-    float: right;
-    line-height: 80px;
-    margin-right: 40px;
+  }
+
+  #check {
+    position: absolute;
+    top: -9999px;
+  }
+
+  .checkbtn {
+    display: block;
     cursor: pointer;
-    display: none;
-}
-#check{
-    display: none;
+  }
+
+  #check:checked + .checkbtn ~ .menu {
+    display: flex;
+  }
 }
 
-/*NAV BAR RESPONSIVE*/ 
-@media (max-width: 952px){
-    label.logo{
-      font-size: 30px;
-      padding-left: 50px;
-    }
-    nav ul li a{
-      font-size: 16px;
-    }
+@media (min-width: 769px) {
+  .checkbtn i {
+    display: none;
+  }
 }
-@media (max-width: 858px){
-    .checkbtn{
-      display: block;
-    }
-    ul{
-      position: fixed;
-      width: 100%;
-      height: 100vh;
-      background: #719BCE;
-      top: 80px;
-      left: -100%;
-      text-align: center;
-      transition: all .5s;
-    }
-    nav ul li{
-      display: block;
-      margin: 50px 0;
-      line-height: 30px;
-    }
-    nav ul li a{
-      font-size: 20px;
-    }
-    a:hover,a.active{
-      background: none;
-      color: #62D2A2;
-    }
-    #check:checked ~ ul{
-      left: 0;
-    }
-}
-
 /*PAGINA DE JUEGO*/
 
 div.cosas{
