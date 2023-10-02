@@ -33,7 +33,7 @@ public class GameUtils {
     }
 
     public Boolean checkImageHasMoreThan1Color(String imageSelected,Position position) throws IOException {
-        ClassPathResource resource = new ClassPathResource("static/"+imageSelected);
+        ClassPathResource resource = new ClassPathResource("static"+imageSelected);
         BufferedImage image = ImageIO.read(resource.getInputStream());
         Boolean res = false;
         int width = 500;
