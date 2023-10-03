@@ -30,15 +30,24 @@
 body{
     font-family: montserrat;
     background-image: url('../images/fondo.png');
-    color:white
+    color:black;
 }
 
 div.doBody{
-  backdrop-filter: blur(20px);
+  /*backdrop-filter: blur(20px);*/
   margin-top: 5%;
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 7%;
+  margin-right: 7%;
+  border-radius: 10px;
+  min-height: 800px;
+  background-color: rgb(255,255,255,0.7);
 
+}
+
+div.theBody{
+  margin-top:2%;
+  margin-left: 3%;
+  margin-right: 3%;
 }
 /*BARRA DE NAVEGACIÓN*/
 .navbar {
@@ -187,4 +196,72 @@ button.selectImage{
   display: flex;
   width:10%;
   height:30px ;
+}
+
+a.buttom{
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+a.buttom:hover {
+  background-color: #1254d7;
+  box-shadow: 0 0 5px #1254d7, 0 0 25px #1254d7, 0 0 50px #1254d7, 0 0 20px #1254d7;
+}
+
+
+@keyframes drawText {
+  0% {
+    content: "";
+  }
+  22% {
+    content: "C";
+  }
+  44% {
+    content: "CU";
+  }
+  66% {
+    content: "CUP";
+  }
+  88% {
+    content: "CUPE";
+  }
+  100% {
+    content: "CUPES";
+  }
+
+}
+
+@keyframes disappearText {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+div.animation {
+  text-align: center;
+  align-items: center;
+}
+
+#animated-text::before {
+  font-size: 200px;
+  font-weight: bold;
+  color: #333;
+  content: "";
+  animation: drawText 4s steps(4) forwards, disappearText 4s steps(4) forwards 4s;
+  display: inline-block;
+}
+
+h1.tituloPrincipal{
+  font-size: 150px;
+  font-weight: bold;
+  color: #333;
+  justify-content: center;
+  text-align: center;
 }

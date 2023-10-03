@@ -4,27 +4,28 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <CUPES:layout title="game">
-    <div class="cosas">
-    <div class="gameImage">
-        <img class="game">
-    </div>
-</div>
-
-    <p>Tienes un total de 3 intentos y has gastado ${game.getShift()} </p>
-    
-        <form:form modelAttribute="logo">
-            <div class="logoSelector">
-            <form:label path="name">¿De quién es este escudo?</form:label>
-
-                <input name="name"  path="name" type="text" id="autocompleteInput" list="logos" autocomplete="off">
-                <datalist id="logos"></datalist>
+    <div class = "doBody">
+        <div class="theBody">
+            <div class="cosas">
+                <div class="gameImage">
+                    <img class="game">
+                </div>
             </div>
-        <div>
-            <button  class="selectImage" type="submit" href="/game/play/${game.id}">Enviar</button>
+
+            <p>Tienes un total de 3 intentos y has gastado ${game.getShift()} </p>
+    
+            <form:form modelAttribute="logo">
+                <div class="logoSelector">
+                    <form:label path="name">¿De quién es este escudo?</form:label>
+                    <input name="name"  path="name" type="text" id="autocompleteInput" list="logos" autocomplete="off">
+                    <datalist id="logos"></datalist>
+                </div>
+            <div>
+                <button  class="selectImage" type="submit" href="/game/play/${game.id}">Enviar</button>
+            </div>
+            </form:form>
+            <script src="/js/autocomplete.js"></script>
         </div>
-        </form:form>
-
-
-        <script src="/js/autocomplete.js"></script>
+    </div>
         
 </CUPES:layout>

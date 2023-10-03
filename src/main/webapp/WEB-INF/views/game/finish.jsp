@@ -5,8 +5,8 @@
 
 <CUPES:layout title="Resultado de la partida">
     <div class = "doBody">
-    
-        <h2>Ganador: <c:out value="${game.getWinner()}"/></h2>
-    
+        <div class = "theBody">
+            <h2>Ganador: <c:out value="${game.getWinner()}"/></h2>
+        </div>
     </div>
 </CUPES:layout>

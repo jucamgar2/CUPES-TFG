@@ -3,9 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="Unirse a una partida onine">
-    <div>
-        <c:forEach items="${games}" var="game">
-            <a href="/onlineGame/joinning/${game.id}">Unirse a la partida ${game.id}</a>
-        </c:forEach>
+    <div class="doBody">
+        <div class="theBody">
+            <c:forEach items="${games}" var="game">
+                <a href="/onlineGame/joinning/${game.id}">Unirse a la partida ${game.id}</a>
+            </c:forEach>
+        </div>
     </div>
 </CUPES:layout>

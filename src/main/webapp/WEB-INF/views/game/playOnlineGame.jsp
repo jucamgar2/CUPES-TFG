@@ -5,35 +5,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="game">
-    <div class="cosas">
-    <div class="gameImage">
-        <img class="game">
-    </div>
-</div>
-
-    <c:if test="${principal.getName() == game.getPlayer1().getUsername()}">
-        <p>Tienes que adivinar un total de 3 escudos y llevas ${game.getPlayer1Succes()} </p>
-    </c:if>
-    <c:if test="${principal.getName() == game.getPlayer2().getUsername()}">
-        <p>Tienes que adivinar un total de 3 escudos y llevas ${game.getPlayer2Succes()} </p>
-    </c:if>
-    
-
-    
-        <form:form modelAttribute="logo">
-            <div class="logoSelector">
-            <form:label path="name">¿De quién es este escudo?</form:label>
-
-                <input name="name"  path="name" type="text" id="autocompleteInput" list="logos" autocomplete="off">
-                <datalist id="logos"></datalist>
+    <div class="doBody">
+        <div class="theBody">
+            <div class="cosas">
+                <div class="gameImage">
+                    <img class="game">
+                </div>
             </div>
-        <div>
-            <button  class="selectImage" type="submit" href="/onlineGame/play/${game.id}">Enviar</button>
+
+            <c:if test="${principal.getName() == game.getPlayer1().getUsername()}">
+                <p>Tienes que adivinar un total de 3 escudos y llevas ${game.getPlayer1Succes()} </p>
+            </c:if>
+            <c:if test="${principal.getName() == game.getPlayer2().getUsername()}">
+                <p>Tienes que adivinar un total de 3 escudos y llevas ${game.getPlayer2Succes()} </p>
+            </c:if>
+            
+
+            
+            <form:form modelAttribute="logo">
+                <div class="logoSelector">
+                <form:label path="name">¿De quién es este escudo?</form:label>
+                    <input name="name"  path="name" type="text" id="autocompleteInput" list="logos" autocomplete="off">
+                    <datalist id="logos"></datalist>
+                </div>
+                <div>
+                    <button  class="selectImage" type="submit" href="/onlineGame/play/${game.id}">Enviar</button>
+                </div>
+                </form:form>
+
+                <a href ="/onlineGame/leave/${game.id}">Abandonar</a>
+
+                <script src="/js/autocomplete.js"></script>
         </div>
-        </form:form>
-
-        <a href ="/onlineGame/leave/${game.id}">Abandonar</a>
-
-        <script src="/js/autocomplete.js"></script>
-        
+    </div>
 </CUPES:layout>

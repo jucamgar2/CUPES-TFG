@@ -5,22 +5,24 @@
 
 <CUPES:layout title="Página de Inicio">
     <div class="doBody">
-    <h1>Registrarse</h1>
-    <form:form modelAttribute="player">
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username" required>
-        <div class="errors" style="color:red">
-            <c:out value="${existsError}"/>
-            <c:out value="${usernameError}"/>
+        <div class="theBody">
+            <h1>Registrarse</h1>
+            <form:form modelAttribute="player">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" required>
+                <div class="errors" style="color:red">
+                    <c:out value="${existsError}"/>
+                    <c:out value="${usernameError}"/>
+                </div>
+                <br>
+                <label for="password">Contraseña:</label>
+                <input type="text" id="password" name="password" required>
+                <div class="errors" style="color:red">
+                    <c:out value="${passwordError}"/>
+                </div>
+                <br>
+                <input type="submit" value="Guardar">
+            </form:form>
         </div>
-        <br>
-        <label for="password">Contraseña:</label>
-        <input type="text" id="password" name="password" required>
-        <div class="errors" style="color:red">
-            <c:out value="${passwordError}"/>
-        </div>
-        <br>
-        <input type="submit" value="Guardar">
-    </form:form>
-</div>
+    </div>
 </CUPES:layout>
