@@ -36,7 +36,7 @@ public class GameAloneController {
         this.logoService = logoS;
     }
 
-    @GetMapping("/select")
+    @GetMapping("")
     public String selectMode(Model model) {
         return SELECT_MODE;
     }

@@ -7,7 +7,7 @@
     <div class="doBody">
         <div class="theBody">
             <div class="register">
-                <h1 class="register">Registrarse</h1>
+                <h1 class="register">Iniciar Sesión</h1>
                 <form:form modelAttribute="player">
                     <div>
                         <label for="username">Usuario:</label>
@@ -30,13 +30,8 @@
                         <c:out value="${passwordError}"/>
                     </div>
                     <br>
-                    <button class="buttom" type="submit">Registrarme</button>
+                    <button class="buttom" type="submit" href="/game/play/${game.id}">Registrarme</button>
                 </form:form>
-                <div class="registerInfo">
-                    <h2>Registrate para poder tener acceso al modo de juego online, donde podrás competir contra jugadores de todo el mundo</h2>
-                    <h2>Aunque si no quieres, puedes seguir jugando al modo un jugador para seguir practicando y adquiriendo más conocimiento</h2>
-                    <a class="buttom" href="/game/new">Comenzar una partida para un jugador</a>
-                </div>
             </div>
         </div>
     </div>

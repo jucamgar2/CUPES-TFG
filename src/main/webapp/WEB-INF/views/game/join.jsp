@@ -6,7 +6,7 @@
     <div class="doBody">
         <div class="theBody">
             <c:forEach items="${games}" var="game">
-                <a href="/onlineGame/joinning/${game.id}">Unirse a la partida ${game.id}</a>
+                <a href="/game/onlineGame/joinning/${game.id}">Unirse a la partida ${game.id}</a>
             </c:forEach>
         </div>
     </div>

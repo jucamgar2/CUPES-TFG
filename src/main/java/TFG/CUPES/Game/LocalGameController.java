@@ -21,7 +21,7 @@ import TFG.CUPES.Image.ImageService;
 
 
 @Controller
-@RequestMapping("/localGame")
+@RequestMapping("/game/localGame")
 public class LocalGameController {
 
     public static final String NEW_LOCAL_GAME = "game/newLocalGame";
@@ -57,7 +57,7 @@ public class LocalGameController {
         String token = UUID.randomUUID().toString();
         localGame.setToken(token);
         this.localGameService.save(localGame);
-        return "redirect:/localGame/play/"+localGame.getId() + "?token=" + token;
+        return "redirect:/game/localGame/play/"+localGame.getId() + "?token=" + token;
     }
 
     @GetMapping("/play/{id}")
@@ -71,7 +71,7 @@ public class LocalGameController {
             return gameUtils.expelPlayer();
         }
         if(game!=null && game.getWinner()!=null){
-            res = new ModelAndView("redirect:/localGame/res/" + game.getId() + "?token=" + token);
+            res = new ModelAndView("redirect:/game/localGame/res/" + game.getId() + "?token=" + token);
         }else {
             Image logo = new Image();
             res.addObject("logo", logo);
@@ -114,17 +114,17 @@ public class LocalGameController {
                     game.setActualPlayer(game.getPlayer2Name());
                     game.setPlayer2Start(LocalDateTime.now());
                 }
-                res = new ModelAndView("redirect:/localGame/play/" + game.getId() + "?token=" + game.getToken());
+                res = new ModelAndView("redirect:/game/localGame/play/" + game.getId() + "?token=" + game.getToken());
             }else{
                 game.setPlayer2Shifts(game.getPlayer2Shifts()+1);
                 if(logo.getName().equals(game.getPlayer2Image().getName())){
                     game.setPlayer2Finish(LocalDateTime.now());
-                    res = new ModelAndView("redirect:/localGame/res/"+game.getId());
+                    res = new ModelAndView("redirect:/game/localGame/res/"+game.getId());
                     game.setActualPlayer(null);
                     game.setWinner(game.checkWinner(game.getPlayer1Name(), game.getPlayer2Name()));
                     this.localGameService.save(game);
                 }
-                res = new ModelAndView("redirect:/localGame/res/" + game.getId() + "?token=" + game.getToken());
+                res = new ModelAndView("redirect:/game/localGame/res/" + game.getId() + "?token=" + game.getToken());
             }
         }
         this.localGameService.save(game);
@@ -144,7 +144,7 @@ public class LocalGameController {
             if(game!=null && game.getWinner()!=null){
                 res = gameResult(game, res);
             }else {
-                res = new ModelAndView("redirect:/localGame/res/" + game.getId() + "?token=" + game.getToken());
+                res = new ModelAndView("redirect:/game/localGame/res/" + game.getId() + "?token=" + game.getToken());
             }
         }
         return res;

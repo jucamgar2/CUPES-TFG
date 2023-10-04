@@ -29,15 +29,17 @@
 </head>
 <body>
   <nav class="navbar">
+   
     <div class="container">
+    <p class="logo">CUPES</p>
      <input style="display:none" type="checkbox" id="check">
     <label for="check" class="checkbtn">
       <i class="fas fa-bars"></i>
     </label>
-      <label class="logo">CUPES</label>
+     
       <ul class="menu">
         <li><a class="inicio-link" href="/"><i class="fas fa-home"></i>  Inicio</a></li>
-        <li><a class="jugar-link" href="/game/select"><i class="fas fa-gamepad"></i>  Jugar</a></li>
+        <li><a class="jugar-link" href="/game"><i class="fas fa-gamepad"></i>  Jugar</a></li>
         <li><a class="manual-link" href="#"><i class="fas fa-book"></i> Manual</a></li>
         <sec:authorize access="!isAuthenticated()">
           <li><a class="registrarse-link" href="/players/new"><i class="fas fa-edit"></i> Registrarse</a></li>
@@ -51,12 +53,16 @@
       </ul>
 
       <script>
-          const currentUrl = window.location.pathname;
-          const links = document.querySelectorAll('.menu a');
-          links.forEach(link => {
-          if (link.getAttribute('href') === currentUrl) {
-              link.classList.add('active');
-          }});
+        const currentUrl = window.location.pathname;
+        const links = document.querySelectorAll('.menu a');
+        links.forEach(link => {
+          const href = link.getAttribute('href');
+          if (currentUrl === href ) {
+            link.classList.add('active');
+          } else if (currentUrl.includes(href) && href !== "/") {
+            link.classList.add('active');
+          }
+        });
       </script>
 
     </div>
