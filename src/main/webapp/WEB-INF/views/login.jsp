@@ -30,7 +30,7 @@
                         <c:out value="${passwordError}"/>
                     </div>
                     <br>
-                    <button class="buttom" type="submit" href="/game/play/${game.id}">Registrarme</button>
+                    <button class="buttom" type="submit">Registrarme</button>
                 </form:form>
             </div>
         </div>

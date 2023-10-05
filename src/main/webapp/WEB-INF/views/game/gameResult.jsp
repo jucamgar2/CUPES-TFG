@@ -6,13 +6,15 @@
 <CUPES:layout title="Resultado de la partida">
     <div class = "doBody">
         <div class = "theBody">
-            <c:out value="${message2}"/>
-            <h1>Este es el logo completo:</h1>
+            <div class="game-result">
+                <h1><c:out value="${message2}"/></h1>
+                <p class="game">Este es el logo completo:</p>
 
-            <div class="gameResult">
-                <img class="gameRes" src="${imageUrl}" alt="Estamos teniendo problemas">  
+                <div class="gameResult">
+                    <img class="gameRes" src="${imageUrl}" alt="Estamos teniendo problemas">  
+                </div>
+                <p class="game" ><c:out value="${message}"/></p>
             </div>
-            <c:out value="${message}"/>
         </div>
     </div>
 </CUPES:layout>

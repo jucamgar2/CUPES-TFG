@@ -108,10 +108,18 @@ div.theBody{
 }
 /*PAGINA DE JUEGO*/
 
-div.cosas{
-  height: 600px;
-  width: 600px;
-  background-color: white;
+h1.game{
+  text-align: center;
+}
+
+p.game{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+div.imageContainer{
   display: flex;
   margin: 0 auto;
   margin-top: 50px;
@@ -125,7 +133,39 @@ div.gameImage{
   margin: auto auto;
   overflow: hidden;
   border-color: white;
- 
+  box-shadow: 0 0 10px rgba(0, 0, 0);
+}
+
+div.logoSelector div{
+  margin-top: 20px;
+}
+
+div.game-result{
+  text-align: center;
+}
+
+div.game-result h1{
+  padding-top: 30px;
+}
+
+input.input-game{
+  padding: 10px;
+  padding-top: 10px; 
+  font-size: 16px; 
+  border: 2px solid #ccc; 
+  border-radius: 5px; 
+  outline: none; 
+  transition: border-color 0.3s ease; 
+  width: 400px;
+}
+
+.input-game:hover {
+  border-color: #1254d7; 
+}
+
+.input-game:focus {
+  border-color: #333;
+  box-shadow: 0 0 5px #333; 
 }
 
 div.gameResult{
@@ -135,34 +175,20 @@ div.gameResult{
 }
 
 img.gameRes{
- 
   width: 500px;
   height: 500px;
 }
 
 
 div.logoSelector{
-  margin-top: 5%;
-  margin-left: 37.5%;
-  display: flex;
-}
-
-button.selectImage{
-  background-color: #71C9CE;
-  color: #024da8;
-  font-weight: bold;
-  border-radius: 3px;
-  margin-top: 1%;
-  margin-left: 45%;
   align-items: center;
   justify-content: center;
-  display: flex;
-  width:10%;
-  height:30px ;
+  text-align: center;
 }
 
 a.buttom{
   display: inline-block;
+  font-weight: bold;
   padding: 10px 20px;
   background-color: #333;
   color: #fff;
@@ -251,6 +277,20 @@ label{
   box-shadow: 0 0 5px #333; 
 }
 
+div.selectGameMode{
+  text-align: center;
+}
+div.selectGameMode h2{
+  margin-bottom: 20px;
+}
+div.selectGameMode h1{
+  font-size: 50px;
+  margin-bottom: 20px;
+  margin-top:20px;
+}
+div.selectGameMode a{
+  margin-bottom: 20px;
+}
 @keyframes drawText {
   0% {
     content: "";
@@ -270,17 +310,8 @@ label{
   100% {
     content: "CUPES";
   }
-
 }
 
-@keyframes disappearText {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
 div.animation {
   text-align: center;
   align-items: center;
@@ -292,7 +323,7 @@ div.animation {
   font-weight: bold;
   color: #333;
   content: "";
-  animation: drawText 4s steps(4) forwards, disappearText 4s steps(4) forwards 4s;
+  animation: drawText 4s steps(4) forwards;
   display: inline-block;
 }
 
