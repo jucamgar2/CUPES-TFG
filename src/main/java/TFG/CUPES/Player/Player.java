@@ -20,5 +20,5 @@ public class Player {
     String password;
 
     Boolean enabled;
-    
+
 }

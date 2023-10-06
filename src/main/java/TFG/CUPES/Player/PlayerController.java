@@ -1,5 +1,8 @@
 package TFG.CUPES.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -40,9 +43,11 @@ public class PlayerController {
         if(br.hasErrors()){
             return new ModelAndView("/players/createPlayer",br.getModel());
         }
-        ModelAndView errors = checkPlayerRestrictions(p,br);
-        if(errors!=null){
-            return errors;
+        List<String> errors = checkPlayerRestrictions(p);
+        if(!errors.isEmpty()){
+            ModelAndView result = new ModelAndView("/players/createPlayer");
+            result.addObject("errors", errors);
+            return result;
         }
         p.setEnabled(true);
         p.setPassword(passwordEncoder.encode(p.getPassword()));
@@ -57,43 +62,23 @@ public class PlayerController {
         return result;
     }
 
-    public ModelAndView checkPlayerRestrictions(Player p, BindingResult br){
-        if(p.getUsername().contains(" ") && p.getPassword().contains(" ") ){
-            ModelAndView res = new ModelAndView("/players/createPlayer",br.getModel());
-            res.addObject("usernameError","El nombre de usuario no debe contener espacios en blanco");
-            res.addObject("passwordError","La contraseña no debe contener espacios en banco");
-            return res;
-        }else if(p.getUsername().contains(" ") ){
-            ModelAndView res = new ModelAndView("/players/createPlayer",br.getModel());
-            res.addObject("usernameError","El nombre de usuario no debe contener espacios en blanco");
-            return res;
-        }else if(p.getPassword().contains(" ")){
-            ModelAndView res = new ModelAndView("/players/createPlayer",br.getModel());
-            res.addObject("passwordError","La contraseña no debe contener espacios en banco");
-            return res;
+    public List<String> checkPlayerRestrictions(Player p){
+        List<String> errors = new ArrayList<String>();
+        if(p.getUsername().contains(" ")){
+            errors.add("El nombre de usuario no debe contener espacios en blanco");
         }
-        else{
-            if(playerService.exists(p.getUsername())){
-            ModelAndView res = new ModelAndView("/players/createPlayer",br.getModel());
-            res.addObject("existsError","Ya existe un usuario con ese nombre");
-            return res;
-            }
-            if((p.getUsername().length()<5 || p.getUsername().length()>30) && (p.getPassword().length()<4 || p.getPassword().length()>30)){
-                ModelAndView res = new ModelAndView("/players/createPlayer",br.getModel());
-                res.addObject("usernameError","La longitud del nombre de usuario debe tener entre 5 y 30 caracteres");
-                res.addObject("passwordError","La longitud de la contraseña debe tener entre 5 y 30 caracteres");
-                return res;
-            }else if(p.getUsername().length()<5 || p.getUsername().length()>30){
-                ModelAndView res = new ModelAndView("/players/createPlayer",br.getModel());
-                res.addObject("usernameError","La longitud del nombre de usuario debe tener entre 5 y 30 caracteres");
-                return res;
-            }else if(p.getPassword().length()<4 || p.getPassword().length()>30){
-                ModelAndView res = new ModelAndView("/players/createPlayer",br.getModel());
-                res.addObject("passwordError","La longitud de la contraseña debe tener entre 4 y 30 caracteres");
-                return res;
-            } else{
-                return null;
-            }
+        if(p.getPassword().contains(" ")){
+            errors.add("La contraseña no debe contener espacios en blanco");
         }
+        if(playerService.exists(p.getUsername())){
+            errors.add("Ya existe un usuario con ese nombre");
+        }
+        if(p.getUsername().length()<5 || p.getUsername().length()>30){
+            errors.add("La longitud del nombre de usuario debe tener entre 5 y 30 caracteres");
+        }
+        if(p.getPassword().length()<4 || p.getPassword().length()>30){
+            errors.add("La longitud de la contraseña debe tener entre 4 y 30 caracteres");
+        }
+        return errors;
     }
 }

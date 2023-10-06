@@ -8,8 +8,15 @@
         <div class="theBody">
             <div class="register">
                 <h1 class="register">Iniciar Sesión</h1>
-                <c:if test="${error}">
-                    <p class="game">Lo sentimos pero el usuario y la contraseña no coinciden con los de ningun usuario registrado</p>
+                <c:if test="${not empty errors}">
+                    <div id="error-notifications">
+                        <c:forEach items="${errors}" var="error">
+                            <div class="error-notification">
+                                <span>${error}</span>
+                                <button class="close-button">×</button>
+                            </div>
+                        </c:forEach>
+                    </div>
                 </c:if>
                 <form:form modelAttribute="player">
                     <div>
@@ -37,5 +44,8 @@
                 </form:form>
             </div>
         </div>
+        <script src="/js/error_script.js"></script>
     </div>
+
+    
 </CUPES:layout>

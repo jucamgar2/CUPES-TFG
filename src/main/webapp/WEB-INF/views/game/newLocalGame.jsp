@@ -2,6 +2,7 @@
 <%@ taglib prefix="CUPES" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <CUPES:layout title="Página de Inicio">
@@ -9,6 +10,16 @@
         <div class="theBody">
             <div class="new-local-game">
             <h1>Para jugar al modo uno contra uno de forma local, primero debes introducir un apodo para cada jugador</h1>
+            <c:if test="${not empty errors}">
+                <div id="error-notifications">
+                    <c:forEach items="${errors}" var="error">
+                        <div class="error-notification">
+                            <span>${error}</span>
+                            <button class="close-button">×</button>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:if>
                 <form:form modelAttribute="localGame">
                     <div>
                         <div class="column">
@@ -40,5 +51,6 @@
                 </form:form>
             </div>
         </div>
+        <script src="/js/error_script.js"></script>
     </div>
 </CUPES:layout>

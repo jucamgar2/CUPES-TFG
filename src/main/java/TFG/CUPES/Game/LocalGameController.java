@@ -1,6 +1,8 @@
 package TFG.CUPES.Game;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -47,16 +49,19 @@ public class LocalGameController {
         ModelAndView res = new ModelAndView(NEW_LOCAL_GAME);
         LocalGame lg = new LocalGame();
         res.addObject("localGame", lg);
+        res.addObject("errors", new ArrayList<String>());
         return res;
     }
 
     @PostMapping("/new")
     public ModelAndView createLocalGame(@Valid LocalGame localGame,BindingResult br){
         String token = UUID.randomUUID().toString();
-         ModelAndView res;
-        if(!localGame.chekcLocalGame().isEmpty()){
-            res = new ModelAndView("redirect:/game/localGame/new",br.getModel());
-            res.addObject("errors", localGame.chekcLocalGame());
+        ModelAndView res;
+        List<String> errors = localGame.chekcLocalGame(); 
+        if(!errors.isEmpty()){
+            res = new ModelAndView(NEW_LOCAL_GAME);
+            res.addObject("localGame", localGame);
+            res.addObject("errors", errors); 
             return res;
         }
         localGame.setActualPlayer(localGame.getPlayer1Name());
