@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import TFG.CUPES.Image.Image;
-
+import TFG.CUPES.Player.Player;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,5 +33,8 @@ public class GameAlone {
     private Integer y;
 
     private String token;
+
+    @ManyToOne
+    private Player player;
 
 }

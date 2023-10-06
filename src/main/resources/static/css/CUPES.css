@@ -49,6 +49,7 @@ div.theBody{
   margin-top:2%;
   margin-left: 3%;
   margin-right: 3%;
+  text-align: center;
 }
 /*BARRA DE NAVEGACIÓN*/
 .navbar {
@@ -179,12 +180,48 @@ img.gameRes{
   height: 500px;
 }
 
+div.new-local-game{
+  padding-top: 30px;
+  text-align: center;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+div.column{
+  float:left;
+  width: 50%;
+  border-right: 5px solid #333;
+  padding-right: 10px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+div.column:last-child {
+  border-right: none;
+}
+
+div.local-game-message{
+  background-color: rgba(248, 213, 17, 0.7);
+  border-radius: 20px;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+p.local-game-message{
+  margin: 10px;
+  text-align: justify;
+}
+
+div.local-game-start{
+  margin-top: 100px;
+}
 
 div.logoSelector{
   align-items: center;
   justify-content: center;
   text-align: center;
 }
+
 
 a.buttom{
   display: inline-block;
@@ -214,6 +251,7 @@ a.buttom:hover {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer; 
   border: none;
+  font-weight: bold;
 }
 
 .buttom:hover {
@@ -398,5 +436,6 @@ h1.tituloPrincipal{
     margin-top:2%;
     margin-left: 3%;
     margin-right: 3%;
+    text-align: center;
   }
 }

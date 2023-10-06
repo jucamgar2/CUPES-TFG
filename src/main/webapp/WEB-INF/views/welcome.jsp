@@ -28,12 +28,12 @@
                     <h2>Aunque realmente no es necesario para probar nuestro modo de juego para un jugador:</h2>
                     <a href="/game/new" class="buttom">Probar modo para un jugador</a>
                     <h2>Otra opción si no quieres registrarte es que compitas con un amigo en el modo local:</h2>
-                    <a href="/localGame/new" class="buttom">Probar 1vs1 local</a>
+                    <a href="/game/localGame/new" class="buttom">Probar 1vs1 local</a>
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <h2>Prueba desde ya nuestro modo competitivo en linea donde tienes la opción de crear una partida o unirte a una partida ya creada:</h2>
-                    <a href="/onlineGame/new" class="buttom">Crear partida 1vs1 en linea</a>
-                    <a href="/onlineGame/join" class="buttom">Unirse a una partida 1vs1 en linea</a>
+                    <a href="/game/onlineGame/new" class="buttom">Crear partida 1vs1 en linea</a>
+                    <a href="/game/onlineGame/join" class="buttom">Unirse a una partida 1vs1 en linea</a>
                 </sec:authorize>
 
             </div>

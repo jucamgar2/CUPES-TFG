@@ -1,6 +1,9 @@
 package TFG.CUPES.Game;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,4 +42,15 @@ public class LocalGame  extends MultiplayerGame{
     private Integer y;
 
     private String token;
+
+    List<String> chekcLocalGame(){
+        List<String> res = new ArrayList<String>();
+        if(this.player1Name==null || this.player1Name==""){
+            res.add("El nombre del jugador 1 no puede estar vacío");
+        }
+        if(this.player2Name==null || this.player2Name==""){
+            res.add("El nombre del jugador 2 no puede estar vacío");
+        }
+        return res;
+    }
 }

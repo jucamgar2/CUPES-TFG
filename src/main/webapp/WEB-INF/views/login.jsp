@@ -8,6 +8,9 @@
         <div class="theBody">
             <div class="register">
                 <h1 class="register">Iniciar Sesión</h1>
+                <c:if test="${error}">
+                    <p class="game">Lo sentimos pero el usuario y la contraseña no coinciden con los de ningun usuario registrado</p>
+                </c:if>
                 <form:form modelAttribute="player">
                     <div>
                         <label for="username">Usuario:</label>
@@ -30,7 +33,7 @@
                         <c:out value="${passwordError}"/>
                     </div>
                     <br>
-                    <button class="buttom" type="submit">Registrarme</button>
+                    <button class="buttom" type="submit">Iniciar Sesión</button>
                 </form:form>
             </div>
         </div>

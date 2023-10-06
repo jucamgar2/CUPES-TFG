@@ -1,6 +1,7 @@
 package TFG.CUPES.Game;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import TFG.CUPES.Image.Image;
 import TFG.CUPES.Image.ImageService;
+import TFG.CUPES.Player.Player;
+import TFG.CUPES.Player.PlayerService;
 
 @Controller
 @RequestMapping("/game")
@@ -29,11 +32,13 @@ public class GameAloneController {
 
     private GameAloneService gameService;
     private ImageService logoService;
+    private PlayerService playerService;
 
     @Autowired
-    public GameAloneController(GameAloneService gameS, ImageService logoS){
+    public GameAloneController(GameAloneService gameS, ImageService logoS,PlayerService playerService){
         this.gameService = gameS;
         this.logoService = logoS;
+        this.playerService = playerService;
     }
 
     @GetMapping("")
@@ -42,9 +47,16 @@ public class GameAloneController {
     }
 
     @GetMapping("/new")
-    public String createGame(){
-        String token = UUID.randomUUID().toString();
+    public String createGame(Principal principal){
         GameAlone g = new GameAlone();
+        if(principal !=null){
+            Player player = this.playerService.findByUsername(principal.getName());
+            if(player!=null){
+                g.setPlayer(player);
+            }
+        }
+        String token = UUID.randomUUID().toString();
+        
         g.setToken(token);
         g.setSelected(this.logoService.getRandomLogo());
         g.setIsFinish(false);
