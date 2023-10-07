@@ -2,8 +2,10 @@ package TFG.CUPES.Game;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -62,7 +64,11 @@ public class OnlineGameController {
         response.addHeader("Refresh", "4");
         ModelAndView res = new ModelAndView(JOIN_GAME);
         List<OnlineGame> games = this.onlineGameService.getNotStartedGames();
-        res.addObject("games", games);
+        if(!games.isEmpty()){
+            Random random = new Random();
+            OnlineGame game = games.get(random.nextInt(games.size()));
+            return new ModelAndView("redirect:/game/onlineGame/joinning/" + game.getId());
+        }
         return res;
     }
 
@@ -223,6 +229,16 @@ public class OnlineGameController {
         if(game!=null){
             if(principal.getName().equals(game.getPlayer1().getUsername()) || principal.getName().equals(game.getPlayer2().getUsername())){
                 res.addObject("game", game);
+                Duration player1Time = Duration.between(game.getPlayer1Start(), game.getPlayer1FInish());
+                Duration player2Time = Duration.between(game.getPlayer2Start(), game.getPlayer2Finish());
+                res.addObject("player1Time", player1Time.getSeconds());
+                res.addObject("player2Time", player2Time.getSeconds());
+                res.addObject("imageUrl1","/images/"+game.getPlayer1Image1().getImageType()+"/"+game.getPlayer1Image1().getResourceName()+".png");
+                res.addObject("imageUrl2","/images/"+game.getPlayer1Image2().getImageType()+"/"+game.getPlayer1Image2().getResourceName()+".png");
+                res.addObject("imageUrl3","/images/"+game.getPlayer1Image3().getImageType()+"/"+game.getPlayer1Image3().getResourceName()+".png");
+                res.addObject("imageUrl4","/images/"+game.getPlayer2Image1().getImageType()+"/"+game.getPlayer2Image1().getResourceName()+".png");
+                res.addObject("imageUrl5","/images/"+game.getPlayer2Image2().getImageType()+"/"+game.getPlayer2Image2().getResourceName()+".png");
+                res.addObject("imageUrl6","/images/"+game.getPlayer2Image3().getImageType()+"/"+game.getPlayer2Image3().getResourceName()+".png");
             }else{
                 return gameUtils.expelPlayer();
             }
@@ -252,12 +268,14 @@ public class OnlineGameController {
                 if(!game.getGameStart()){
                     res.addObject("message","Has abandonado la partida antes de que empezara, por lo que ahora queda un hueco");
                     game.setPlayer2(null);
+                    this.onlineGameService.save(game);
                 }else{
                     game.setWinner(game.getPlayer1().getUsername());
                     game.setPlayer2Leaves(true);
                     game.setWinner(game.getPlayer1().getUsername());
                     this.onlineGameService.save(game);
                     res.addObject("message","Has abandonado la partida y por tanto has perdido");
+                    this.onlineGameService.save(game);
                 }
             }
         }

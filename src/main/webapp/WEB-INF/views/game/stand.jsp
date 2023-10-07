@@ -5,7 +5,7 @@
 <CUPES:layout title="Unirse a una partida onine">
     <div class = "doBody">
         <div class = "theBody">
-            <h1>Has conseguido acertar todos tus escudos, espera a que tu rival termine para determinar el resultado </h1>
+            <h1 class="game">Has conseguido acertar todos tus escudos, espera a que tu rival termine para determinar el resultado </h1>
         </div>
     </div>
 </CUPES:layout>

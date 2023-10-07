@@ -6,7 +6,14 @@
     <div class="doBody">
         <div class="theBody">
             <c:forEach items="${games}" var="game">
-                <a href="/game/onlineGame/joinning/${game.id}">Unirse a la partida ${game.id}</a>
+                <h1>Buscando partidas a las que unirte</h1>
+                <div class="join-message">
+                    <p class ="join-message">
+                        Recuerda que si tarda mucho, puede que no haya partidas disponibles, por lo que podrías pensar en crear una nueva partida para que otro jugador se una a ti
+                    </p>
+                </div>
+
+                
             </c:forEach>
         </div>
     </div>

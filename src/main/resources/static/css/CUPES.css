@@ -120,6 +120,14 @@ p.game{
   font-weight: bold;
 }
 
+.ready{
+  color:green;
+}
+
+.not-ready{
+  color:red;
+}
+
 div.imageContainer{
   display: flex;
   margin: 0 auto;
@@ -149,6 +157,7 @@ div.game-result h1{
   padding-top: 30px;
 }
 
+
 input.input-game{
   padding: 10px;
   padding-top: 10px; 
@@ -175,9 +184,15 @@ div.gameResult{
   justify-content: center;
 }
 
+
 img.gameRes{
   width: 500px;
   height: 500px;
+}
+
+img.game-res-online{
+  width: 200px;
+  height: 200px;
 }
 
 div.new-local-game{
@@ -216,6 +231,23 @@ div.local-game-start{
   margin-top: 100px;
 }
 
+div.join-message{
+  background-color: rgba(248, 213, 17, 0.7);
+  border-radius: 20px;
+  margin-right: 30%;
+  margin-left: 30%;
+}
+
+p.join-message{
+  font-size: 20px;
+  margin: 10px;
+  text-align: justify;
+}
+
+div.local-game-start{
+  margin-top: 100px;
+}
+
 div.logoSelector{
   align-items: center;
   justify-content: center;
@@ -232,6 +264,24 @@ a.buttom{
   text-decoration: none;
   border-radius: 10px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+a.buttom-danger{
+  display: inline-block;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: red;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+a.buttom-danger:hover{
+  font-weight: bold;
+  background-color: #f20303;
+  box-shadow: 0 0 5px #f20303, 0 0 25px #f20303, 0 0 50px #f20303, 0 0 20px #f20303;
 }
 
 a.buttom:hover {
