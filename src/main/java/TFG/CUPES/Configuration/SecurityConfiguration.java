@@ -24,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/resources/**","/webjars/**","/h2-console/**","/css/**","/fonts/**","/images/**","/autocomplete/**","/players/new/**","/js/**").permitAll()
+				.antMatchers("/resources/**","/webjars/**","/h2-console/**","/css/**","/fonts/**","/images/**","/autocomplete/**","/players/new/**","/js/**","/stand/**","/start/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/","welcome","/oups","/home").permitAll()
 				.antMatchers("/game/onlineGame/**").authenticated()
 				.antMatchers("/game/**").permitAll()

@@ -7,5 +7,6 @@
         <div class = "theBody">
             <h1 class="game">Has conseguido acertar todos tus escudos, espera a que tu rival termine para determinar el resultado </h1>
         </div>
+        <script src="/js/finish_game.js"></script>
     </div>
 </CUPES:layout>

@@ -87,7 +87,6 @@ public class OnlineGameController {
 
     @GetMapping("/join/{id}")
     public ModelAndView lobby(@PathVariable("id") Integer id,Principal principal,HttpServletResponse response){
-        response.addHeader("Refresh", "1");
         ModelAndView res = new ModelAndView(LOBBY);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         if (game == null || (game.getPlayer2() != null && (!principal.getName().equals(game.getPlayer2().getUsername()) && !principal.getName().equals(game.getPlayer1().getUsername())))) {
@@ -203,7 +202,6 @@ public class OnlineGameController {
 
     @GetMapping("/stand/{id}")
     public ModelAndView stand(@PathVariable("id") Integer id, Principal principal, HttpServletResponse response){
-        response.addHeader("Refresh", "1");
         ModelAndView res = new ModelAndView(STAND_GAME);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         if(game.getPlayer1Leaves()|| game.getPlayer2Leaves()){

@@ -20,8 +20,8 @@ public class OnlineGameService {
         this.onlineGameRepository.save(onlineGame);
     }
 
-    public Optional<OnlineGame> getOnlineGameByid(Integer id){
-        return this.onlineGameRepository.findById(id);
+    public Optional<OnlineGame> getOnlineGameByid(Integer gameId){
+        return this.onlineGameRepository.findById(gameId);
     }
 
     public List<OnlineGame> getNotStartedGames(){
@@ -31,4 +31,5 @@ public class OnlineGameService {
     public void delete(OnlineGame onlineGame){
         this.onlineGameRepository.delete(onlineGame);
     }
+
 }

@@ -54,5 +54,6 @@
                 </div>
             </c:if>
         </div>
+        <script src="/js/start_game.js"></script>
     </div>
 </CUPES:layout>

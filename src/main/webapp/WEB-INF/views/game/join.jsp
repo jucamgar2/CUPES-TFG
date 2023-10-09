@@ -11,9 +11,7 @@
                     <p class ="join-message">
                         Recuerda que si tarda mucho, puede que no haya partidas disponibles, por lo que podrías pensar en crear una nueva partida para que otro jugador se una a ti
                     </p>
-                </div>
-
-                
+                </div>                
             </c:forEach>
         </div>
     </div>
