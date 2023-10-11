@@ -7,13 +7,25 @@
     <div class = "doBody">
         <div class="theBody">
             <h1 class="game">¿Es suficieste este pedazo para que adivines el escudo?</h1>
-            <div class="imageContainer">
-                <div class="gameImage">
-                    <img class="game">
+            <div>
+                <div class="column">
+                    <div class="imageContainer">
+                        <div class="gameImage">
+                            <img class="game">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="imageContainer" style="position: relative;">
+                        <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;margin-left: 125px;">
+                        ${fullImageStyle}
+                       
+                    </div>
                 </div>
             </div>
 
-            <p class="game">Tienes un total de 3 intentos y has gastado ${game.getShift()} </p>
+
+            <p class="game">Tienes un total de 4 intentos y has gastado ${game.getShift()} </p>
             <form:form modelAttribute="logo">
                 <div class="logoSelector">
                     <div>
@@ -27,8 +39,9 @@
                         <button  class="buttom" type="submit" href="/game/play/${game.id}">Enviar</button>
                     </div>
                 </div>
-            
             </form:form>
+            
+           
             <script src="/js/autocomplete.js"></script>
         </div>
     </div>

@@ -135,6 +135,15 @@ div.imageContainer{
   border-color: black;
 }
 
+div.complete-image{
+  width: 500px;
+  height: 500px;
+  border-color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0);
+  background-color: white;
+  margin-left: 15%;
+}
+
 div.gameImage{
   background-color: white;
   align-content: center;

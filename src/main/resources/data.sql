@@ -4,6 +4,22 @@ INSERT INTO authorities(id,username,authority) VALUES (1,'Guaje','player');
 INSERT INTO player(username,password,enabled) VALUES ('Antonio','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true);
 INSERT INTO authorities(id,username,authority) VALUES (2,'Antonio','player');
 
+INSERT INTO position(id,x,y) VALUES (1,0,0);
+INSERT INTO position(id,x,y) VALUES (2,0,125);
+INSERT INTO position(id,x,y) VALUES (3,0,250);
+INSERT INTO position(id,x,y) VALUES (4,0,375);
+INSERT INTO position(id,x,y) VALUES (6,125,0);
+INSERT INTO position(id,x,y) VALUES (7,125,125);
+INSERT INTO position(id,x,y) VALUES (8,125,250);
+INSERT INTO position(id,x,y) VALUES (9,125,375);
+INSERT INTO position(id,x,y) VALUES (11,250,0);
+INSERT INTO position(id,x,y) VALUES (12,250,125);
+INSERT INTO position(id,x,y) VALUES (13,250,250);
+INSERT INTO position(id,x,y) VALUES (14,250,375);
+INSERT INTO position(id,x,y) VALUES (16,375,0);
+INSERT INTO position(id,x,y) VALUES (17,375,125);
+INSERT INTO position(id,x,y) VALUES (18,375,250);
+INSERT INTO position(id,x,y) VALUES (19,375,375);
 
 INSERT INTO image(id,name,resource_name,image_type) VALUES (1,'Real Madrid','Madrid','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (2,'Rayo Vallecano','Rayo','Logo');

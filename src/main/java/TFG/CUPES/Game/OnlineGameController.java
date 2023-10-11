@@ -140,9 +140,9 @@ public class OnlineGameController {
             res.addObject("imageUrl", imageSelected);
             if(principal.getName().equals(game.getPlayer1().getUsername())){
                 Position p = new Position(game.getPlayer1X(),game.getPlayer1Y());
-                p = gameUtils.randomImagePortion(imageSelected, p);
+                p = gameUtils.randomImagePortion(imageSelected, List.of(),List.of());
                 while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                    p = gameUtils.randomImagePortion(imageSelected, p);
+                    p = gameUtils.randomImagePortion(imageSelected, List.of(),List.of());
                 }
                 game.setPlayer1X(p.getX());
                 game.setPlayer1Y(p.getY());
@@ -151,9 +151,9 @@ public class OnlineGameController {
                 res.addObject("imageStyle", imageStyle);
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
                 Position p = new Position(game.getPlayer2X(),game.getPlayer2Y());
-                p = gameUtils.randomImagePortion(imageSelected, p);
+                p = gameUtils.randomImagePortion(imageSelected, List.of(),List.of());
                 while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                    p = gameUtils.randomImagePortion(imageSelected, p);
+                    p = gameUtils.randomImagePortion(imageSelected, List.of(),List.of());
                 }
                 game.setPlayer2X(p.getX());
                 game.setPlayer2Y(p.getY());

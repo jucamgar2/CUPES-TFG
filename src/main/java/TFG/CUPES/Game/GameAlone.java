@@ -1,10 +1,14 @@
 package TFG.CUPES.Game;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import TFG.CUPES.Image.Image;
 import TFG.CUPES.Player.Player;
@@ -37,4 +41,6 @@ public class GameAlone {
     @ManyToOne
     private Player player;
 
+    @ManyToMany
+    List<Position> positions;
 }

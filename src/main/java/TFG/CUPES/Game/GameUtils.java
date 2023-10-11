@@ -1,7 +1,9 @@
 package TFG.CUPES.Game;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -19,46 +21,56 @@ public class GameUtils {
         return List.of(0,500,1000,1500);
     }
 
-    public Position randomImagePortion(String imageSelected,Position position) {
+    public Position randomImagePortion(String imageSelected,List<Position> gamePositions,List<Position> positions) {
         Random rand = new Random();
-        Integer newX = position.getX();
-        Integer newY = position.getY();
-        if (newX == null || newX == position.getX()) {
-            newX = getFootballImagePosition().get(rand.nextInt(getFootballImagePosition().size()));
-        }
-        if (newY == null || newY == position.getY()) {
-            newY = getFootballImagePosition().get(rand.nextInt(getFootballImagePosition().size()));
-        }
-        return new Position(newX, newY);
+        List<Position> elegiblePositions = positions.stream().filter(x->!gamePositions.contains(x)).toList();
+        Position newPosition = elegiblePositions.get(rand.nextInt(elegiblePositions.size()));
+        return newPosition;
     }
 
     public Boolean checkImageHasMoreThan1Color(String imageSelected,Position position) throws IOException {
         ClassPathResource resource = new ClassPathResource("static"+imageSelected);
         BufferedImage image = ImageIO.read(resource.getInputStream());
-        Boolean res = false;
         int width = 500;
         int height = 500;
-        HashSet<Integer> uniqueColors = new HashSet<>();
+        int totalPixels = width * height;
+        Map<Integer, Integer> colorCounts = new HashMap<>();
         for (int i = position.getX(); i < position.getX() + width && i < image.getWidth(); i++) {
             for (int j = position.getY(); j < position.getY() + height && j < image.getHeight(); j++) {
                 int pixelColor = image.getRGB(i, j);
-                uniqueColors.add(pixelColor);
-                if (uniqueColors.size() > 1) {
-                    res = true;
-                    return res;
-                }
+                colorCounts.put(pixelColor, colorCounts.getOrDefault(pixelColor, 0) + 1);
             }
         }
-       return res;
+        int maxCount = 0;
+        for (Map.Entry<Integer, Integer> entry : colorCounts.entrySet()) {
+            int count = entry.getValue();
+            if (count > maxCount) {
+                maxCount = count;
+            }
+        }
+        double percentage = (double) maxCount / totalPixels;
+        
+        return percentage < 0.80;
     }
 
     public String generateImageStyle(String imageSelected,Position position) {
-        return "backgroud-color: white;background-image: url('" + imageSelected + "'); width: " + 500+"px; height: " + 500 + "px; background-position: -" + position.getX() + "px -" + position.getY() + "px;";
+        return "backgroud-color: white;background-image: url('" + imageSelected + "'); width: " + 500+"px; height: " + 500 + "px; background-position: -" + position.getX()*4 + "px -" + position.getY()*4 + "px;";
     }
 
     public ModelAndView expelPlayer(){
         ModelAndView res  = new ModelAndView("redirect:/");
         res.addObject("errormsg", "Estas intentando acceder a una partida que no existe o que ya ha finalizado");
+        return res;
+    }
+
+    public String generateImageStyle(List<Position> positions, GameAlone game) {
+        String res = "";
+        for(Position p : positions){
+            if(game.getPositions().contains(p)){
+            }else{
+                res +="<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:" +p.getY()+"px;left: "+(p.getX()+125)+"px;'></div>";
+            }
+        }
         return res;
     }
 }

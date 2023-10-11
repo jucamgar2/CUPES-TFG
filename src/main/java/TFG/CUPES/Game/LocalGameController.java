@@ -102,9 +102,9 @@ public class LocalGameController {
                 res.addObject("imageUrl", imageSelected);
             }
             Position p = new Position(game.getX(),game.getY());
-            p = gameUtils.randomImagePortion(imageSelected, p);
+            p = gameUtils.randomImagePortion(imageSelected, List.of(),List.of());
             while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                p = gameUtils.randomImagePortion(imageSelected, p);
+                p = gameUtils.randomImagePortion(imageSelected, List.of(),List.of());
             }
             game.setX(p.getX());
             game.setY(p.getY());

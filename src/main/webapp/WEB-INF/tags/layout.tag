@@ -13,14 +13,6 @@
     <link rel="stylesheet" type="text/css" href="/css/CUPES.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     
-    <title><%= title %></title>
-    <% if ("game".equals(title)) { %>
-        <script>
-          window.onbeforeunload = function(){
-            return "¿Estas seguro de que quieres salir? Perderas la partida";
-          }
-        </script>
-    <% } %>
     <style>
     img.game{
        ${imageStyle}

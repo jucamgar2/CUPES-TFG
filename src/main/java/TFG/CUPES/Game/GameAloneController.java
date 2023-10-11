@@ -2,8 +2,10 @@ package TFG.CUPES.Game;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
+import org.hibernate.event.spi.PostInsertEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,18 +29,20 @@ public class GameAloneController {
     public static final String PLAY_GAME = "game/playGame";
     public static final String RES_GAME= "game/gameResult";
     public static final String SELECT_MODE="game/selectMode";
-    public static final Integer maxShift = 3;
+    public static final Integer maxShift = 4;
     GameUtils gameUtils = new GameUtils();
 
     private GameAloneService gameService;
     private ImageService logoService;
     private PlayerService playerService;
+    private PositionService positionService;
 
     @Autowired
-    public GameAloneController(GameAloneService gameS, ImageService logoS,PlayerService playerService){
+    public GameAloneController(GameAloneService gameS, ImageService logoS,PlayerService playerService, PositionService positionService){
         this.gameService = gameS;
         this.logoService = logoS;
         this.playerService = playerService;
+        this.positionService = positionService;
     }
 
     @GetMapping("")
@@ -80,19 +84,32 @@ public class GameAloneController {
             res = gameResult(game);
         }else {
             Image logo = new Image();
+            List<Position> positions = this.positionService.findAll();
             res.addObject("logo", logo);
             res.addObject("game",game);
             String imageSelected = "/images/"+game.getSelected().getImageType()+"/"+game.getSelected().getResourceName()+".png";
             res.addObject("imageUrl", imageSelected);
-            Position p = new Position(game.getX(),game.getY());
-            p = gameUtils.randomImagePortion(imageSelected, p);
-            while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                p = gameUtils.randomImagePortion(imageSelected, p);
+            Position p;
+            if(game.getX()==null || game.getY()==null){
+                p = new Position(0,0);
+            }else{
+                p = new Position(game.getX(),game.getY());
             }
-            game.setX(p.getX());
-            game.setY(p.getY());
+            if(game.getPositions().size() == game.getShift()){
+                p = gameUtils.randomImagePortion(imageSelected, game.getPositions(), positions);
+                while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                    p = gameUtils.randomImagePortion(imageSelected, game.getPositions(), positions);
+                }
+                game.setX(p.getX());
+                game.setY(p.getY());
+                game.getPositions().add(p);
+                
+            }
+            this.gameService.saveGame(game);
             String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
             res.addObject("imageStyle", imageStyle);
+            String fullImageStyle = gameUtils.generateImageStyle(positions, game);
+            res.addObject("fullImageStyle", fullImageStyle);
         }
         return res;
     }
