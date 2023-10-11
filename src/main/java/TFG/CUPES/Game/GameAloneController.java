@@ -87,7 +87,7 @@ public class GameAloneController {
             List<Position> positions = this.positionService.findAll();
             res.addObject("logo", logo);
             res.addObject("game",game);
-            String imageSelected = "/images/"+game.getSelected().getImageType()+"/"+game.getSelected().getResourceName()+".png";
+            String imageSelected = "/images/"+game.getSelected().getImageType()+"/"+game.getSelected().getResourceName()+".jpg";
             res.addObject("imageUrl", imageSelected);
             Position p;
             if(game.getX()==null || game.getY()==null){
@@ -145,7 +145,7 @@ public class GameAloneController {
     public ModelAndView gameResult(GameAlone game){
         ModelAndView res = new ModelAndView(RES_GAME);
         res.addObject("game", game);
-        String imageSelected = "/images/"+game.getSelected().getImageType()+"/"+game.getSelected().getResourceName()+".png";
+        String imageSelected = "/images/"+game.getSelected().getImageType()+"/"+game.getSelected().getResourceName()+".jpg";
         res.addObject("imageUrl", imageSelected);
         if(game.getWin()){
             res.addObject("message","¡Acertaste! Efectivamente era el escudo del "+game.getSelected().getName() );

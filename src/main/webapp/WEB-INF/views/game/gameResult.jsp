@@ -15,6 +15,7 @@
                 </div>
                 <p class="game" ><c:out value="${message}"/></p>
             </div>
+            <a href="/game/new" class="buttom">Nueva partida</a>
         </div>
     </div>
 </CUPES:layout>

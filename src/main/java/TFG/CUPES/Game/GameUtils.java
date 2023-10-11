@@ -35,8 +35,8 @@ public class GameUtils {
         int height = 500;
         int totalPixels = width * height;
         Map<Integer, Integer> colorCounts = new HashMap<>();
-        for (int i = position.getX(); i < position.getX() + width && i < image.getWidth(); i++) {
-            for (int j = position.getY(); j < position.getY() + height && j < image.getHeight(); j++) {
+        for (int i = position.getX()*4; i < position.getX()*4 + width && i < image.getWidth(); i++) {
+            for (int j = position.getY()*4; j < position.getY()*4 + height && j < image.getHeight(); j++) {
                 int pixelColor = image.getRGB(i, j);
                 colorCounts.put(pixelColor, colorCounts.getOrDefault(pixelColor, 0) + 1);
             }
@@ -49,8 +49,7 @@ public class GameUtils {
             }
         }
         double percentage = (double) maxCount / totalPixels;
-        
-        return percentage < 0.80;
+        return percentage < 0.90;
     }
 
     public String generateImageStyle(String imageSelected,Position position) {

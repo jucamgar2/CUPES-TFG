@@ -197,6 +197,8 @@ div.gameResult{
 img.gameRes{
   width: 500px;
   height: 500px;
+  border-color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0);
 }
 
 img.game-res-online{
