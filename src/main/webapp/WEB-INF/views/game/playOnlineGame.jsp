@@ -8,18 +8,33 @@
     <div class="doBody">
         <div class="theBody">
             <h1 class="game">¿Es suficieste este pedazo para que adivines el escudo?</h1>
-            <div class="imageContainer">
-                <div class="gameImage">
-                    <img class="game">
+            <div>
+                <div class="column">
+                    <div class="imageContainer">
+                        <div class="gameImage">
+                            <img class="game">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="imageContainer" style="position: relative;">
+                        <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;margin-left: 125px;">
+                        ${fullImageStyle}
+                       
+                    </div>
                 </div>
             </div>
 
             <c:if test="${principal.getName() == game.getPlayer1().getUsername()}">
-                <p class="game">Tienes que adivinar un total de 3 escudos y llevas ${game.getPlayer1Succes()} </p>
+                <p class="game">Tienes que adivinar un total de 3 escudos y llevas <c:out value="${game.getCurrentPlayer1Image()}"/> </p>
+                <p class="game">Intentos: <c:out value="${game.getPlayer1Shifts()}"/></p>
             </c:if>
             <c:if test="${principal.getName() == game.getPlayer2().getUsername()}">
-                <p class="game">Tienes que adivinar un total de 3 escudos y llevas ${game.getPlayer2Succes()} </p>
+                <p class="game">Tienes que adivinar un total de 3 escudos y llevas <c:out value="${game.getCurrentPlayer2Image()}"/> </p>
+                <p class="game">Intentos: <c:out value="${game.getPlayer2Shifts()}"/></p>
             </c:if>
+
+            
             
 
             

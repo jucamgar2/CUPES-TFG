@@ -8,8 +8,8 @@
         <div class = "theBody">
             <h1 class="game">El ganador ha sido: <c:out value="${game.getWinner()}"/></h1>
             <p class="game">Vuestras estadísticas han diso las siguientes:</p>
-            <p class="game"> <c:out value="${game.getPlayer1().getUsername()}"/> -> Intentos: <c:out value="${game.getPlayer1Shifts()}"/> , Timepo: <c:out value="${player1Time}"/> segundos</p>
-            <p class="game"> <c:out value="${game.getPlayer2().getUsername()}"/> -> Intentos: <c:out value="${game.getPlayer2Shifts()}"/> , Timepo: <c:out value="${player2Time}"/> segundos</p>
+            <p class="game"> <c:out value="${game.getPlayer1().getUsername()}"/> -> Intentos: <c:out value="${game.getPlayer1Shifts()}"/> , Timepo: <c:out value="${player1Time}"/> segundos, Aciertos: <c:out value="${game.getPlayer1Succes()}"/></p>
+            <p class="game"> <c:out value="${game.getPlayer2().getUsername()}"/> -> Intentos: <c:out value="${game.getPlayer2Shifts()}"/> , Timepo: <c:out value="${player2Time}"/> segundos, Aciertos: <c:out value="${game.getPlayer2Succes()}"/></p>
             <div>
                 <div>
                     <div class="column">

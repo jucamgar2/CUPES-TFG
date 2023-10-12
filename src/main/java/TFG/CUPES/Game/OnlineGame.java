@@ -1,9 +1,12 @@
 package TFG.CUPES.Game;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import TFG.CUPES.Image.Image;
@@ -65,4 +68,18 @@ public class OnlineGame extends MultiplayerGame{
     private Integer player1Succes;
 
     private Integer player2Succes;
+
+    private Integer currentPlayer1Image;
+
+    private Integer currentPlayer2Image;
+
+    @ManyToMany
+    private List<Position> player1Positions;
+
+    @ManyToMany
+    private List<Position> player2Positions;
+
+    private Boolean player1Redt;
+
+    private Boolean player2Redt;
 }
