@@ -108,7 +108,7 @@ public class GameAloneController {
             this.gameService.saveGame(game);
             String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
             res.addObject("imageStyle", imageStyle);
-            String fullImageStyle = gameUtils.generateImageStyle(positions, game);
+            String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPositions());
             res.addObject("fullImageStyle", fullImageStyle);
         }
         return res;

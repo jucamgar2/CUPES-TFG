@@ -23,12 +23,23 @@ public abstract class MultiplayerGame {
 
     private LocalDateTime player2Finish;
 
+    private Boolean player1CanWin;
+
+    private Boolean player2CanWin;
+
     private String winner;
 
 
     public String checkWinner(String player1Name, String player2Name) {
         String winner;
-        if (player1Shifts < player2Shifts) {
+        if(player1CanWin !=null && player1CanWin == false && player2CanWin!=null && player2CanWin==false){
+            winner = "Empate";
+        }else if(player1CanWin!=null && player1CanWin==false){
+            winner = player2Name;
+        }else if(player2CanWin!=null && player2CanWin==false){
+            winner = player1Name;
+        }else{
+            if (player1Shifts < player2Shifts) {
             winner = player1Name;
         } else if (player2Shifts < player1Shifts) {
             winner = player2Name;
@@ -40,9 +51,11 @@ public abstract class MultiplayerGame {
             } else if (player2Time.compareTo(player1Time) < 0) {
                 winner = player2Name;
             } else {
-                winner = "draw";
+                winner = "Empate";
             }
         }
+        }
+        
         return winner;
     }
 

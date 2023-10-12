@@ -62,10 +62,10 @@ public class GameUtils {
         return res;
     }
 
-    public String generateImageStyle(List<Position> positions, GameAlone game) {
+    public String generateImageStyle(List<Position> positions, List<Position> gamePositions) {
         String res = "";
         for(Position p : positions){
-            if(game.getPositions().contains(p)){
+            if(gamePositions.contains(p)){
             }else{
                 res +="<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:" +p.getY()+"px;left: "+(p.getX()+125)+"px;'></div>";
             }

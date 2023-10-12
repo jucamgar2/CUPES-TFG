@@ -8,9 +8,20 @@
     <div class="doBody">
         <div class="theBody">
             <h1 class="game">¿Es suficieste este pedazo para que adivines el escudo?</h1>
-            <div class="imageContainer">
-                <div class="gameImage">
-                    <img class="game">
+            <div>
+                <div class="column">
+                    <div class="imageContainer">
+                        <div class="gameImage">
+                            <img class="game">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="imageContainer" style="position: relative;">
+                        <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;margin-left: 125px;">
+                        ${fullImageStyle}
+                       
+                    </div>
                 </div>
             </div>
 
@@ -18,6 +29,7 @@
             
             <form:form modelAttribute="logo">
                 <div class="logoSelector">
+                    <p class="game"><c:out value="${shiftsMessage}"/></p>
                     <div>
                         <form:label path="name">¿De quién es este escudo?</form:label>
                     </div>
