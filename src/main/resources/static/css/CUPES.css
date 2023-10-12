@@ -204,6 +204,8 @@ img.gameRes{
 img.game-res-online{
   width: 200px;
   height: 200px;
+  border-color: black;
+  box-shadow: 0 0 10px rgba(0, 0, 0);
 }
 
 div.new-local-game{
