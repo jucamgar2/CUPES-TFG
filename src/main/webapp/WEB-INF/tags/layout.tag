@@ -30,7 +30,9 @@
     </label>
      
       <ul class="menu">
+        
         <li><a class="inicio-link" href="/"><i class="fas fa-home"></i>  Inicio</a></li>
+        <li><a class="statistics-link" href="/statistics"><i class=" 	fas fa-poll"></i> Estad&iacute;sticas</a></li>
         <li><a class="jugar-link" href="/game"><i class="fas fa-gamepad"></i>  Jugar</a></li>
         <li><a class="manual-link" href="#"><i class="fas fa-book"></i> Manual</a></li>
         <sec:authorize access="!isAuthenticated()">

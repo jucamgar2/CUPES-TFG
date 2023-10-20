@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -24,7 +25,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/resources/**","/webjars/**","/h2-console/**","/css/**","/fonts/**","/images/**","/autocomplete/**","/players/new/**","/js/**","/stand/**","/start/**").permitAll()
+				
+				.antMatchers("/resources/**","/webjars/**","/h2-console/**","/css/**","/fonts/**","/images/**","/autocomplete/**","/players/new/**","/js/**","/stand/**","/start/**","/statistics/**").permitAll()
 				.antMatchers(HttpMethod.GET, "/","welcome","/oups","/home").permitAll()
 				.antMatchers("/game/onlineGame/**").authenticated()
 				.antMatchers("/game/**").permitAll()
@@ -42,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 		.deleteCookies("JSESSIONID") 
 						.logoutSuccessUrl("/welcome")
 						.permitAll(); 
+				http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
                 http.csrf().ignoringAntMatchers("/h2-console/**");
                 http.headers().frameOptions().sameOrigin();
 	}

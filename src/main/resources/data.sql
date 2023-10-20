@@ -35,7 +35,7 @@ INSERT INTO image(id,name,resource_name,image_type) VALUES (11,'Real Oviedo','Ov
 INSERT INTO image(id,name,resource_name,image_type) VALUES (12,'Real Racing Club de Santander','Racing','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (13,'Real Sociedad','Real','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (14,'Valencia Club de Fútbol','Valencia','Logo');
-INSERT INTO image(id,name,resource_name,image_type) VALUES (15,'Real Valladolid CLub de Fútbol','Valladolid','Logo');
+INSERT INTO image(id,name,resource_name,image_type) VALUES (15,'Real Valladolid Club de Fútbol','Valladolid','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (16,'Villarreal Club de Fútbol','Villarreal','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (17,'Real Zaragoza','Zaragoza','Logo');
 INSERT INTO image(id,name,resource_name,image_type) VALUES (18,'Atalanta Bergamasca Calcio','Atalanta','Logo');
