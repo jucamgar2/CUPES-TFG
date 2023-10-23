@@ -41,19 +41,19 @@ public abstract class MultiplayerGame {
         }else{
             if (player1Shifts < player2Shifts) {
             winner = player1Name;
-        } else if (player2Shifts < player1Shifts) {
-            winner = player2Name;
-        } else {
-            Duration player1Time = Duration.between(player1Start, player1FInish);
-            Duration player2Time = Duration.between(player2Start, player2Finish);
-            if (player1Time.compareTo(player2Time) < 0) {
-                winner = player1Name;
-            } else if (player2Time.compareTo(player1Time) < 0) {
+            } else if (player2Shifts < player1Shifts) {
                 winner = player2Name;
             } else {
-                winner = "Empate";
+                Duration player1Time = Duration.between(player1Start, player1FInish);
+                Duration player2Time = Duration.between(player2Start, player2Finish);
+                if (player1Time.compareTo(player2Time) < 0) {
+                    winner = player1Name;
+                } else if (player2Time.compareTo(player1Time) < 0) {
+                    winner = player2Name;
+                } else {
+                    winner = "Empate";
+                }
             }
-        }
         }
         
         return winner;
