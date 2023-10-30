@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PositionService {
     
-    private PositionController positionController;
+    private PositionRepository positionController;
 
-    public PositionService(PositionController positionController){
+    public PositionService(PositionRepository positionController){
         this.positionController = positionController;
     }
 

@@ -9,4 +9,6 @@ public interface PlayerRepository extends CrudRepository<Player,String>{
     @Query("select p from Player p where p.username = ?1")
     Player findByUsername(String name);
     
+    @Query("select p from Player p where p.mail = ?1")
+    Player findByMail(String mail);
 }

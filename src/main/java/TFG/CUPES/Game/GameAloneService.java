@@ -147,21 +147,25 @@ public class GameAloneService {
         Map<String, Long> res = new HashMap<String,Long>();
         for (Object[] object:ls){
             String player = (String) object[0];
-            Long num = (Long) object[1];
-            res.put(player,num);
+            if(player!=null && player!="draw"){
+                Long num = (Long) object[1];
+                res.put(player,num);
+            }
         }
         return res;
     }
 
     @Transactional(readOnly = true)
     public Map<String,Long> getRankingWin() {
-        Pageable pageable = PageRequest.of(0,10);
+        Pageable pageable = PageRequest.of(0,11);
         List<Object[]> ls = this.gameRepository.getRankingWin(pageable);
         Map<String, Long> res = new HashMap<String,Long>();
         for (Object[] object:ls){
             String player = (String) object[0];
-            Long num = (Long) object[1];
+            if(player!=null && player!="draw"){
+                Long num = (Long) object[1];
             res.put(player,num);
+            }
         }
         return res;
     }

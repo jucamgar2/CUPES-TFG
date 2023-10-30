@@ -4,6 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="Página de Inicio">
+        <script>
+            $(function () {
+                $("#birthDate").datepicker({dateFormat: 'dd/mm/yy' });
+            });
+        </script>
+
     <div class="doBody">
         <div class="theBody">
             <div class="register">
@@ -25,21 +31,40 @@
                     <div>
                         <input class="input-large"type="text" id="username" name="username" required>
                     </div>
-                    <div class="errors" style="color:red">
-                        <c:out value="${existsError}"/>
-                        <c:out value="${usernameError}"/>
-                    </div>
-                    <br>
+                   
                     <div>
                         <label for="password">Contraseña:</label>
+                        <i id="iconoMostrar" class="fas fa-eye"></i>
                     </div>
                     <div>
-                        <input type="text" class ="input-large" id="password" name="password" required>
+                        
+                        <input type="password" class ="input-large" id="password" name="password" required>
                     </div>
                     <div class="errors" style="color:red">
                         <c:out value="${passwordError}"/>
                     </div>
-                    <br>
+
+                    <div>
+                        <label for="name">Nombre:</label>
+                    </div>
+                    <div>
+                        <input class="input-large"type="text" id="name" name="name" required>
+                    </div>
+
+                    <div>
+                        <label for="mail">Email:</label>
+                    </div>
+                    <div>
+                        <input class="input-large"type="text" id="mail" name="mail" required>
+                    </div>
+
+                    <div>
+                        <label for="birthDate">Fecha de nacimiento:</label>
+                    </div>
+                    <div>
+                        <input class="input-large"type="text" id="birthDate" name="birthDate" required>
+                    </div>
+
                     <button class="buttom" type="submit">Registrarme</button>
                 </form:form>
                 <div class="registerInfo">
@@ -50,5 +75,6 @@
             </div>
         </div>
         <script src="/js/error_script.js"></script>
+        <script src="/js/show_pasword.js"></script>
     </div>
 </CUPES:layout>

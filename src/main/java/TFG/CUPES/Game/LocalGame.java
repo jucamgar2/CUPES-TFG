@@ -58,6 +58,15 @@ public class LocalGame  extends MultiplayerGame{
         if(this.player2Name==null || this.player2Name==""){
             res.add("El nombre del jugador 2 no puede estar vacío");
         }
+        if(this.player1Name == this.player2Name){
+            res.add("Los nombres de los jugadores no pueden ser iguales");
+        }
+        if(this.player1Name.length()<4 || this.player1Name.length()>30){
+            res.add("El nombre del jugador 1 debe tener entre 4 y 30 caracteres");
+        }
+        if(this.player2Name.length()<4 || this.player2Name.length()>30){
+            res.add("El nombre del jugador 2 debe tener entre 4 y 30 caracteres");
+        }
         return res;
     }
 }

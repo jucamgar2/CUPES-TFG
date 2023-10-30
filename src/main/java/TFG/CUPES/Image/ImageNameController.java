@@ -11,12 +11,11 @@ import TFG.CUPES.Game.OnlineGameService;
 public class ImageNameController {
 
     ImageService logoService;
-    OnlineGameService onlineGameService;
+
 
     @Autowired
-    public ImageNameController(ImageService logoService, OnlineGameService onlineGameService) {
+    public ImageNameController(ImageService logoService) {
         this.logoService = logoService;
-        this.onlineGameService = onlineGameService;
     }
 
     @GetMapping("/autocomplete/logos")

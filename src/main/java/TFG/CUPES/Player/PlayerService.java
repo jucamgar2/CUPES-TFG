@@ -22,4 +22,8 @@ public class PlayerService {
     public Player findByUsername(String name) {
         return this.playerRepo.findByUsername(name);
     }
+
+    public Player findByMail(String mail){
+        return this.playerRepo.findByMail(mail);
+    }
 }

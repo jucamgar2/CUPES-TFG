@@ -56,7 +56,5 @@ public interface GameAloneRepository extends CrudRepository<GameAlone, Integer> 
 
     @Query("SELECT g.player.username, COUNT(g) FROM GameAlone g WHERE g.win = true GROUP BY g.player.username ORDER BY COUNT(g) DESC")
     List<Object[]> getRankingWin(Pageable pageable);
-    
-
 
 }

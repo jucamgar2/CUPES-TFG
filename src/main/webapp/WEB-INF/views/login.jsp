@@ -32,9 +32,10 @@
                     <br>
                     <div>
                         <label for="password">Contraseña:</label>
+                        <i id="iconoMostrar" class="fas fa-eye"></i>
                     </div>
                     <div>
-                        <input type="text" class ="input-large" id="password" name="password" required>
+                        <input type="password" class ="input-large" id="password" name="password" required>
                     </div>
                     <div class="errors" style="color:red">
                         <c:out value="${passwordError}"/>
@@ -45,6 +46,7 @@
             </div>
         </div>
         <script src="/js/error_script.js"></script>
+        <script src="/js/show_pasword.js"></script>
     </div>
 
     
