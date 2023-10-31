@@ -94,6 +94,7 @@ public class OnlineGameController {
     @GetMapping("/join/{id}")
     public ModelAndView lobby(@PathVariable("id") Integer id,Principal principal,HttpServletResponse response){
         ModelAndView res = new ModelAndView(LOBBY);
+        response.addHeader("Refresh", "4");
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         if (game == null || (game.getPlayer2() != null && (!principal.getName().equals(game.getPlayer2().getUsername()) && !principal.getName().equals(game.getPlayer1().getUsername())))) {
             return gameUtils.expelPlayer();
@@ -110,6 +111,9 @@ public class OnlineGameController {
         ModelAndView res = new ModelAndView("redirect:/game/onlineGame/join/" + id);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         Player player = this.playerService.findByUsername(principal.getName());
+        if(game ==null){
+            return gameUtils.expelPlayer();
+        }
         if(player.equals(game.getPlayer1())){
             game.setPlayer1IsReady(true);
         }else if(player.equals(game.getPlayer2())){
@@ -261,18 +265,24 @@ public class OnlineGameController {
                 game.setWinner(game.checkWinner(game.getPlayer1().getUsername(),game.getPlayer2().getUsername()));
                 this.onlineGameService.save(game);
             }
+            res.addObject("game", game);
+            res.addObject("imageUrl1","/images/"+game.getPlayer1Image1().getImageType()+"/"+game.getPlayer1Image1().getResourceName()+".jpg");
+            res.addObject("imageUrl2","/images/"+game.getPlayer1Image2().getImageType()+"/"+game.getPlayer1Image2().getResourceName()+".jpg");
+            res.addObject("imageUrl3","/images/"+game.getPlayer1Image3().getImageType()+"/"+game.getPlayer1Image3().getResourceName()+".jpg");
+            res.addObject("imageUrl4","/images/"+game.getPlayer2Image1().getImageType()+"/"+game.getPlayer2Image1().getResourceName()+".jpg");
+            res.addObject("imageUrl5","/images/"+game.getPlayer2Image2().getImageType()+"/"+game.getPlayer2Image2().getResourceName()+".jpg");
+            res.addObject("imageUrl6","/images/"+game.getPlayer2Image3().getImageType()+"/"+game.getPlayer2Image3().getResourceName()+".jpg");
+            if(game.getPlayer1Leaves() || game.getPlayer2Leaves()){
+                res.addObject("leavemsg", "El ganador ha sido " + game.getWinner() + " ya que el otro jugador ha abandonado la partida");
+                return res;
+            }
+
             if(principal.getName().equals(game.getPlayer1().getUsername()) || principal.getName().equals(game.getPlayer2().getUsername())){
-                res.addObject("game", game);
                 Duration player1Time = Duration.between(game.getPlayer1Start(), game.getPlayer1FInish());
                 Duration player2Time = Duration.between(game.getPlayer2Start(), game.getPlayer2Finish());
                 res.addObject("player1Time", player1Time.getSeconds());
                 res.addObject("player2Time", player2Time.getSeconds());
-                res.addObject("imageUrl1","/images/"+game.getPlayer1Image1().getImageType()+"/"+game.getPlayer1Image1().getResourceName()+".jpg");
-                res.addObject("imageUrl2","/images/"+game.getPlayer1Image2().getImageType()+"/"+game.getPlayer1Image2().getResourceName()+".jpg");
-                res.addObject("imageUrl3","/images/"+game.getPlayer1Image3().getImageType()+"/"+game.getPlayer1Image3().getResourceName()+".jpg");
-                res.addObject("imageUrl4","/images/"+game.getPlayer2Image1().getImageType()+"/"+game.getPlayer2Image1().getResourceName()+".jpg");
-                res.addObject("imageUrl5","/images/"+game.getPlayer2Image2().getImageType()+"/"+game.getPlayer2Image2().getResourceName()+".jpg");
-                res.addObject("imageUrl6","/images/"+game.getPlayer2Image3().getImageType()+"/"+game.getPlayer2Image3().getResourceName()+".jpg");
+                
             }else{
                 return gameUtils.expelPlayer();
             }
@@ -301,7 +311,8 @@ public class OnlineGameController {
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
                 if(!game.getGameStart()){
                     res.addObject("message","Has abandonado la partida antes de que empezara, por lo que ahora queda un hueco");
-                    game.setPlayer2(null);
+                    game.removePlayer2();
+                    game.setPlayer2IsReady(false);
                     this.onlineGameService.save(game);
                 }else{
                     game.setWinner(game.getPlayer1().getUsername());
@@ -322,10 +333,26 @@ public class OnlineGameController {
         game.setPlayer2Start(now);
         game.setPlayer1Image1(imageService.getRandomLogo());
         game.setPlayer2Image1(imageService.getRandomLogo());
-        game.setPlayer1Image2(imageService.getRandomLogo());
-        game.setPlayer2Image2(imageService.getRandomLogo());
-        game.setPlayer1Image3(imageService.getRandomLogo());
-        game.setPlayer2Image3(imageService.getRandomLogo());
+        Image player1Image2 = imageService.getRandomLogo();
+        while(player1Image2.getName().equals(game.getPlayer1Image1().getName())){
+            player1Image2 = imageService.getRandomLogo();
+        }
+        game.setPlayer1Image2(player1Image2);
+        Image player2Image2 = imageService.getRandomLogo();
+        while(player2Image2.getName().equals(game.getPlayer2Image1().getName())){
+            player2Image2 = imageService.getRandomLogo();
+        }
+        game.setPlayer2Image2(player2Image2);
+        Image player1Image3 = imageService.getRandomLogo();
+        while(player1Image3.getName().equals(game.getPlayer1Image1().getName()) || player1Image3.getName().equals(game.getPlayer1Image2().getName())){
+            player1Image3 = imageService.getRandomLogo();
+        }
+        game.setPlayer1Image3(player1Image3);
+        Image player2Image3 = imageService.getRandomLogo();
+        while(player2Image3.getName().equals(game.getPlayer2Image1().getName()) || player2Image3.getName().equals(game.getPlayer2Image2().getName())){
+            player2Image3 = imageService.getRandomLogo();
+        }
+        game.setPlayer2Image3(player2Image3);
         game.setPlayer1Shifts(0);
         game.setPlayer2Shifts(0);
         game.setPlayer1Succes(0);
@@ -448,7 +475,6 @@ public class OnlineGameController {
             game.setPlayer2CanWin(true);
         }
         this.onlineGameService.save(game);
-    }
-    
+    }    
 }
 

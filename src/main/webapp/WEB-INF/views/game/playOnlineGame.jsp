@@ -52,7 +52,7 @@
                     </div>
                     </form:form>
 
-                    <a class="buttom-danger" href ="/onlineGame/leave/${game.id}">Abandonar</a>
+                    <a class="buttom-danger" href ="/game/onlineGame/leave/${game.id}">Abandonar</a>
 
                 </div>
 

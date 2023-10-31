@@ -1,5 +1,6 @@
 package TFG.CUPES.Game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -58,7 +59,9 @@ public class GameUtils {
 
     public ModelAndView expelPlayer(){
         ModelAndView res  = new ModelAndView("redirect:/");
-        res.addObject("errormsg", "Estas intentando acceder a una partida que no existe o que ya ha finalizado");
+        List<String> msg = new ArrayList<>();
+        msg.add("Estas intentando acceder a una partida que no existe o que ya ha finalizado");
+        res.addObject("errormsg", msg);
         return res;
     }
 

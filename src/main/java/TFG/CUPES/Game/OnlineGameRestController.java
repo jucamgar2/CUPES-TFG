@@ -22,7 +22,7 @@ public class OnlineGameRestController {
     public ResponseEntity<Boolean> checkGameStatus(@PathVariable("gameId") Integer gameId) {
         OnlineGame onlineGame = onlineGameService.getOnlineGameByid(gameId).orElse(null);
         Boolean bothPlayersFinished=false;
-        bothPlayersFinished =onlineGame.getPlayer1FInish()!=null && onlineGame.getPlayer2Finish()!=null;
+        bothPlayersFinished =(onlineGame.getPlayer1FInish()!=null && onlineGame.getPlayer2Finish()!=null) || onlineGame.getPlayer1Leaves() || onlineGame.getPlayer2Leaves();
         return ResponseEntity.ok(bothPlayersFinished);
     }
 

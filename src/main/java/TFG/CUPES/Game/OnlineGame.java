@@ -82,4 +82,8 @@ public class OnlineGame extends MultiplayerGame{
     private Boolean player1Redt;
 
     private Boolean player2Redt;
+
+    public void removePlayer2(){
+        this.player2 = null;
+    }
 }

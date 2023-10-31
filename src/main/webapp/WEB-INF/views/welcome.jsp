@@ -6,16 +6,13 @@
 <CUPES:layout title="Página de Inicio">
     <div class="doBody">
         <div class="theBody">
+            <c:forEach items="${errormsg}" var="error">
+                <div class="error-notification">
+                    <span>${error}</span>
+                    <button class="close-button">×</button>
+                </div>
+            </c:forEach>
             <h1 class="tituloPrincipal">Bienvenido a</h1>
-            <!-- 
-            <h1>Bienvenido a Con Un Pedazo Es Suficiente, tu nuevo juego preferido</h1>
-            <h3>En esta aplicación podrás demostrar tus conocimientos futbolísticos</h3>
-            <h2>áéíóú@你好</h2>
-            <p>Si es la primera vez que entras a CUPES, te recomendamos que te registres</p>
-            <p>Aunque realmente no es necesario para probar nuestro modo de juego para un jugador</p>
-
-            <p>Si eres un jugador experimentado puedes competir contra tus amigos desde el mismo dispositivo o contra cualquier persona del mundo en nuestro modo de juego multijugador en linea</p>
-            -->
             <div class="animation">
                 <div id="animated-text"></div>
             </div>
@@ -35,7 +32,7 @@
                     <a href="/game/onlineGame/new" class="buttom">Crear partida 1vs1 en linea</a>
                     <a href="/game/onlineGame/join" class="buttom">Unirse a una partida 1vs1 en linea</a>
                 </sec:authorize>
-
+                <script src="/js/error_script.js"></script>
             </div>
         </div>
     </div>

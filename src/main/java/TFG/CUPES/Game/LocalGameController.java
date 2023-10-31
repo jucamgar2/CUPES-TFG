@@ -187,6 +187,7 @@ public class LocalGameController {
                 if(logo.getName().equals(game.getPlayer1Image().getName())){
                     game.setPlayer1FInish(LocalDateTime.now());
                     game.setActualPlayer(game.getPlayer2Name());
+                    game.setPlayer1CanWin(true);
                     game.setPlayer2Start(LocalDateTime.now());
                 }
                 res = new ModelAndView("redirect:/game/localGame/play/" + game.getId() + "?token=" + game.getToken());
@@ -196,6 +197,7 @@ public class LocalGameController {
                     game.setPlayer2Finish(LocalDateTime.now());
                     res = new ModelAndView("redirect:/game/localGame/res/"+game.getId());
                     game.setActualPlayer(null);
+                    game.setPlayer2CanWin(true);
                     game.setWinner(game.checkWinner(game.getPlayer1Name(), game.getPlayer2Name()));
                     this.localGameService.save(game);
                 }
@@ -233,8 +235,17 @@ public class LocalGameController {
         }
         Duration player1Time = Duration.between(game.getPlayer1Start(),game.getPlayer1FInish());
         Duration player2Time = Duration.between(game.getPlayer2Start(),game.getPlayer2Finish());
-        res.addObject("shiftsP1",game.getPlayer1Name() +  " ha necesitado " + game.getPlayer1Shifts() + " intentos y ha tardado " + player1Time.getSeconds()+ " segundos" );
-        res.addObject("shiftsP2",game.getPlayer2Name() +  " ha necesitado " + game.getPlayer2Shifts() + " intentos y ha tardado " + player2Time.getSeconds()+ " segundos" );
+        if(game.getPlayer1CanWin()){
+            res.addObject("shiftsP1",game.getPlayer1Name() +  " ha acertado y ha necesitado " + game.getPlayer1Shifts() + " intentos y ha tardado " + player1Time.getSeconds()+ " segundos" );
+        }else{
+            res.addObject("shiftsP1",game.getPlayer1Name() +  " no ha acertado y ha tardado " + player1Time.getSeconds()+ " segundos" );
+        }
+
+        if(game.getPlayer2CanWin()){
+            res.addObject("shiftsP2",game.getPlayer2Name() +  " ha acertado y ha necesitado " + game.getPlayer2Shifts() + " intentos y ha tardado " + player2Time.getSeconds()+ " segundos" );
+        }else{
+            res.addObject("shiftsP2",game.getPlayer2Name() +  " no ha acertado y ha tardado " + player2Time.getSeconds()+ " segundos" );
+        }
         String imageSelected = "/images/"+game.getPlayer1Image().getImageType()+"/"+game.getPlayer1Image().getResourceName()+".jpg";
         res.addObject("imageUrl1", imageSelected);
         imageSelected = "/images/"+game.getPlayer2Image().getImageType()+"/"+game.getPlayer2Image().getResourceName()+".jpg";
