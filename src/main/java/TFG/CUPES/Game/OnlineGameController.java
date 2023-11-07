@@ -55,7 +55,7 @@ public class OnlineGameController {
     @GetMapping("/new")
     public ModelAndView select(Principal principal){
         OnlineGame game = new OnlineGame();
-        Player player1 = this.playerService.findByUsername(principal.getName());
+        Player player1 = this.playerService.getByUsername(principal.getName());
         game.setPlayer1(player1);
         game.setPlayer1IsReady(false);
         game.setPlayer2IsReady(false);
@@ -85,7 +85,7 @@ public class OnlineGameController {
         if(game == null || game.getPlayer2() != null){
            return gameUtils.expelPlayer();
         }
-        Player player2 = this.playerService.findByUsername(principal.getName());
+        Player player2 = this.playerService.getByUsername(principal.getName());
         game.setPlayer2(player2);
         this.onlineGameService.save(game);
         return res;
@@ -110,7 +110,7 @@ public class OnlineGameController {
     public ModelAndView lobby(@PathVariable("id") Integer id, Principal principal){
         ModelAndView res = new ModelAndView("redirect:/game/onlineGame/join/" + id);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
-        Player player = this.playerService.findByUsername(principal.getName());
+        Player player = this.playerService.getByUsername(principal.getName());
         if(game ==null){
             return gameUtils.expelPlayer();
         }

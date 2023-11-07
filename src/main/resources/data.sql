@@ -1,9 +1,9 @@
 -- encoding: UTF-8
-INSERT INTO player(username,password,enabled) VALUES ('Guaje','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true);
+INSERT INTO player(username,password,enabled,birth_date,mail,name) VALUES ('Guaje','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true,'2002-01-02','guaje@guaje.com','Guaje');
 INSERT INTO authorities(id,username,authority) VALUES (1,'Guaje','player');
-INSERT INTO player(username,password,enabled) VALUES ('Antonio','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true);
+INSERT INTO player(username,password,enabled,birth_date,mail,name) VALUES ('Antonio','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true,'2002-04-04','antonio@antonio.com','Antonio');
 INSERT INTO authorities(id,username,authority) VALUES (2,'Antonio','player');
-INSERT INTO player(username,password,enabled) VALUES ('Mera','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true);
+INSERT INTO player(username,password,enabled,birth_date,mail,name) VALUES ('Mera','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true,'2002-05-05','mera@mera.com','Mera');
 INSERT INTO authorities(id,username,authority) VALUES (3,'Mera','player');
 
 INSERT INTO position(id,x,y) VALUES (1,0,0);

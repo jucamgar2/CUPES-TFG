@@ -29,8 +29,8 @@
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <h2>Prueba desde ya nuestro modo competitivo en linea donde tienes la opción de crear una partida o unirte a una partida ya creada:</h2>
-                    <a href="/game/onlineGame/new" class="buttom">Crear partida 1vs1 en linea</a>
-                    <a href="/game/onlineGame/join" class="buttom">Unirse a una partida 1vs1 en linea</a>
+                    <a href="/game/onlineGame/new" class="buttom">Crear partida 1vs1 en línea</a>
+                    <a href="/game/onlineGame/join" class="buttom">Unirse a una partida 1vs1 en línea</a>
                 </sec:authorize>
                 <script src="/js/error_script.js"></script>
             </div>

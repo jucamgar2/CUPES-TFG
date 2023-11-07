@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.validation.Valid;
 
 import java.io.IOException;
 import java.time.Duration;
@@ -56,7 +55,7 @@ public class LocalGameController {
     }
 
     @PostMapping("/new")
-    public ModelAndView createLocalGame(@Valid LocalGame localGame,BindingResult br){
+    public ModelAndView createLocalGame( LocalGame localGame,BindingResult br){
         String token = UUID.randomUUID().toString();
         ModelAndView res;
         List<String> errors = localGame.chekcLocalGame(); 

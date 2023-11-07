@@ -28,4 +28,9 @@ public class ImageService {
     public List<Image> getAllLogos(){
         return (List<Image>) this.logoRepository.findAll();
     }
+
+    @Transactional(readOnly = true)
+    public Image getLogoById(Integer id){
+        return this.logoRepository.findById(id).orElse(null);
+    }
 }

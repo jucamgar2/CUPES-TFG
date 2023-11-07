@@ -54,7 +54,7 @@ public class GameAloneController {
     public String createGame(Principal principal){
         GameAlone g = new GameAlone();
         if(principal !=null){
-            Player player = this.playerService.findByUsername(principal.getName());
+            Player player = this.playerService.getByUsername(principal.getName());
             if(player!=null){
                 g.setPlayer(player);
             }
