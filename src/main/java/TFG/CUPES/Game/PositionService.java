@@ -17,7 +17,7 @@ public class PositionService {
         return this.positionController.findPositionByXAndY(x, y);
     }
 
-    List<Position> findAll(){
+    public List<Position> findAll(){
         return (List<Position>) this.positionController.findAll();
     }
 }

@@ -116,9 +116,9 @@ public class LocalGameController {
                     
                 
                     if(game.getPlayer1Positions().size() == game.getPlayer1Shifts()){
-                        p = gameUtils.randomImagePortion(imageSelected, game.getPlayer1Positions(), positions);
+                        p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
                         while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                            p = gameUtils.randomImagePortion(imageSelected, game.getPlayer1Positions(), positions);
+                            p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
                         }
                         game.setX(p.getX());
                         game.setY(p.getY());
@@ -149,9 +149,9 @@ public class LocalGameController {
                         p = new Position(game.getX(),game.getY());
                     }
                     if(game.getPlayer2Positions().size() == game.getPlayer2Shifts()){
-                        p = gameUtils.randomImagePortion(imageSelected, game.getPlayer2Positions(), positions);
+                        p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
                         while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                            p = gameUtils.randomImagePortion(imageSelected, game.getPlayer2Positions(), positions);
+                            p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
                         }
                         game.setX(p.getX());
                         game.setY(p.getY());

@@ -36,6 +36,7 @@ public class PlayerServiceTest {
         assertEquals(p.getPassword(),p2.getPassword());
         assertEquals(p.getMail(),p2.getMail());
         assertEquals(p.getName(),p2.getName());
+        assertEquals(p.getEnabled(),p2.getEnabled());
     }
 
     @Test
@@ -108,5 +109,29 @@ public class PlayerServiceTest {
             assertEquals(errors.size(), 1);
         }
     }
-    
+
+    @Test
+    public void checkPlayerRestricionTest2(){
+        List<Player> players = new ArrayList<>();
+        Player p2 = new Player();
+        p2.setUsername("Guajín");
+        p2.setPassword("1111");
+        p2.setBirthDate(LocalDate.of(2030, 1, 1));
+        p2.setMail("x");
+        p2.setName("x");
+        p2.setEnabled(true);
+        Player p1 = new Player("Guajín", "1111", true, LocalDate.of(2000, 1, 1), "guaje@guaje.com","joselillo");
+        p1.setBirthDate(null);
+        p1.setName(null);
+        players.add(p2);
+        players.add(p1);
+        Player p3 = new Player("Guajín", "1111", true, LocalDate.of(2000, 1, 1), "guaje@guaje.comaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","joselillo");
+        players.add(p3);
+        Player p4 = new Player("Guajín", "1111", true, LocalDate.of(2000, 1, 1), null,"joselilloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        players.add(p4);
+        for(Player p :players){
+            List<String> errors = this.playerService.checkPlayerRestrictions(p);
+            assert(errors.size()>0);
+        }
+    }    
 }

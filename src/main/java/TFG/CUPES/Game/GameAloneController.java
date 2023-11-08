@@ -96,9 +96,9 @@ public class GameAloneController {
                 p = new Position(game.getX(),game.getY());
             }
             if(game.getPositions().size() == game.getShift()){
-                p = gameUtils.randomImagePortion(imageSelected, game.getPositions(), positions);
+                p = gameUtils.randomImagePortion( game.getPositions(), positions);
                 while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                    p = gameUtils.randomImagePortion(imageSelected, game.getPositions(), positions);
+                    p = gameUtils.randomImagePortion( game.getPositions(), positions);
                 }
                 game.setX(p.getX());
                 game.setY(p.getY());

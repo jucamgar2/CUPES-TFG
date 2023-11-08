@@ -38,7 +38,6 @@ public class PlayerService {
         List<String> errors = new ArrayList<String>();
         String pattern = "^[A-Za-z0-9+_.-]+@(.+)$";
         Pattern pattern2 = Pattern.compile(pattern);
-        Matcher matcher = pattern2.matcher(p.getMail());
         if(p.getUsername().contains(" ")){
             errors.add("El nombre de usuario no debe contener espacios en blanco");
         }
@@ -54,22 +53,28 @@ public class PlayerService {
         if(p.getPassword().length()<4 || p.getPassword().length()>30){
             errors.add("La longitud de la contraseña debe tener entre 4 y 30 caracteres");
         }
-        if(p.getName()!=null&&(p.getName().length()<3 || p.getName().length()>30)){
-            errors.add("La longitud del nombre debe tener entre 3 y 30 caracteres");
-        }
         if(p.getName() ==null){
             errors.add("El nombre no puede estar vacío");
-        }
-        if(p.getName()!=null && findByMail(p.getMail())!=null){
-            errors.add("Ya existe un usuario con ese correo");
+        }else{
+            if(p.getName().length()<3 || p.getName().length()>30){
+                errors.add("La longitud del nombre debe tener entre 3 y 30 caracteres");
+            }
         }
         if(p.getMail()==null){
             errors.add("El correo no puede estar vacío");
         }else{
+            Matcher matcher = pattern2.matcher(p.getMail());
             if(matcher.matches()==false){
                 errors.add("El correo no es válido");
             }
+            if (p.getMail().length()>50){
+            errors.add("La longitud del correo debe tener menos de 50 caracteres"); 
+            }
+            if(findByMail(p.getMail())!=null){
+                errors.add("Ya existe un usuario con ese correo");
+            }
         }
+        
         if(p.getBirthDate()==null){
             errors.add("La fecha de nacimiento no puede estar vacía");
         }

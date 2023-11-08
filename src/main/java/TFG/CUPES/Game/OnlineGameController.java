@@ -158,9 +158,9 @@ public class OnlineGameController {
                 }
                 if(game.getPlayer1Redt() || game.getPlayer1Positions().isEmpty()){
                     game.setPlayer1Redt(false);
-                    p = gameUtils.randomImagePortion(imageSelected, game.getPlayer1Positions(), positions);
+                    p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
                     while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                        p = gameUtils.randomImagePortion(imageSelected, game.getPlayer1Positions(), positions);
+                        p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
                     }
                     game.setPlayer1X(p.getX());
                     game.setPlayer1Y(p.getY());
@@ -179,9 +179,9 @@ public class OnlineGameController {
                     p = new Position(game.getPlayer2X(),game.getPlayer2Y());
                 }
                 if(game.getPlayer2Redt()|| game.getPlayer2Positions().isEmpty()){
-                    p = gameUtils.randomImagePortion(imageSelected, game.getPlayer2Positions(), positions);
+                    p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
                     while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                        p = gameUtils.randomImagePortion(imageSelected, game.getPlayer2Positions(), positions);
+                        p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
                     }
                     game.setPlayer2X(p.getX());
                     game.setPlayer2Y(p.getY());

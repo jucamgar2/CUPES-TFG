@@ -18,11 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 public class GameUtils {
 
-    public List<Integer> getFootballImagePosition(){
-        return List.of(0,500,1000,1500);
-    }
 
-    public Position randomImagePortion(String imageSelected,List<Position> gamePositions,List<Position> positions) {
+    public Position randomImagePortion(List<Position> gamePositions,List<Position> positions) {
         Random rand = new Random();
         List<Position> elegiblePositions = positions.stream().filter(x->!gamePositions.contains(x)).toList();
         Position newPosition = elegiblePositions.get(rand.nextInt(elegiblePositions.size()));
