@@ -1,5 +1,6 @@
 package TFG.CUPES.Game;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,11 @@ public class GameAloneService {
     @Transactional(readOnly = true)
     public Optional<GameAlone> getGameById(Integer id){
         return this.gameRepository.findById(id);
+    }
+
+    @Transactional
+    public void deleteGame(GameAlone g){
+        this.gameRepository.delete(g);
     }
 
     @Transactional(readOnly = true)

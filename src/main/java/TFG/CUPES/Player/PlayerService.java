@@ -21,6 +21,11 @@ public class PlayerService {
         this.playerRepo.save(p);
     }
 
+    @Transactional
+    public void delete(Player p){
+        this.playerRepo.delete(p);
+    }
+
     @Transactional(readOnly = true)
     public boolean exists(String username) {
         return this.playerRepo.existsById(username);
