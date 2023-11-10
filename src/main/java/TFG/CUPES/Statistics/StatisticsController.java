@@ -4,6 +4,7 @@ import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -26,7 +27,7 @@ public class StatisticsController {
         this.gameAloneService = gameAloneService;
     }
 
-    @RequestMapping("")
+    @GetMapping("")
     public ModelAndView statistics(Principal principal) {
         ModelAndView res = new ModelAndView(STATISTICS_VIEW);
         if(principal!= null){
@@ -40,8 +41,8 @@ public class StatisticsController {
         return res;
     }
 
-    @RequestMapping("/GA/ranking")
-    public ModelAndView statistics(){
+    @GetMapping("/GA/ranking")
+    public ModelAndView gameAloneRanking(){
         ModelAndView res = new ModelAndView(STATISTICS_RANKING_VIEW_GA);
         res.addObject("msg","Ranking de partidas en solitario");
         res.addObject("rankingGame", this.gameAloneService.getRankingGame());
@@ -49,8 +50,8 @@ public class StatisticsController {
         return res;
     }
 
-    @RequestMapping("/GO/ranking")
-    public ModelAndView statisticsOnline(){
+    @GetMapping("/GO/ranking")
+    public ModelAndView onlineGameRanking(){
         ModelAndView res = new ModelAndView(STATISTICS_RANKING_VIEW_GA);
         res.addObject("msg","Ranking de partidas en línea");
         res.addObject("rankingGame", this.onlineGameService.getRankingGame());

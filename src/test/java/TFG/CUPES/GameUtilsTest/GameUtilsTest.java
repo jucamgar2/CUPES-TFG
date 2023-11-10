@@ -40,11 +40,6 @@ public class GameUtilsTest {
     }
 
     @Test
-    public void checkImageHasMoreThan1ColorTest(){
-
-    }
-
-    @Test
     public void generateImageStyleTest(){
         String imageSeelected = "imageSelected";
         Position position = new Position(0,0);
@@ -87,6 +82,34 @@ public class GameUtilsTest {
         assertEquals(style, res);
     }
 
+    @Test
+    public void checkImageHasMoreThan1ColorTest(){
+        String imageSelected = "/images/Logo/OL.jpg";
+        List<Position> positions = this.positionService.findAll();
+        for(Position p : positions){
+            try{
+                assert(this.GameUtils.checkImageHasMoreThan1Color(imageSelected, p));
+            }catch(Exception e){
+                assertEquals(1, 2);
+            }
+        }
+    }
 
+    @Test
+    public void checkImageHasOnly1ColorTest(){
+        String imageSelected = "/images/Logo/Celta.jpg";
+        Position position = new Position();
+        position.setX(0);
+        position.setY(0);
+        Position position2 = new Position(0,250);
+        Position position3 = new Position(0,375);
+        try{
+            assert(!this.GameUtils.checkImageHasMoreThan1Color(imageSelected, position));
+            assert(!this.GameUtils.checkImageHasMoreThan1Color(imageSelected, position2));
+            assert(!this.GameUtils.checkImageHasMoreThan1Color(imageSelected, position3));
+        }catch(Exception e){
+            assertEquals(1, 2);
+        }
+    }
 
 }
