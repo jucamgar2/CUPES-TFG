@@ -11,9 +11,13 @@ import javax.persistence.ManyToOne;
 
 import TFG.CUPES.Image.Image;
 import TFG.CUPES.Player.Player;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Getter
 @Setter

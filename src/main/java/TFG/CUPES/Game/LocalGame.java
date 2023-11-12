@@ -12,10 +12,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import TFG.CUPES.Image.Image;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Getter
 @Setter
@@ -50,7 +53,7 @@ public class LocalGame  extends MultiplayerGame{
     @ManyToMany
     private List<Position> player2Positions;
 
-    List<String> chekcLocalGame(){
+    public List<String> chekcLocalGame(){
         List<String> res = new ArrayList<String>();
         if(this.player1Name==null || this.player1Name==""){
             res.add("El nombre del jugador 1 no puede estar vacío");
@@ -61,10 +64,10 @@ public class LocalGame  extends MultiplayerGame{
         if(this.player1Name == this.player2Name){
             res.add("Los nombres de los jugadores no pueden ser iguales");
         }
-        if(this.player1Name.length()<4 || this.player1Name.length()>30){
+        if(this.player1Name!=null && (this.player1Name.length()<4 || this.player1Name.length()>30)){
             res.add("El nombre del jugador 1 debe tener entre 4 y 30 caracteres");
         }
-        if(this.player2Name.length()<4 || this.player2Name.length()>30){
+        if(this.player2Name!=null&& (this.player2Name.length()<4 || this.player2Name.length()>30)){
             res.add("El nombre del jugador 2 debe tener entre 4 y 30 caracteres");
         }
         return res;

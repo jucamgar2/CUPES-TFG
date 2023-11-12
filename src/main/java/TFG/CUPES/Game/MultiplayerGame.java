@@ -4,9 +4,13 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import javax.persistence.MappedSuperclass;
+
+
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @MappedSuperclass
