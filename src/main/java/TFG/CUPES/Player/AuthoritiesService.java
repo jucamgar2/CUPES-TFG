@@ -25,6 +25,11 @@ public class AuthoritiesService {
         return authoritiesRepository.findMaxId();
     }
 
+    @Transactional(readOnly=true)
+    public Authorities findByUsername(String username){
+        return authoritiesRepository.findByUsername(username);
+    }
+
     
     
 }

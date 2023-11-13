@@ -6,6 +6,9 @@ INSERT INTO authorities(id,username,authority) VALUES (2,'Antonio','player');
 INSERT INTO player(username,password,enabled,birth_date,mail,name) VALUES ('Mera','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true,'2002-05-05','mera@mera.com','Mera');
 INSERT INTO authorities(id,username,authority) VALUES (3,'Mera','player');
 
+INSERT INTO player(username,password,enabled,birth_date,mail,name) VALUES ('admin','$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG',true,'2002-01-02','admin@admin.com','admin');
+INSERT INTO authorities(id,username,authority) VALUES (4,'admin','admin');
+
 INSERT INTO position(id,x,y) VALUES (1,0,0);
 INSERT INTO position(id,x,y) VALUES (2,0,125);
 INSERT INTO position(id,x,y) VALUES (3,0,250);

@@ -9,4 +9,7 @@ public interface AuthoritiesRepository extends CrudRepository<Authorities, Integ
     
     @Query("SELECT MAX(a.id) FROM Authorities a")
     Integer findMaxId();
+
+    @Query("SELECT a FROM Authorities a WHERE a.player.username = ?1")
+    Authorities findByUsername(String username);
 }

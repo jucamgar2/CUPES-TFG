@@ -1,7 +1,5 @@
 package TFG.CUPES.Image;
 
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +12,6 @@ import lombok.Setter;
 @Setter
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     private String name;
@@ -22,6 +19,5 @@ public class Image {
     private String resourceName;
 
     private String imageType;
-
     
 }

@@ -16,6 +16,11 @@ public class ImageService {
     public ImageService(ImageRepository logoRepo){
         this.logoRepository = logoRepo;
     }
+
+    @Transactional(readOnly = true)
+    public Integer getMaxId(){
+        return this.logoRepository.maxId();
+    }
     
     @Transactional(readOnly = true)
     public Image getRandomLogo(){
@@ -32,5 +37,10 @@ public class ImageService {
     @Transactional(readOnly = true)
     public Image getLogoById(Integer id){
         return this.logoRepository.findById(id).orElse(null);
+    }
+
+    @Transactional
+    public void save(Image image) {
+        this.logoRepository.save(image);
     }
 }

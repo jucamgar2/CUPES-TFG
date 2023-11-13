@@ -196,7 +196,5 @@ public class OnlineGameServiceTest {
         int maria3 = res.get("María3").intValue();
         assertEquals(maria3, 4);
     }
-
-
-    
+   
 }
