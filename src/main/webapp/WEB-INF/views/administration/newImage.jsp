@@ -7,6 +7,16 @@
 <CUPES:layout title="Página de Inicio">
     <div class="doBody">
         <div class="theBody">
+            <c:if test="${not empty errors}">
+                <div id="error-notifications">
+                    <c:forEach items="${errors}" var="error">
+                        <div class="error-notification">
+                            <span>${error}</span>
+                            <button class="close-button">×</button>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:if>
             <form:form modelAttribute="imageForm"  enctype="multipart/form-data">
                 <div>
                     <form:label path="file">Añade aqui la imagen</form:label> 
@@ -24,4 +34,5 @@
             </form:form>
         </div>
     </div>
+    <script src="/js/error_script.js"></script>
 </CUPES:layout>
