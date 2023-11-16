@@ -9,6 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -87,5 +89,9 @@ public class PlayerService {
             errors.add("La fecha de nacimiento no puede ser posterior a la fecha actual");
         }
         return errors;
+    }
+
+    public Page<Player> getAllAuthoritiesPageable(PageRequest of) {
+        return this.playerRepo.findAll(of);
     }
 }

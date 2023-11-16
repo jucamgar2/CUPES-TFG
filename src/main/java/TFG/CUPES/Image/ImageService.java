@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,4 +45,17 @@ public class ImageService {
     public void save(Image image) {
         this.logoRepository.save(image);
     }
+
+    @Transactional(readOnly = true)
+    public Page<Image> getAllLogosPageable(PageRequest of) {
+        return this.logoRepository.findAll(of);
+    }
+
+    public void delete(Image image) {
+        this.logoRepository.delete(image);
+    }
+
+    
+
+    
 }
