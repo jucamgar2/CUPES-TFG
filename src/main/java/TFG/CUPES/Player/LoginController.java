@@ -15,7 +15,7 @@ public class LoginController {
     @GetMapping("/login")
     public String login(@PathParam("error") String error, Model model) {
         if (error != null) {
-            List<String> errors = List.of("Lo sentimos pero el usuario y la contraseña no coinciden con los de ningun usuario registrado");
+            List<String> errors = List.of("Lo sentimos pero el usuario y la contraseña no coinciden con los de ningun usuario registrado o habilitado");
             model.addAttribute("errors", errors);
         }
         return "login";

@@ -91,7 +91,45 @@ public class PlayerService {
         return errors;
     }
 
+    public List<String> editPlayerErrors(Player p){
+        List<String> errors = new ArrayList<String>();
+        String pattern = "^[A-Za-z0-9+_.-]+@(.+)$";
+        Pattern pattern2 = Pattern.compile(pattern);
+        if(p.getName() ==null){
+            errors.add("El nombre no puede estar vacío");
+        }else{
+            if(p.getName().length()<3 || p.getName().length()>30){
+                errors.add("La longitud del nombre debe tener entre 3 y 30 caracteres");
+            }
+        }
+        if(p.getMail()==null){
+            errors.add("El correo no puede estar vacío");
+        }else{
+            Matcher matcher = pattern2.matcher(p.getMail());
+            if(matcher.matches()==false){
+                errors.add("El correo no es válido");
+            }
+            if (p.getMail().length()>50){
+            errors.add("La longitud del correo debe tener menos de 50 caracteres"); 
+            }
+            if(findByMail(p.getMail())!=null){
+                errors.add("Ya existe un usuario con ese correo");
+            }
+        }
+        
+        if(p.getBirthDate()==null){
+            errors.add("La fecha de nacimiento no puede estar vacía");
+        }
+        if(p.getBirthDate()!=null && p.getBirthDate().isAfter(LocalDate.now())){
+            errors.add("La fecha de nacimiento no puede ser posterior a la fecha actual");
+        }
+        return errors;
+    }
+
+
     public Page<Player> getAllAuthoritiesPageable(PageRequest of) {
         return this.playerRepo.findAll(of);
     }
+
+
 }

@@ -49,35 +49,6 @@ public class AdministrationService {
         return res;
     }
 
-    public void resizeImputImage(ImageForm imageForm) {
-        try {
-            // Tu código para obtener originalImage
-
-            // Redimensionar la imagen
-            //BufferedImage resizedImage = Thumbnails.of(imageForm.getFile().getInputStream()).size(2000, 2000).asBufferedImage();
-
-            // Ruta de la imagen redimensionada
-            String destinationPath = "src/main/resources/static/images/Logo/" + imageForm.getName().toLowerCase().strip() + ".jpg";
-
-            // Crear directorios si no existen
-            Files.createDirectories(Path.of(destinationPath).getParent());
-
-            // Guardar la imagen redimensionada usando Files.copy
-            //byte[] r = bufferedImageToByteArray(resizedImage);
-            //System.out.println("Bytes"+r);
-
-            Files.copy(imageForm.getFile().getInputStream(), Path.of(destinationPath), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private byte[] bufferedImageToByteArray(BufferedImage image) throws IOException {
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(image, "jpg", os);
-        return os.toByteArray();
-    }
-
     public void resizeInputImage(ImageForm imageForm) throws IOException{
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         Thumbnails.of(imageForm.getFile().getInputStream())

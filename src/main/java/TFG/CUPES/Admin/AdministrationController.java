@@ -127,4 +127,26 @@ public class AdministrationController {
         res.addObject("totalPages", authoritiesPage.getTotalPages());
         return res;
     }
+
+    @GetMapping("/players/disable/{id}")
+    public ModelAndView disablePlayer(@PathVariable("id") String id){
+        ModelAndView res = new ModelAndView("redirect:/administration/players");
+        Player player = playerService.getByUsername(id);
+        if(player!=null){
+            player.setEnabled(false);
+            playerService.save(player);
+        }
+        return res;
+    }
+
+    @GetMapping("/players/enable/{id}")
+    public ModelAndView enablePlayer(@PathVariable("id") String id){
+        ModelAndView res = new ModelAndView("redirect:/administration/players");
+        Player player = playerService.getByUsername(id);
+        if(player!=null){
+            player.setEnabled(true);
+            playerService.save(player);
+        }
+        return res;
+    }
 }

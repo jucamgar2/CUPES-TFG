@@ -14,6 +14,7 @@
                         <th>Mail</th>
                         <th>Estado</th>
                         <th>Deshabilitar</th>
+                        <th>Habilitar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,13 +24,14 @@
                             <td><c:out value="${player.getMail()}"/></td>
                             <td>
                                 <c:if test="${!player.getEnabled()}">
-                                    <a style="color: red;"><i class="fa fa-close"></i></a>
+                                    <a style="color:red;"><i class="fa fa-window-close"></i></a>
                                 </c:if>
                                 <c:if test = "${player.getEnabled()}">
                                     <a style="color:green"><i class="fa fa-check-circle"></i></a>
                                 </c:if>
                             </td>
-                            <td><a href="/administration/players/delete/${player.getUsername()}" ><i class="fas fa-trash"></i></a></td>
+                            <td><a href="/administration/players/disable/${player.getUsername()}" ><i class="fa fa-exclamation"></i></a></td>
+                            <td><a href="/administration/players/enable/${player.getUsername()}"><i class="fa fa-play"></i></a></td>
                         </tr>
                     </c:forEach>
                 </tbody>

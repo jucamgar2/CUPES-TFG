@@ -1,5 +1,6 @@
 package TFG.CUPES.Player;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,5 +64,47 @@ public class PlayerController {
         return result;
     }
 
-    
+    @GetMapping("/profile")
+    public ModelAndView showProfile(Principal principal){
+        if(principal==null){
+            ModelAndView result = new ModelAndView("redirect:/login");
+            return result;
+        }
+        ModelAndView result = new ModelAndView("/players/profile");
+        Player p = playerService.getByUsername(principal.getName());
+        result.addObject("player", p);
+        return result;
+    }    
+
+    @GetMapping("/edit")
+    public ModelAndView editProfile(Principal principal){
+        if(principal==null){
+            ModelAndView result = new ModelAndView("redirect:/login");
+            return result;
+        }
+        ModelAndView result = new ModelAndView("/players/edit");
+        Player p = playerService.getByUsername(principal.getName());
+        result.addObject("player", p);
+        return result;
+    }
+
+    @PostMapping("/edit")
+    public ModelAndView saveEditProfile(Player p, BindingResult br, Principal principal){
+        Player player = playerService.getByUsername(principal.getName());
+        player.setName(p.getName());
+        player.setMail(p.getMail());
+        player.setBirthDate(p.getBirthDate());
+        if(br.hasErrors()){
+            return new ModelAndView("/players/edit",br.getModel());
+        }
+        List<String> errors = this.playerService.editPlayerErrors(player);
+        if(!errors.isEmpty()){
+            ModelAndView result = new ModelAndView("/players/edit");
+            result.addObject("errors", errors);
+            return result;
+        }
+        playerService.save(player);
+        ModelAndView result =new ModelAndView("redirect:/players/profile");
+        return result;
+    }
 }

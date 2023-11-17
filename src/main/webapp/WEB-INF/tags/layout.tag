@@ -51,6 +51,9 @@
         <sec:authorize access="isAuthenticated()">
           <li><a class="cerrar-link" href="/logout"><i class="fas fa-sign-in-alt"></i> Cerrar sesi&oacute;n</a></li>
         </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+          <li><a class="profile-link" href="/players/profile"><i class="fa fa-user"></i> Perfil</a></li>
+        </sec:authorize>
       </ul>
 
       <script>
