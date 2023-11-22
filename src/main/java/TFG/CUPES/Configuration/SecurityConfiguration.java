@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/game/onlineGame/**").authenticated()
 				.antMatchers("/game/**").permitAll()
 				.antMatchers("/administration/**").hasAuthority("admin")
-				.antMatchers("/players/profile","/players/edit").hasAuthority("player")
+				.antMatchers("/players/profile/**","/players/edit").authenticated()
 				.anyRequest().denyAll()
 				.and()
 					.formLogin()

@@ -20,7 +20,9 @@
                 <tbody>
                     <c:forEach var="player" items="${players}">
                         <tr>
-                            <td><c:out value="${player.getUsername()}"/></td>
+                            <td>
+                             <a href="/players/profile/${player.getUsername()}"><c:out value="${player.getUsername()}"/></a>    
+                            </td>
                             <td><c:out value="${player.getMail()}"/></td>
                             <td>
                                 <c:if test="${!player.getEnabled()}">

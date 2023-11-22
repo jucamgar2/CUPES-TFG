@@ -1,20 +1,19 @@
 package TFG.CUPES.Player;
 
 import java.security.Principal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import TFG.CUPES.Statistics.StatisticsController;
 
 @Controller
 @RequestMapping("/players")
@@ -26,12 +25,17 @@ public class PlayerController {
 
     AuthoritiesService authoritiesService;
 
+    StatisticsController statisticsController;
+
+
     @Autowired
-    public PlayerController(PlayerService playerService, AuthoritiesService authoritiesService){
+    public PlayerController(PlayerService playerService, AuthoritiesService authoritiesService,StatisticsController statisticsController){
         this.playerService = playerService;
         this.authoritiesService = authoritiesService;
+        this.statisticsController = statisticsController;
     }
 
+    
     @GetMapping("/new")
     public ModelAndView createPlayer(){
         Player p = new Player();
@@ -65,14 +69,30 @@ public class PlayerController {
     }
 
     @GetMapping("/profile")
-    public ModelAndView showProfile(Principal principal){
-        if(principal==null){
-            ModelAndView result = new ModelAndView("redirect:/login");
+    public ModelAndView redirectProfile(String username,Principal principal){
+        ModelAndView result = new ModelAndView("redirect:/players/profile/"+principal.getName());
+        if(principal==null || principal.getName()==null || principal.getName().equals("")){
+            result = new ModelAndView("redirect:/login");
+        }
+        return result;
+    }
+
+    @GetMapping("/profile/{username}")
+    public ModelAndView showProfile(@PathVariable("username") String username,Principal principal){ 
+        ModelAndView result = new ModelAndView("/players/profile");
+        String authority = authoritiesService.findByUsername(principal.getName()).getAuthority();
+        if(principal==null || principal.getName()==null || principal.getName().equals("")){
+            result = new ModelAndView("redirect:/login");
+            return result;
+        }else if(!authority.equals("admin") && !principal.getName().equals(username)){
+            result = new ModelAndView("redirect:/");
             return result;
         }
-        ModelAndView result = new ModelAndView("/players/profile");
-        Player p = playerService.getByUsername(principal.getName());
+        Player p = playerService.getByUsername(username);
         result.addObject("player", p);
+        result.addObject("principal", principal);
+        result =statisticsController.addGameAloneStatisticsByUser(result, username);
+        result = statisticsController.addOnlineGameStatisticsByUser(result, username);
         return result;
     }    
 
@@ -104,7 +124,7 @@ public class PlayerController {
             return result;
         }
         playerService.save(player);
-        ModelAndView result =new ModelAndView("redirect:/players/profile");
+        ModelAndView result =new ModelAndView("redirect:/players/profile/"+principal.getName());
         return result;
     }
 }

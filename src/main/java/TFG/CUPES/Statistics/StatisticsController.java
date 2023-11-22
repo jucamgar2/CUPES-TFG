@@ -61,7 +61,7 @@ public class StatisticsController {
 
 
 
-    private ModelAndView addOnlineGameStatisticsByUser(ModelAndView res, String username) {
+    public ModelAndView addOnlineGameStatisticsByUser(ModelAndView res, String username) {
         res.addObject("userOnlineGames", this.onlineGameService.getNumOfGamesFromUser(username));
         res.addObject("userWins", this.onlineGameService.getNumOfWinsFromUser(username));
         res.addObject("userPerfectWins", this.onlineGameService.getNumOfPerfectWinsFromUser(username));
