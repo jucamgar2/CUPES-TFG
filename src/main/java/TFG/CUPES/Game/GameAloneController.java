@@ -2,6 +2,7 @@ package TFG.CUPES.Game;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -110,6 +111,13 @@ public class GameAloneController {
             res.addObject("imageStyle", imageStyle);
             String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPositions());
             res.addObject("fullImageStyle", fullImageStyle);
+            
+            if(game.getShift()>0){
+                List<String> errors = new ArrayList<>();
+                errors.add("¡Lo siento! Fallaste en tu último intento");
+                res.addObject("errors", errors);
+            }
+            
         }
         return res;
     }

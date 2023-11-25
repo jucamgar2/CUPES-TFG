@@ -113,8 +113,6 @@ public class LocalGameController {
                     }else{
                         p = new Position(game.getX(),game.getY());
                     }
-                    
-                
                     if(game.getPlayer1Positions().size() == game.getPlayer1Shifts()){
                         p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
                         while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
@@ -131,7 +129,11 @@ public class LocalGameController {
                 }
                 String shiftsMessage = "Tienes 4 intentos y has gastado " + game.getPlayer1Shifts();
                 res.addObject("shiftsMessage", shiftsMessage);
-                   
+                if(game.getPlayer1Shifts()>0){
+                    List<String> errors = new ArrayList<>();
+                    errors.add("¡Lo siento! Fallaste en tu último intento");
+                    res.addObject("errors", errors);
+                } 
             }else{
                 imageSelected = "/images/"+game.getPlayer2Image().getImageType()+"/"+game.getPlayer2Image().getResourceName()+".jpg";
                 res.addObject("imageUrl", imageSelected);
@@ -163,6 +165,11 @@ public class LocalGameController {
                 res.addObject("shiftsMessage", shiftsMessage);
                 String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer2Positions());
                 res.addObject("fullImageStyle", fullImageStyle);
+                if(game.getPlayer2Shifts()>0){
+                    List<String> errors = new ArrayList<>();
+                    errors.add("¡Lo siento! Fallaste en tu último intento");
+                    res.addObject("errors", errors);
+                }
             }
             String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
             res.addObject("imageStyle", imageStyle);

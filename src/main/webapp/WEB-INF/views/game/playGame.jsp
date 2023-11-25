@@ -2,11 +2,22 @@
 <%@ taglib prefix="CUPES" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="game">
     <div class = "doBody">
         <div class="theBody">
             <h1 class="game">¿Es suficieste este pedazo para que adivines el escudo?</h1>
+            <c:if test="${not empty errors}">
+                <div id="error-notifications">
+                    <c:forEach items="${errors}" var="error">
+                        <div class="error-notification">
+                            <span>${error}</span>
+                            <button class="close-button">×</button>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:if>
             <div>
                 <div class="column">
                     <div class="imageContainer">
@@ -43,7 +54,9 @@
             
            
             <script src="/js/autocomplete.js"></script>
+            <script src="/js/error_script.js"></script>
         </div>
     </div>
+   
         
 </CUPES:layout>

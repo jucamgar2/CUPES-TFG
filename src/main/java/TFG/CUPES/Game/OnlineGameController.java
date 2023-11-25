@@ -7,9 +7,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -131,7 +130,10 @@ public class OnlineGameController {
     }
 
     @GetMapping("/play/{id}")
-    public ModelAndView playOnlineGame(@PathVariable("id") Integer id,Principal principal) throws IOException{
+    public ModelAndView playOnlineGame(@PathVariable("id") Integer id,
+                        @RequestParam(value = "player1succes", required = false) Boolean player1succes,
+                        @RequestParam(value = "player2succes", required = false) Boolean player2succes,
+                        Principal principal) throws IOException{
         ModelAndView res = new ModelAndView(PLAY_GAME);
         res.addObject("principal", principal);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
@@ -171,6 +173,12 @@ public class OnlineGameController {
                 res.addObject("fullImageStyle", fullImageStyle);
                 String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
                 res.addObject("imageStyle", imageStyle);
+                if(game.getPlayer1Shifts()>0&& player1succes== null){
+                    res.addObject("error",true);
+                }
+                if(player1succes!=null && player1succes){
+                    res.addObject("succes", true);
+                }
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
                 Position p;
                 if(game.getPlayer2X()==null || game.getPlayer2Y()==null){
@@ -193,6 +201,12 @@ public class OnlineGameController {
                 res.addObject("fullImageStyle", fullImageStyle);
                 String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
                 res.addObject("imageStyle", imageStyle);
+                if(game.getPlayer2Shifts()>0 && player2succes== null){
+                    res.addObject("error",true);
+                }
+                if(player2succes!=null && player2succes){
+                    res.addObject("succes", true);
+                }
                 this.onlineGameService.save(game);
             }else{
                 return gameUtils.expelPlayer();
@@ -212,14 +226,14 @@ public class OnlineGameController {
         }
         if(game !=null){
             if(principal.getName().equals(game.getPlayer1().getUsername())){
-                checkSucces(game, principal, logo);
+                res = checkSucces(game, principal, logo,res);
                 if(game.getPlayer1Succes() == 3 || game.getPlayer1FInish()!=null){
                     game.setPlayer1FInish(LocalDateTime.now());
                     this.onlineGameService.save(game);
                     return new ModelAndView("redirect:/game/onlineGame/stand/" + id);
                 }
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
-                checkSucces(game, principal, logo);
+                res = checkSucces(game, principal, logo,res);
                 if(game.getPlayer2Succes() == 3 || game.getPlayer2Finish()!=null){
                     game.setPlayer2Finish(LocalDateTime.now());
                     this.onlineGameService.save(game);
@@ -386,11 +400,12 @@ public class OnlineGameController {
         return imageSelected;   
     }
 
-    public void checkSucces(OnlineGame game,Principal principal,Image logo){
+    public ModelAndView checkSucces(OnlineGame game,Principal principal,Image logo,ModelAndView res){
         if(principal.getName().equals(game.getPlayer1().getUsername())){
             game.setPlayer1Shifts(game.getPlayer1Shifts()+1);
             if(game.getCurrentPlayer1Image() == 0){
                 if(game.getPlayer1Image1().getName().equals(logo.getName())){
+                    res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player1succes=true");
                     game.setPlayer1Succes(game.getPlayer1Succes()+1);
                     game.setCurrentPlayer1Image(1);
                     game.getPlayer1Positions().clear();
@@ -399,6 +414,7 @@ public class OnlineGameController {
                 }
             }else if(game.getCurrentPlayer1Image() == 1){
                 if(game.getPlayer1Image2().getName().equals(logo.getName())){
+                    res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player1succes=true");
                     game.setPlayer1Succes(game.getPlayer1Succes()+1);
                     game.setCurrentPlayer1Image(2);
                     game.getPlayer1Positions().clear();;
@@ -417,6 +433,7 @@ public class OnlineGameController {
             game.setPlayer2Shifts(game.getPlayer2Shifts()+1);
             if(game.getCurrentPlayer2Image() == 0){
                 if(game.getPlayer2Image1().getName().equals(logo.getName())){
+                    res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player2succes=true");
                     game.setPlayer2Succes(game.getPlayer2Succes()+1);
                     game.setCurrentPlayer2Image(1);
                     game.getPlayer2Positions().clear();
@@ -425,6 +442,7 @@ public class OnlineGameController {
                 }
             }else if(game.getCurrentPlayer2Image() == 1){
                 if(game.getPlayer2Image2().getName().equals(logo.getName())){
+                    res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player2succes=true");
                     game.setPlayer2Succes(game.getPlayer2Succes()+1);
                     game.setCurrentPlayer2Image(2);
                     game.getPlayer2Positions().clear();;
@@ -441,6 +459,7 @@ public class OnlineGameController {
             game.setPlayer2Redt(true);
         }
         this.onlineGameService.save(game);
+        return res;
     }
 
     public void checkPlayersFails4Time(OnlineGame game,Principal principal){

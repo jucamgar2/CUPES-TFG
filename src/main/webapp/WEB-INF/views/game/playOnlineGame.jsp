@@ -8,6 +8,22 @@
     <div class="doBody">
         <div class="theBody">
             <h1 class="game">¿Es suficieste este pedazo para que adivines el escudo?</h1>
+            <c:if test="${error}">
+                <div id="error-notifications">
+                    <div class="error-notification">
+                        <span>¡Lo siento! Fallaste en tu último intento</span>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+            </c:if>
+            <c:if test="${succes}">
+                <div id="succes">
+                    <div class="succes-notification">
+                        <span>¡Enhorabuena! Acertaste en tu último intento</span>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+            </c:if>
             <div>
                 <div class="column">
                     <div class="imageContainer">
@@ -57,6 +73,7 @@
                 </div>
 
                 <script src="/js/autocomplete.js"></script>
+                <script src="/js/error_script.js"></script>
         </div>
     </div>
 </CUPES:layout>
