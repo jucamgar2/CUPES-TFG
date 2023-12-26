@@ -10,10 +10,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Service;
 
-import TFG.CUPES.Player.Authorities;
-import TFG.CUPES.Player.AuthoritiesService;
-import TFG.CUPES.Player.Player;
-import TFG.CUPES.Player.PlayerService;
+import TFG.CUPES.entities.Authorities;
+import TFG.CUPES.entities.Player;
+import TFG.CUPES.services.AuthoritiesService;
+import TFG.CUPES.services.PlayerService;
 
 @DataJpaTest(includeFilters = @Filter(Service.class))
 public class AuthoritiesServiceTest {

@@ -2,8 +2,9 @@ package TFG.CUPES.GameAloneTest;
 
 import org.junit.jupiter.api.Test;
 
-import TFG.CUPES.Game.GameAlone;
-import TFG.CUPES.Player.Player;
+import TFG.CUPES.entities.GameAlone;
+import TFG.CUPES.entities.Player;
+
 
 public class GameAloneTest {
 

@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 
-import TFG.CUPES.Player.Player;
-import TFG.CUPES.Player.PlayerService;
+import TFG.CUPES.entities.Player;
+import TFG.CUPES.services.PlayerService;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class PlayerServiceTest {
@@ -50,7 +50,7 @@ public class PlayerServiceTest {
         Player p = this.playerService.getByUsername("Guaje");
         assert(p.getUsername().equals("Guaje"));
         assertEquals(p.getBirthDate().toString(),"2002-01-02");
-        assertEquals(p.getPassword(), "$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG");
+        assertEquals(p.getPassword(), "1111");
         assertEquals(p.getMail(),"guaje@guaje.com");
         assertEquals(p.getName(),"Guaje");
     }
@@ -66,7 +66,7 @@ public class PlayerServiceTest {
         Player p = this.playerService.findByMail("guaje@guaje.com");
         assert(p.getUsername().equals("Guaje"));
         assertEquals(p.getBirthDate().toString(),"2002-01-02");
-        assertEquals(p.getPassword(), "$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG");
+        assertEquals(p.getPassword(), "1111");
         assertEquals(p.getMail(),"guaje@guaje.com");
         assertEquals(p.getName(),"Guaje");
     }

@@ -13,10 +13,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Service;
 
-import TFG.CUPES.Game.GameAlone;
-import TFG.CUPES.Game.GameAloneService;
-import TFG.CUPES.Player.Player;
-import TFG.CUPES.Player.PlayerService;
+import TFG.CUPES.entities.GameAlone;
+import TFG.CUPES.entities.Player;
+import TFG.CUPES.services.GameAloneService;
+import TFG.CUPES.services.PlayerService;
+
 
 @DataJpaTest(includeFilters = @Filter(Service.class))
 public class GameAloneServiceTest {

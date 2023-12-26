@@ -10,8 +10,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
-import TFG.CUPES.Image.Image;
-import TFG.CUPES.Image.ImageService;
+import TFG.CUPES.entities.Image;
+import TFG.CUPES.services.ImageService;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class ImageServiceTest {

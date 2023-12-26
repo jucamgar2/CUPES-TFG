@@ -2,7 +2,8 @@ package TFG.CUPES.MultiplayerGameTest;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
-import TFG.CUPES.Game.LocalGame;
+
+import TFG.CUPES.entities.LocalGame;
 
 
 public class MultiplayerGameTest {

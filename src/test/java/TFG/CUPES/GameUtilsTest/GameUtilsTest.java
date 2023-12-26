@@ -1,7 +1,6 @@
 package TFG.CUPES.GameUtilsTest;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.contains;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -15,9 +14,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import TFG.CUPES.Game.PositionService;
-import TFG.CUPES.Game.GameUtils;
-import TFG.CUPES.Game.Position;
+import TFG.CUPES.services.PositionService;
+import TFG.CUPES.components.GameUtils;
+import TFG.CUPES.entities.Position;
+
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
 public class GameUtilsTest {

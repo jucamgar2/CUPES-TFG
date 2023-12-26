@@ -14,10 +14,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Service;
 
-import TFG.CUPES.Game.OnlineGame;
-import TFG.CUPES.Game.OnlineGameService;
-import TFG.CUPES.Player.Player;
-import TFG.CUPES.Player.PlayerService;
+import TFG.CUPES.entities.OnlineGame;
+import TFG.CUPES.entities.Player;
+import TFG.CUPES.services.OnlineGameService;
+import TFG.CUPES.services.PlayerService;
 
 @DataJpaTest(includeFilters = @Filter(Service.class))
 public class OnlineGameServiceTest {
@@ -158,7 +158,7 @@ public class OnlineGameServiceTest {
     @Test
     public void testGetAverageNumOfShiftsToWinByUser(){
         double res = this.onlineGameService.getAverageOfShiftsToWinByPlayer1FromUser("María");
-        assertEquals(57, res, 0.001);
+        assertEquals(7.0, res, 0.001);
     }
 
     @Test

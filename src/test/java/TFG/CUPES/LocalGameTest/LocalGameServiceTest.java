@@ -12,10 +12,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Service;
 
-import TFG.CUPES.Game.LocalGame;
-import TFG.CUPES.Game.LocalGameService;
-import TFG.CUPES.Image.Image;
-import TFG.CUPES.Image.ImageService;
+import TFG.CUPES.entities.Image;
+import TFG.CUPES.entities.LocalGame;
+import TFG.CUPES.services.ImageService;
+import TFG.CUPES.services.LocalGameService;
 
 @DataJpaTest(includeFilters = @Filter(Service.class))
 public class LocalGameServiceTest {

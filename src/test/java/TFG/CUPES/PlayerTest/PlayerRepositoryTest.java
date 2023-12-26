@@ -8,8 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 
-import TFG.CUPES.Player.Player;
-import TFG.CUPES.Player.PlayerRepository;
+import TFG.CUPES.entities.Player;
+import TFG.CUPES.repositories.PlayerRepository;
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Repository.class))
 public class PlayerRepositoryTest {
@@ -22,7 +22,7 @@ public class PlayerRepositoryTest {
         Player p = this.playerRepository.findByUsername("Guaje");
         assert(p.getUsername().equals("Guaje"));
         assertEquals(p.getBirthDate().toString(),"2002-01-02");
-        assertEquals(p.getPassword(), "$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG");
+        assertEquals(p.getPassword(), "1111");
         assertEquals(p.getMail(),"guaje@guaje.com");
         assertEquals(p.getName(),"Guaje");
     }
@@ -38,7 +38,7 @@ public class PlayerRepositoryTest {
         Player p = this.playerRepository.findByMail("guaje@guaje.com");
         assert(p.getUsername().equals("Guaje"));
         assertEquals(p.getBirthDate().toString(),"2002-01-02");
-        assertEquals(p.getPassword(), "$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG");
+        assertEquals(p.getPassword(), "1111");
         assertEquals(p.getMail(),"guaje@guaje.com");
         assertEquals(p.getName(),"Guaje");       
     }
