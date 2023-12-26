@@ -37,5 +37,10 @@ public class Position {
         Position other = (Position) obj;
         return x.equals(other.x) && y.equals(other.y);
     }
+
+
+    public String toString() {
+        return "Position [x=" + x + ", y=" + y + "]";
+    }
 }
 

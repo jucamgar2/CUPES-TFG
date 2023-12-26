@@ -2,7 +2,9 @@ package TFG.CUPES.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,14 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import TFG.CUPES.components.GameUtils;
 import TFG.CUPES.entities.Authorities;
 import TFG.CUPES.entities.Image;
 import TFG.CUPES.entities.ImageForm;
 import TFG.CUPES.entities.Player;
+import TFG.CUPES.entities.Position;
 import TFG.CUPES.services.AdministrationService;
 import TFG.CUPES.services.AuthoritiesService;
 import TFG.CUPES.services.ImageService;
 import TFG.CUPES.services.PlayerService;
+import TFG.CUPES.services.PositionService;
 
 
 @Controller
@@ -45,6 +50,11 @@ public class AdministrationController {
 
     @Autowired
     private AdministrationService administrationService;
+
+    GameUtils gameUtils = new GameUtils();
+
+    @Autowired
+    private PositionService positionService;
     
     @GetMapping()
     public String administration() {
@@ -101,6 +111,28 @@ public class AdministrationController {
         res.addObject("images", imagesPage.getContent());
         res.addObject("currentPage", page);
         res.addObject("totalPages", imagesPage.getTotalPages());
+        return res;
+    }
+
+    @GetMapping("/images/view/{id}")
+    public ModelAndView viewImage(@PathVariable("id") int id) throws IOException{
+        ModelAndView res = new ModelAndView("administration/viewImage");
+        Image image = imageService.getLogoById(id);
+        if(image == null){
+            return new ModelAndView("redirect:/administration/images");
+        }
+        List<Position> positions = positionService.findAll();
+        Map<Position, String> positionsMap = new HashMap<>();
+        String imageSelected = "/images/Logo/"+image.getResourceName()+".jpg";
+        for (Position position : positions) {
+            if(! gameUtils.checkImageHasMoreThan1Color(imageSelected, position)){
+                positionsMap.put(position,"Trozo no valido");
+            }
+        }
+        if(image!=null){
+            res.addObject("image", imageSelected);
+        }
+        res.addObject("positions", positionsMap);
         return res;
     }
 
