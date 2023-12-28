@@ -140,3 +140,17 @@ INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_na
 INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (115,'Brighton & Hove Albion Football Club','Brighton','Logo','Inglaterra','M',1,true,false,false);
 INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (116,'Fútbol Club Andorra','Andorra','Logo','España','M',2,false,true,false);
 INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (117,'RasenBallsport Leipzig','Leipzig','Logo','Alemania','M',1,true,true,true);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (118,'Madrid CFF','CFF','Logo','España','F',1,true,true,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (119,'FC Levante Las Planas', 'LLP','Logo','España','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (121,'Sporting Club De Huelva','Huelva','Logo','España','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (122,'San Diego Wave F','Wave','Logo','Estados Unidos','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (123,'Portland Thorns F','Thorns','Logo','Estados Unidos','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (124,'North Carolina Courage F','NCC','Logo','Estados Unidos','F',1,true,true,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (126,'Angel City','AG','Logo','Estados Unidos','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (127,'Gothan F','Gothan','Logo','Estados Unidos','F',1,false,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (128,'Orlando Pride','OP','Logo','Estados Unidos','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (129,'Washington Spirit','W','Logo','Estados Unidos','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (130,'Racing Louisville F','RL','Logo','Estados Unidos','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (131,'Houston Dash','HD','Logo','Estados Unidos','F',1,true,false,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (132,'Kansas City Current','KC','Logo','Estados Unidos','F',1,false,true,false);
+INSERT INTO image(id,name,resource_name,image_type,country,genre,category,has_name,has_initials,has_year) VALUES (133,'Chicago Red Stars','CRS','Logo','Estados Unidos','F',1,true,false,false);
