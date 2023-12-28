@@ -29,15 +29,13 @@ public class AuthoritiesServiceTest {
         Player p = new Player("María","1111",true,LocalDate.of(2015,1,1),"maria@maria.com","María");
         this.playerService.save(p);
         Authorities a = new Authorities();
-        Integer id = this.authoritiesService.findMaxId();
+        Integer id = 1;
         a.setAuthority("player");
-        a.setId(id);
+        a.setId(1);
         a.setPlayer(p);
         this.authoritiesService.save(a);
         assertEquals(p, a.getPlayer());
         assertEquals(id, a.getId());
         assertEquals("player", a.getAuthority());
     }
-
-    
 }
