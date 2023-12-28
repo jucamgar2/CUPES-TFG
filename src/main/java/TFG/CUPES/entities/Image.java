@@ -17,4 +17,15 @@ public class Image {
 
     private String imageType;
     
+    private String country;
+
+    private String genre;
+
+    private Integer category;    
+    
+    private Boolean hasName;
+
+    private Boolean hasInitials;
+
+    private Boolean hasYear;
 }
