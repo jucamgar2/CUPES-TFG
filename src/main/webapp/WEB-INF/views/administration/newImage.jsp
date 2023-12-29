@@ -29,7 +29,60 @@
                     <input class="input-game" name="name"  path="name" type="text">
                 </div>
                 <div>
+                    <form:label path="country">¿Cual es el país de este equipo?</form:label>
+                </div>
+                <div>
+                    <input class="input-game" name="country"  path="country" type="text">
+                </div>
+                <div>
                     <button  class="buttom" type="submit" href="/administration/image/new">Enviar</button>
+                </div>
+                <div>
+                    <label for="category">Selecciona la categoría del equipo: </label>
+                    <select class="input-game" name="category" id="category">
+                        <option value="1">Primera división</option>
+                        <option value="2">Segunda división</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="genre">Selecciona el género del equipo: </label>
+                    <select class="input-game" name="genre" id="genre">
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="hasName">¿El escudo muestra el nombre del equipo? </label>
+                    <select class="input-game" name="hasName" id="hasName">
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="hasInitials">¿El escudo muestra las iniciales del equipo? </label>
+                    <select class="input-game" name="hasInitials" id="hasInitials">
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="hasYear">¿El escudo muestra el año de fundación del equipo? </label>
+                    <select class="input-game" name="hasYear" id="hasYear">
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
+
+                
+                <div>
+                    <label for="enabled">¿Deseas habilitar el escudo para que aparezca en partidas? </label>
+                    <select class="input-game" name="enabled" id="enabled">
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                    </select>
                 </div>
             </form:form>
         </div>

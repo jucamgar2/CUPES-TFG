@@ -22,7 +22,14 @@
                         <tr>
                             <td>${image.getName()}</td>
                             <td><img src="/images/Logo/${image.getResourceName()}.jpg" alt="${imagen.nombre}" width="100" height="100"></td>
-                            <td><a href="/administration/images/delete/${image.getId()}" ><i class="fas fa-trash"></i></a></td>
+                            <td>
+                                <c:if test="${image.getEnabled()}">
+                                    <a href="/administration/images/disable/${image.getId()}" ><i class="fas fa-times"></i></a>
+                                </c:if>
+                                <c:if test="${!image.getEnabled()}">
+                                    <a href="/administration/images/enable/${image.getId()}" ><i class="fas fa-check"></i></a>
+                                </c:if>
+                            </td>
                             <td><a href="/administration/images/view/${image.getId()}" ><i class="fas fa-eye"></i></a></td>
                         </tr>
                     </c:forEach>

@@ -97,7 +97,16 @@ public class AdministrationController {
             image.setName(imageForm.getName());
             image.setResourceName(imageForm.getName().toLowerCase().strip());
             image.setImageType("Logo");
+            image.setCountry(imageForm.getCountry());
+            image.setGenre(imageForm.getGenre());
+            image.setCategory(imageForm.getCategory());
+            image.setHasName(imageForm.getHasName());
+            image.setHasInitials(imageForm.getHasInitials());
+            image.setHasYear(imageForm.getHasYear());
+            image.setEnabled(imageForm.getEnabled());
             imageService.save(image);
+
+            
         }
         res.addObject("imageForm", imageForm);
         return res;
@@ -129,22 +138,41 @@ public class AdministrationController {
                 positionsMap.put(position,"Trozo no valido");
             }
         }
-        if(image!=null){
-            res.addObject("image", imageSelected);
-        }
+        Integer games = this.imageService.getGamesFromImage(image);
+        Integer success = this.imageService.getSuccessFromImage(image);
+        Double successRate = success>0?success/games:0.0;
+        res.addObject("games", games);
+        res.addObject("success", success);
+        res.addObject("successRate",successRate);
+        res.addObject("img", image);
+        res.addObject("image", imageSelected);
         res.addObject("positions", positionsMap);
         return res;
     }
 
-    @GetMapping("/images/delete/{id}")
+    @GetMapping("/images/disable/{id}")
     public ModelAndView deleteImage(@PathVariable("id") int id){
         ModelAndView res = new ModelAndView("redirect:/administration/images");
         Image image = imageService.getLogoById(id);
         if(image!=null){
-            imageService.delete(image);
+            image.setEnabled(false);
+            imageService.save(image);
         }
         return res;
     }
+
+    @GetMapping("/images/enable/{id}")
+    public ModelAndView enableImage(@PathVariable("id") int id){
+        ModelAndView res = new ModelAndView("redirect:/administration/images");
+        Image image = imageService.getLogoById(id);
+        if(image!=null){
+            image.setEnabled(true);
+            imageService.save(image);
+        }
+        return res;
+    }
+
+
 
     @GetMapping("/players")
     public ModelAndView player(@RequestParam(name = "page", defaultValue = "0") int page,

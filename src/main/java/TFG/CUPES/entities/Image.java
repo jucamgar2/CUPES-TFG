@@ -28,4 +28,6 @@ public class Image {
     private Boolean hasInitials;
 
     private Boolean hasYear;
+
+    private Boolean enabled;
 }

@@ -36,7 +36,7 @@ public class ImageService {
 
     @Transactional(readOnly = true)
     public List<Image> getAllLogos(){
-        return (List<Image>) this.logoRepository.findAll();
+        return (List<Image>) this.logoRepository.findAllEnabled();
     }
 
     @Transactional(readOnly = true)
@@ -56,6 +56,16 @@ public class ImageService {
 
     public void delete(Image image) {
         this.logoRepository.delete(image);
+    }
+
+    @Transactional(readOnly = true)
+    public Integer getSuccessFromImage(Image image) {
+        return this.logoRepository.findSuccesFromImage(image);
+    }
+
+    @Transactional(readOnly = true)
+    public Integer getGamesFromImage(Image image) {
+        return this.logoRepository.findImageByGameAlone(image);
     }
 
     

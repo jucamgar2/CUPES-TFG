@@ -9,20 +9,47 @@
             <div class="game-result">
                 <div class="gameResult">
                     <div class="view-image">
-                        <!-- Líneas horizontales -->
                         <div class="grid-line horizontal-line" style="top: 25%;"></div>
                         <div class="grid-line horizontal-line" style="top: 50%;"></div>
                         <div class="grid-line horizontal-line" style="top: 75%;"></div>
                 
-                        <!-- Líneas verticales -->
                         <div class="grid-line vertical-line" style="left: 25%;"></div>
                         <div class="grid-line vertical-line" style="left: 50%;"></div>
                         <div class="grid-line vertical-line" style="left: 75%;"></div>
                 
-                        <!-- Imagen -->
                         <img class="gameRes" src="${image}" alt="Estamos teniendo problemas" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
+                <p class="game">Nombre: <c:out value="${img.name}"/></p>
+                <p class="game">País: <c:out value="${img.country}"/></p>
+                <p class="game">¿Esta habilitada? 
+                    <c:if test="${img.enabled}"> Sí</c:if>
+                    <c:if test="${!img.enabled}"> No</c:if>
+                </p>
+                <p class="game">Número de partidas en las que ha aparecido: <c:out value="${games}"/></p>
+                <p class="game">Número de partidas en las que ha aparecido y ha sido acertado: <c:out value="${success}"/></p>
+                <p class="game">Ratio de acierto: <c:out value="${successRate}"/></p>
+                <p class="game">Género:
+                    <c:if test="${img.genre=='M'}"> Masculino</c:if>
+                    <c:if test="${img.genre=='F'}"> Femenino</c:if>
+                </p>
+                <p class="game">Categoría: 
+                    <c:if test="${img.category == 1}"> Primera división</c:if>
+                    <c:if test="${img.category == 2}"> Segunda división</c:if>
+                </p>
+
+                <p class="game">¿El escudo muestra el nombre del equipo?
+                    <c:if test="${img.hasName}"> Sí</c:if>
+                    <c:if test="${!img.hasName}"> No</c:if>
+                </p>
+                <p class="game">¿El escudo muestra las iniciales del equipo?
+                    <c:if test="${img.hasInitials}"> Sí</c:if>
+                    <c:if test="${!img.hasInitials}"> No</c:if>
+                </p>
+                <p class="game">¿El escudo muestra el año de fundación?
+                    <c:if test="${img.hasYear}"> Sí</c:if>
+                    <c:if test="${!img.hasYear}"> No</c:if>
+                </p>
                 <div>
                     <c:forEach var="position" items="${positions}">
                         <div>
