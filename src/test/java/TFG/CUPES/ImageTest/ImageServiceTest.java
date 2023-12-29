@@ -21,6 +21,12 @@ public class ImageServiceTest {
 
     @Test
     public void getRandomLogoTest(){
+        Image l = new Image();
+        l.setId(1);
+        l.setName("Olympique de Lyon");
+        l.setResourceName("OL");
+        l.setImageType("Logo");
+        this.imageService.save(l);
         Image i = this.imageService.getRandomLogo();
         assert(i!=null);
         assert(i.getId() != null);
@@ -30,6 +36,12 @@ public class ImageServiceTest {
 
     @Test
     public void getAllLogosTest(){
+        Image l = new Image();
+        l.setId(1);
+        l.setName("Olympique de Lyon");
+        l.setResourceName("OL");
+        l.setImageType("Logo");
+        this.imageService.save(l);
         List<Image> logos = this.imageService.getAllLogos();
         assert(!logos.isEmpty());
         assert(logos.size()>100);
@@ -37,9 +49,15 @@ public class ImageServiceTest {
 
     @Test
     public void getLogoByIdTest(){
-        Image i = this.imageService.getLogoById(55);
+        Image l = new Image();
+        l.setId(1);
+        l.setName("Olympique de Lyon");
+        l.setResourceName("OL");
+        l.setImageType("Logo");
+        this.imageService.save(l);
+        Image i = this.imageService.getLogoById(1);
         assert(i!=null);
-        assert(i.getId() ==55);
+        assert(i.getId() ==1);
         assertEquals(i.getName(), "Olympique de Lyon");
         assertEquals(i.getResourceName(), "OL");
         assertEquals(i.getImageType(), "Logo");

@@ -2,6 +2,8 @@ package TFG.CUPES.PlayerTest;
 
 import static org.junit.Assert.assertEquals;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -19,6 +21,13 @@ public class PlayerRepositoryTest {
     
     @Test
     public void findPlayerByUsernamePositiveTest(){
+        Player p1 = new Player();
+        p1.setUsername("Guaje");
+        p1.setBirthDate(LocalDate.of(2002, 01, 02));
+        p1.setPassword("1111");
+        p1.setMail("guaje@guaje.com");
+        p1.setName("Guaje");
+        this.playerRepository.save(p1);
         Player p = this.playerRepository.findByUsername("Guaje");
         assert(p.getUsername().equals("Guaje"));
         assertEquals(p.getBirthDate().toString(),"2002-01-02");
@@ -35,6 +44,13 @@ public class PlayerRepositoryTest {
     
     @Test
     public void findPlayerByMailPositiveTest(){
+        Player p1 = new Player();
+        p1.setUsername("Guaje");
+        p1.setBirthDate(LocalDate.of(2002, 01, 02));
+        p1.setPassword("1111");
+        p1.setMail("guaje@guaje.com");
+        p1.setName("Guaje");
+        this.playerRepository.save(p1);
         Player p = this.playerRepository.findByMail("guaje@guaje.com");
         assert(p.getUsername().equals("Guaje"));
         assertEquals(p.getBirthDate().toString(),"2002-01-02");
