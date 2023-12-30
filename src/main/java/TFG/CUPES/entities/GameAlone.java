@@ -1,5 +1,6 @@
 package TFG.CUPES.entities;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -43,4 +44,6 @@ public class GameAlone {
 
     @ManyToMany
     List<Position> positions;
+
+    LocalDate date;
 }

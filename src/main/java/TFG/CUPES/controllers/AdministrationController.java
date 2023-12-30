@@ -164,8 +164,6 @@ public class AdministrationController {
         return res;
     }
 
-
-
     @GetMapping("/images/enable/{id}")
     public ModelAndView enableImage(@PathVariable("id") int id){
         ModelAndView res = new ModelAndView("redirect:/administration/images");
@@ -173,6 +171,16 @@ public class AdministrationController {
         if(image!=null){
             image.setEnabled(true);
             imageService.save(image);
+        }
+        return res;
+    }
+
+    @GetMapping("/images/exportData/{id}")
+    public ModelAndView exportData(@PathVariable("id") int id){
+        ModelAndView res = new ModelAndView("redirect:/administration/images");
+        Image image = imageService.getLogoById(id);
+        if(image!=null){
+            
         }
         return res;
     }
@@ -298,4 +306,5 @@ public class AdministrationController {
         }
         return res;
     }
+
 }

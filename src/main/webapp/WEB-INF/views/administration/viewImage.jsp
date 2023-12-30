@@ -51,6 +51,18 @@
                     <c:if test="${!img.hasYear}"> No</c:if>
                 </p>
                 <div>
+                    <c:if test="${img.enabled}">
+                        <a href="/administration/images/disable/${img.id}" class="buttom-danger">Deshabilitar</a>
+                    </c:if>
+                    <c:if test="${!img.enabled}">
+                        <a href="/administration/images/enable/${img.id}" class="buttom-positive">Habilitar</a>
+                    </c:if>
+                </div>
+                <div>
+                    <a href="/administration/images/exportData/${img.id}" class="buttom">Exportar datos</a>
+                </div>
+                
+                <div>
                     <c:forEach var="position" items="${positions}">
                         <div>
                             <p class="game" ><c:out value="${position.key}"/> :</p>

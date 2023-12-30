@@ -300,6 +300,23 @@ a.buttom-danger:hover{
   box-shadow: 0 0 5px #f20303, 0 0 25px #f20303, 0 0 50px #f20303, 0 0 20px #f20303;
 }
 
+a.buttom-positive{
+  display: inline-block;
+  font-weight: bold;
+  padding: 10px 20px;
+  background-color: rgb(50, 255, 47);
+  color: #000000;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+a.buttom-positive:hover{
+  font-weight: bold;
+  background-color: rgb(50, 255, 47);
+  box-shadow: 0 0 5px rgb(50, 255, 47), 0 0 25px rgb(50, 255, 47), 0 0 50px rgb(50, 255, 47), 0 0 20px rgb(50, 255, 47);
+}
+
 a.buttom:hover {
   font-weight: bold;
   background-color: #1254d7;
