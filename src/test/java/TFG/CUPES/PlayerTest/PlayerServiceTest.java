@@ -122,11 +122,16 @@ public class PlayerServiceTest {
     }
 
 
-    //@Test
+    @Test
     public void checkPlayerRestrictionsTest1(){
+        Player p = new Player();
+        p.setUsername("Guaje");
+        p.setMail("guaje@guaje.com");
+        this.playerService.save(p);
         List<Player> players = readPlayersFromCSV("src/test/java/TFG/CUPES/PlayerTest/PlayerErrorsData.csv");
         for(int i = 0; i<players.size(); i++){
             List<String> errors = this.playerService.checkPlayerRestrictions(players.get(i));
+            System.out.println(players.get(i));
             assertEquals(errors.size(), 1);
         }
     }
