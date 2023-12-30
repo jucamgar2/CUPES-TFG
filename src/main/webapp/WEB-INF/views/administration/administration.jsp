@@ -22,6 +22,11 @@
                     <a class="buttom" href="/administration/images/new">Añadir imágenes</a>
                 </p>
             </div>
+            <div>
+                <p class="game">
+                    <a class="buttom" href="/administration/images/statistics">Ver estadísticas de las imágenes</a>
+                </p>
+            </div>
             
         </div>
     </div>

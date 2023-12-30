@@ -2,6 +2,7 @@ package TFG.CUPES.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,12 +139,14 @@ public class AdministrationController {
                 positionsMap.put(position,"Trozo no valido");
             }
         }
-        Integer games = this.imageService.getGamesFromImage(image);
-        Integer success = this.imageService.getSuccessFromImage(image);
+        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df1 = new DecimalFormat("#");
+        Double games = this.imageService.getGamesFromImage(image);
+        Double success = this.imageService.getSuccessFromImage(image);
         Double successRate = success>0?success/games:0.0;
-        res.addObject("games", games);
-        res.addObject("success", success);
-        res.addObject("successRate",successRate);
+        res.addObject("games", df1.format(games));
+        res.addObject("success", df1.format(success));
+        res.addObject("successRate",df.format(successRate));
         res.addObject("img", image);
         res.addObject("image", imageSelected);
         res.addObject("positions", positionsMap);
@@ -161,6 +164,8 @@ public class AdministrationController {
         return res;
     }
 
+
+
     @GetMapping("/images/enable/{id}")
     public ModelAndView enableImage(@PathVariable("id") int id){
         ModelAndView res = new ModelAndView("redirect:/administration/images");
@@ -169,6 +174,93 @@ public class AdministrationController {
             image.setEnabled(true);
             imageService.save(image);
         }
+        return res;
+    }
+
+    @GetMapping("/images/statistics")
+    public ModelAndView imageStatistics(){
+        DecimalFormat df = new DecimalFormat("#.##");
+        ModelAndView res = new ModelAndView("administration/adminStatistics");
+        res.addObject("spainSuccess", df.format(imageService.getSuccesRateFromCountry("España")*100));
+        res.addObject("spainSuccess1", df.format(imageService.getSuccesRateFromCountryAndShifts("España",1)*100));
+        res.addObject("spainSuccess2", df.format(imageService.getSuccesRateFromCountryAndShifts("España",2)*100));
+        res.addObject("spainSuccess3", df.format(imageService.getSuccesRateFromCountryAndShifts("España",3)*100));
+        res.addObject("spainSuccess4", df.format(imageService.getSuccesRateFromCountryAndShifts("España",4)*100));
+        res.addObject("germanySuccess", df.format(imageService.getSuccesRateFromCountry("Alemania")*100));
+        res.addObject("germanySuccess1", df.format(imageService.getSuccesRateFromCountryAndShifts("Alemania",1)*100));
+        res.addObject("germanySuccess2", df.format(imageService.getSuccesRateFromCountryAndShifts("Alemania",2)*100));
+        res.addObject("germanySuccess3", df.format(imageService.getSuccesRateFromCountryAndShifts("Alemania",3)*100));
+        res.addObject("germanySuccess4", df.format(imageService.getSuccesRateFromCountryAndShifts("Alemania",4)*100));
+        res.addObject("franceSuccess", df.format(imageService.getSuccesRateFromCountry("Francia")*100));
+        res.addObject("franceSuccess1", df.format(imageService.getSuccesRateFromCountryAndShifts("Francia",1)*100));
+        res.addObject("franceSuccess2", df.format(imageService.getSuccesRateFromCountryAndShifts("Francia",2)*100));
+        res.addObject("franceSuccess3", df.format(imageService.getSuccesRateFromCountryAndShifts("Francia",3)*100));
+        res.addObject("franceSuccess4", df.format(imageService.getSuccesRateFromCountryAndShifts("Francia",4)*100));
+        res.addObject("italySuccess", df.format(imageService.getSuccesRateFromCountry("Italia")*100));
+        res.addObject("italySuccess1", df.format(imageService.getSuccesRateFromCountryAndShifts("Italia",1)*100));
+        res.addObject("italySuccess2", df.format(imageService.getSuccesRateFromCountryAndShifts("Italia",2)*100));
+        res.addObject("italySuccess3", df.format(imageService.getSuccesRateFromCountryAndShifts("Italia",3)*100));
+        res.addObject("italySuccess4", df.format(imageService.getSuccesRateFromCountryAndShifts("Italia",4)*100));
+        res.addObject("ukSuccess", df.format(imageService.getSuccesRateFromCountry("Inglaterra")*100));
+        res.addObject("ukSuccess1", df.format(imageService.getSuccesRateFromCountryAndShifts("Inglaterra",1)*100));
+        res.addObject("ukSuccess2", df.format(imageService.getSuccesRateFromCountryAndShifts("Inglaterra",2)*100));
+        res.addObject("ukSuccess3", df.format(imageService.getSuccesRateFromCountryAndShifts("Inglaterra",3)*100));
+        res.addObject("ukSuccess4", df.format(imageService.getSuccesRateFromCountryAndShifts("Inglaterra",4)*100));
+        res.addObject("usaSuccess", df.format(imageService.getSuccesRateFromCountry("Estados Unidos")*100));
+        res.addObject("usaSuccess1", df.format(imageService.getSuccesRateFromCountryAndShifts("Estados Unidos",1)*100));
+        res.addObject("usaSuccess2", df.format(imageService.getSuccesRateFromCountryAndShifts("Estados Unidos",2)*100));
+        res.addObject("usaSuccess3", df.format(imageService.getSuccesRateFromCountryAndShifts("Estados Unidos",3)*100));
+        res.addObject("usaSuccess4", df.format(imageService.getSuccesRateFromCountryAndShifts("Estados Unidos",4)*100));
+        res.addObject("maleSuccess", df.format(imageService.getSuccesRateFromGenre("M")*100));
+        res.addObject("maleSuccess1", df.format(imageService.getSuccesRateFromGenreAndShifts("M",1)*100));
+        res.addObject("maleSuccess2", df.format(imageService.getSuccesRateFromGenreAndShifts("M",2)*100));
+        res.addObject("maleSuccess3",df.format(imageService.getSuccesRateFromGenreAndShifts("M",3)*100));
+        res.addObject("maleSuccess4", df.format(imageService.getSuccesRateFromGenreAndShifts("M",4)*100));
+        res.addObject("femaleSuccess", df.format(imageService.getSuccesRateFromGenre("F")*100));
+        res.addObject("femaleSuccess1", df.format(imageService.getSuccesRateFromGenreAndShifts("F",1)*100));
+        res.addObject("femaleSuccess2", df.format(imageService.getSuccesRateFromGenreAndShifts("F",2)*100));
+        res.addObject("femaleSuccess3", df.format(imageService.getSuccesRateFromGenreAndShifts("F",3)*100));
+        res.addObject("femaleSuccess4", df.format(imageService.getSuccesRateFromGenreAndShifts("F",4)*100));
+        res.addObject("firstDivisionSuccess", df.format(imageService.getSuccesRateFromCategory(1)*100));
+        res.addObject("firstDivisionSuccess1", df.format(imageService.getSuccesRateFromCategoryAndShifts(1,1)*100));
+        res.addObject("firstDivisionSuccess2", df.format(imageService.getSuccesRateFromCategoryAndShifts(1,2)*100));
+        res.addObject("firstDivisionSuccess3", df.format(imageService.getSuccesRateFromCategoryAndShifts(1,3)*100));
+        res.addObject("firstDivisionSuccess4", df.format(imageService.getSuccesRateFromCategoryAndShifts(1,4)*100));
+        res.addObject("secondDivisionSuccess", df.format(imageService.getSuccesRateFromCategory(2)*100));
+        res.addObject("secondDivisionSuccess1", df.format(imageService.getSuccesRateFromCategoryAndShifts(2,1)*100));
+        res.addObject("secondDivisionSuccess2", df.format(imageService.getSuccesRateFromCategoryAndShifts(2,2)*100));
+        res.addObject("secondDivisionSuccess3", df.format(imageService.getSuccesRateFromCategoryAndShifts(2,3)*100));
+        res.addObject("secondDivisionSuccess4", df.format(imageService.getSuccesRateFromCategoryAndShifts(2,4)*100));
+        res.addObject("nameSuccess",df.format(imageService.getSuccesRateFromName(true)*100));
+        res.addObject("nameSuccess1",df.format(imageService.getSuccesRateFromNameAndShifts(true,1)*100));
+        res.addObject("nameSuccess2",df.format(imageService.getSuccesRateFromNameAndShifts(true,2)*100));
+        res.addObject("nameSuccess3",df.format(imageService.getSuccesRateFromNameAndShifts(true,3)*100));
+        res.addObject("nameSuccess4",df.format(imageService.getSuccesRateFromNameAndShifts(true,4)*100));
+        res.addObject("noNameSuccess",df.format(imageService.getSuccesRateFromName(false)*100));
+        res.addObject("noNameSuccess1",df.format(imageService.getSuccesRateFromNameAndShifts(false,1)*100));
+        res.addObject("noNameSuccess2",df.format(imageService.getSuccesRateFromNameAndShifts(false,2)*100));
+        res.addObject("noNameSuccess3",df.format(imageService.getSuccesRateFromNameAndShifts(false,3)*100));
+        res.addObject("noNameSuccess4",df.format(imageService.getSuccesRateFromNameAndShifts(false,4)*100));
+        res.addObject("initialsSuccess",df.format(imageService.getSuccesRateFromName(true)*100));
+        res.addObject("initialsSuccess1",df.format(imageService.getSuccesRateFromNameAndShifts(true,1)*100));
+        res.addObject("initialsSuccess2",df.format(imageService.getSuccesRateFromNameAndShifts(true,2)*100));
+        res.addObject("initialsSuccess3",df.format(imageService.getSuccesRateFromNameAndShifts(true,3)*100));
+        res.addObject("initialsSuccess4",df.format(imageService.getSuccesRateFromNameAndShifts(true,4)*100));
+        res.addObject("noInitialsSuccess",df.format(imageService.getSuccesRateFromName(false)*100));
+        res.addObject("noInitialsSuccess1",df.format(imageService.getSuccesRateFromNameAndShifts(false,1)*100));
+        res.addObject("noInitialsSuccess2",df.format(imageService.getSuccesRateFromNameAndShifts(false,2)*100));
+        res.addObject("noInitialsSuccess3",df.format(imageService.getSuccesRateFromNameAndShifts(false,3)*100));
+        res.addObject("noInitialsSuccess4",df.format(imageService.getSuccesRateFromNameAndShifts(false,4)*100));
+        res.addObject("yearSuccess",df.format(imageService.getSuccesRateFromName(true)*100));
+        res.addObject("yearSuccess1",df.format(imageService.getSuccesRateFromNameAndShifts(true,1)*100));
+        res.addObject("yearSuccess2",df.format(imageService.getSuccesRateFromNameAndShifts(true,2)*100));
+        res.addObject("yearSuccess3",df.format(imageService.getSuccesRateFromNameAndShifts(true,3)*100));
+        res.addObject("yearSuccess4",df.format(imageService.getSuccesRateFromNameAndShifts(true,4)*100));
+        res.addObject("noYearSuccess",df.format(imageService.getSuccesRateFromName(false)*100));
+        res.addObject("noYearSuccess1",df.format(imageService.getSuccesRateFromNameAndShifts(false,1)*100));
+        res.addObject("noYearSuccess2",df.format(imageService.getSuccesRateFromNameAndShifts(false,2)*100));
+        res.addObject("noYearSuccess3",df.format(imageService.getSuccesRateFromNameAndShifts(false,3)*100));
+        res.addObject("noYearSuccess4",df.format(imageService.getSuccesRateFromNameAndShifts(false,4)*100));
         return res;
     }
 

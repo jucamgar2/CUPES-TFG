@@ -59,16 +59,96 @@ public class ImageService {
     }
 
     @Transactional(readOnly = true)
-    public Integer getSuccessFromImage(Image image) {
+    public Double getSuccessFromImage(Image image) {
         return this.logoRepository.findSuccesFromImage(image);
     }
 
     @Transactional(readOnly = true)
-    public Integer getGamesFromImage(Image image) {
+    public Double getGamesFromImage(Image image) {
         return this.logoRepository.findImageByGameAlone(image);
     }
 
-    
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromCountry(String country) {
+        Double success = this.logoRepository.findSuccesFromCountryImage(country);
+        Double games = this.logoRepository.findImageNumOfGamesFromCountry(country);
+        return games>0?success/games:0.0;
+    }
 
-    
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromCountryAndShifts(String country, Integer shifts) {
+        Double success = this.logoRepository.findImageNumOfSuccessFromCountryAndShifts(country,shifts);
+        Double games = this.logoRepository.findImageNumOfGamesFromCountry(country);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromGenre(String genre) {
+        Double success = this.logoRepository.findNumOfSuccessFromGenre(genre);
+        Double games = this.logoRepository.findNumOfGamesFromGenre(genre);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromGenreAndShifts(String genre, Integer shifts) {
+        Double success = this.logoRepository.findNumOfSuccessFromGenreAndShifts(genre,shifts);
+        Double games = this.logoRepository.findNumOfGamesFromGenre(genre);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromCategory(Integer category) {
+        Double success = this.logoRepository.findNumOfSuccessFromCategory(category);
+        Double games = this.logoRepository.findNumOfGamesFromCategory(category);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromCategoryAndShifts(Integer category, Integer shifts) {
+        Double success = this.logoRepository.findNumOfSuccessFromCategoryAndShifts(category,shifts);
+        Double games = this.logoRepository.findNumOfGamesFromCategory(category);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromName(Boolean hasName) {
+        Double success = this.logoRepository.findNumOfSuccessWithName(hasName);
+        Double games = this.logoRepository.findNumOfGamesWithName(hasName);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromNameAndShifts(Boolean hasName, Integer shifts) {
+        Double success = this.logoRepository.findNumOfSuccessWithNameAndShifts(hasName,shifts);
+        Double games = this.logoRepository.findNumOfGamesWithName(hasName);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromInitials(Boolean hasInitials) {
+        Double success = this.logoRepository.findNumOfSuccessWithInitials(hasInitials);
+        Double games = this.logoRepository.findNumOfGamesWithInitials(hasInitials);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromInitialsAndShifts(Boolean hasInitials, Integer shifts) {
+        Double success = this.logoRepository.findNumOfSuccessWithInitialsAndShifts(hasInitials,shifts);
+        Double games = this.logoRepository.findNumOfGamesWithInitials(hasInitials);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromYear(Boolean hasYear) {
+        Double success = this.logoRepository.findNumOfSuccessWithYear(hasYear);
+        Double games = this.logoRepository.findNumOfGamesWithYear(hasYear);
+        return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public Double getSuccesRateFromYearAndShifts(Boolean hasYear, Integer shifts) {
+        Double success = this.logoRepository.findNumOfSuccessWithYearAndShifts(hasYear,shifts);
+        Double games = this.logoRepository.findNumOfGamesWithYear(hasYear);
+        return games>0?success/games:0.0;
+    }
 }
