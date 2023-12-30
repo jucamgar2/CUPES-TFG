@@ -3,7 +3,7 @@ package TFG.CUPES.controllers;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -73,7 +73,7 @@ public class GameAloneController {
         g.setIsFinish(false);
         g.setShift(0);
         g.setWin(false);
-        g.setDate(LocalDate.now());
+        g.setDate(LocalDateTime.now());
         gameService.saveGame(g);
         return "redirect:/game/play/" + g.getId() + "?token=" + token;
     }

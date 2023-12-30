@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.entities.Image;
 
 @Repository
@@ -82,5 +83,8 @@ public interface ImageRepository extends CrudRepository<Image,Integer>{
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.selected.hasYear = ?1 AND g.win AND g.Shift = ?2")
     Double findNumOfSuccessWithYearAndShifts(Boolean hasYear, Integer shifts);
+
+    @Query("SELECT g FROM GameAlone g WHERE g.selected = ?1")
+    List<GameAlone> findGamesBySelected(Image image);
 
 }

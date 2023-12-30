@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.entities.Image;
 import TFG.CUPES.repositories.ImageRepository;
 
@@ -150,5 +151,10 @@ public class ImageService {
         Double success = this.logoRepository.findNumOfSuccessWithYearAndShifts(hasYear,shifts);
         Double games = this.logoRepository.findNumOfGamesWithYear(hasYear);
         return games>0?success/games:0.0;
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameAlone> getGamesFromSelected(Image image) {
+        return this.logoRepository.findGamesBySelected(image);
     }
 }

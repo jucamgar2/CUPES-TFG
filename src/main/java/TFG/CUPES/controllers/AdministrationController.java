@@ -19,8 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import TFG.CUPES.DTOdata.ImageAndGamesDTO;
 import TFG.CUPES.components.GameUtils;
 import TFG.CUPES.entities.Authorities;
+import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.entities.Image;
 import TFG.CUPES.entities.ImageForm;
 import TFG.CUPES.entities.Player;
@@ -30,6 +35,7 @@ import TFG.CUPES.services.AuthoritiesService;
 import TFG.CUPES.services.ImageService;
 import TFG.CUPES.services.PlayerService;
 import TFG.CUPES.services.PositionService;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @Controller
@@ -176,13 +182,17 @@ public class AdministrationController {
     }
 
     @GetMapping("/images/exportData/{id}")
-    public ModelAndView exportData(@PathVariable("id") int id){
-        ModelAndView res = new ModelAndView("redirect:/administration/images");
+    public void exportData(@PathVariable("id") int id, HttpServletResponse response) throws IOException {
         Image image = imageService.getLogoById(id);
-        if(image!=null){
-            
+        if (image != null) {
+            List<GameAlone> games = imageService.getGamesFromSelected(image);
+            ImageAndGamesDTO dataToExport = new ImageAndGamesDTO(image, games);
+            response.setContentType("application/json");
+            response.setHeader("Content-Disposition", "attachment; filename=games_by_image.json");
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            objectMapper.writeValue(response.getOutputStream(), dataToExport);
         }
-        return res;
     }
 
     @GetMapping("/images/statistics")
