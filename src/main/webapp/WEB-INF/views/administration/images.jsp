@@ -6,6 +6,11 @@
 <CUPES:layout title="Página de Inicio">
     <div class="doBody">
         <div class="theBody">
+            <form id="buscarImageForm" onsubmit="return sendImageForm()">
+                <label for="name">Buscar imagenes:</label>
+                <input class="input-large" type="text" id="name" name="name">
+                <button type="submit" class="buttom">Buscar</button>
+            </form>
             <h1>Estas son las imagenes que pueden aparecer en la aplicación</h1>
             <table border="1">
                 <thead>
@@ -14,7 +19,6 @@
                         <th>Imagen</th>
                         <th>Eliminar</th>
                         <th>Ver datos</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +44,7 @@
                 <p class="game">Páginas:</p>
                 <c:forEach begin="0" step="1" end="${totalPages-1}" var="page">
                     <td>
-                        <a class="buttom" style="margin-left: 5px;" href="/administration/images?page=${page}" value = "${page}"><c:out value = "${page+1}"/></a>
+                        <a class="buttom" style="margin-left: 5px;" href="/administration/images?page=${page}&name=${name}" value = "${page}"><c:out value = "${page+1}"/></a>
                     </td>
                 </c:forEach>
             </div>    

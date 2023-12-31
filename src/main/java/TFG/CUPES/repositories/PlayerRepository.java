@@ -24,4 +24,7 @@ public interface PlayerRepository extends CrudRepository<Player,String>{
 
     @Query("SELECT g FROM GameAlone g WHERE g.player = ?1")
     List<GameAlone> findGamesByPlayer(Player player);
+
+    @Query("SELECT p FROM Player p WHERE p.username LIKE %?1%")
+    Page<Player> findPlayersByUsername(String name, PageRequest of);
 }

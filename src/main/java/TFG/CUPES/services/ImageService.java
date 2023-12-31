@@ -157,4 +157,9 @@ public class ImageService {
     public List<GameAlone> getGamesFromSelected(Image image) {
         return this.logoRepository.findGamesBySelected(image);
     }
+
+    @Transactional(readOnly = true)
+    public Page<Image> getLogosByName(String name, PageRequest of) {
+        return this.logoRepository.findByName(name, of);
+    }
 }

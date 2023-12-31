@@ -139,5 +139,9 @@ public class PlayerService {
         return this.playerRepo.findGamesByPlayer(player);
     }
 
+    public Page<Player> getPlayersByUsername(String name, PageRequest of) {
+        return this.playerRepo.findPlayersByUsername(name, of);
+    }
+
 
 }

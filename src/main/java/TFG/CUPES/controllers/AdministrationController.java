@@ -129,13 +129,24 @@ public class AdministrationController {
 
     @GetMapping("/images")
     public ModelAndView images(@RequestParam(name = "page", defaultValue = "0") int page,
-                            @RequestParam(name = "size", defaultValue = "10") int size) {
-        Page<Image> imagesPage = imageService.getAllLogosPageable(PageRequest.of(page, size));
-        ModelAndView res = new ModelAndView(LIST_IMAGE);
-        res.addObject("images", imagesPage.getContent());
-        res.addObject("currentPage", page);
-        res.addObject("totalPages", imagesPage.getTotalPages());
-        return res;
+                            @RequestParam(name = "size", defaultValue = "10") int size,
+                            @RequestParam(name = "name",required = false) String name) {
+        if(name!=null){
+            Page<Image> imagesPage = imageService.getLogosByName(name,PageRequest.of(page, size));
+            ModelAndView res = new ModelAndView(LIST_IMAGE);
+            res.addObject("images", imagesPage.getContent());
+            res.addObject("currentPage", page);
+            res.addObject("totalPages", imagesPage.getTotalPages());
+            res.addObject("name", name);
+            return res;
+        }else{
+            Page<Image> imagesPage = imageService.getAllLogosPageable(PageRequest.of(page, size));
+            ModelAndView res = new ModelAndView(LIST_IMAGE);
+            res.addObject("images", imagesPage.getContent());
+            res.addObject("currentPage", page);
+            res.addObject("totalPages", imagesPage.getTotalPages());
+            return res;
+        }
     }
 
     @GetMapping("/images/view/{id}")
@@ -333,17 +344,26 @@ public class AdministrationController {
         return res;
     }
 
-
-
     @GetMapping("/players")
     public ModelAndView player(@RequestParam(name = "page", defaultValue = "0") int page,
-                            @RequestParam(name = "size", defaultValue = "10") int size) {
-        Page<Player> authoritiesPage = playerService.getAllAuthoritiesPageable(PageRequest.of(page, size));
-        ModelAndView res = new ModelAndView(LIST_PLAYERS);
-        res.addObject("players", authoritiesPage.getContent());
-        res.addObject("currentPage", page);
-        res.addObject("totalPages", authoritiesPage.getTotalPages());
-        return res;
+                            @RequestParam(name = "size", defaultValue = "10") int size,
+                            @RequestParam(name = "username",required = false) String username) {
+        if(username!=null){
+            Page<Player> authoritiesPage = playerService.getPlayersByUsername(username,PageRequest.of(page, size));
+            ModelAndView res = new ModelAndView(LIST_PLAYERS);
+            res.addObject("players", authoritiesPage.getContent());
+            res.addObject("currentPage", page);
+            res.addObject("totalPages", authoritiesPage.getTotalPages());
+            res.addObject("username", username);
+            return res;
+        }else{
+            Page<Player> authoritiesPage = playerService.getAllAuthoritiesPageable(PageRequest.of(page, size));
+            ModelAndView res = new ModelAndView(LIST_PLAYERS);
+            res.addObject("players", authoritiesPage.getContent());
+            res.addObject("currentPage", page);
+            res.addObject("totalPages", authoritiesPage.getTotalPages());
+            return res;
+        }
     }
 
     @GetMapping("/players/disable/{id}")

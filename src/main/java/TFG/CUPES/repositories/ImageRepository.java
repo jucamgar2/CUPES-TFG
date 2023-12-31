@@ -87,4 +87,6 @@ public interface ImageRepository extends CrudRepository<Image,Integer>{
     @Query("SELECT g FROM GameAlone g WHERE g.selected = ?1")
     List<GameAlone> findGamesBySelected(Image image);
 
+    @Query("SELECT i FROM Image i WHERE i.name LIKE %?1%")
+    Page<Image> findByName(String name, PageRequest of);
 }
