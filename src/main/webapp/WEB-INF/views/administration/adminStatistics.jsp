@@ -2,8 +2,17 @@
 <%@ taglib prefix="CUPES" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <CUPES:layout title="Página de Inicio">
+    <script>
+        $(function () {
+            $("#startDate").datepicker({dateFormat: 'dd/mm/yy' });
+        });
+        $(function () {
+            $("#endDate").datepicker({dateFormat: 'dd/mm/yy' });
+        });
+    </script>
     <div class="doBody">
         <div class="theBody">
             <h1>Estadísticas para el administrador:</h1>
@@ -147,7 +156,25 @@
                     <td><c:out value="${noYearSuccess4}" /></td>
                 </tr>
             </table>
-        </div>
+            <div>
+                <p class="game">Selecciona un rango de fechas para exportar las estadísticas de las partidas</p>
+                <form:form modelAttribute="dateRangeForm">
+                    <div>
+                        <label for="startDate">Fecha de inicio:</label>
+                    </div>
+                    <div>
+                        <input class="input-large"type="text" id="startDate" name="startDate">
+                    </div>
+                    <div>
+                        <label for="endDate">Fecha de fin:</label>
+                    </div>
+                    <div>
+                        <input class="input-large"type="text" id="endDate" name="endDate">
+                    </div>
+                    <button class="buttom" type="submit">Exportar</button>
+                </form:form>
+            </div>
+
         </div>
     </div>
 </CUPES:layout>

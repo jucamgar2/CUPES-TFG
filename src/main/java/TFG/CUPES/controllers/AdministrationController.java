@@ -3,6 +3,7 @@ package TFG.CUPES.controllers;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import TFG.CUPES.DTOdata.GameAloneDTO;
 import TFG.CUPES.DTOdata.ImageAndGamesDTO;
 import TFG.CUPES.DTOdata.PlayerAndGamesDTO;
+import TFG.CUPES.components.DateRangeForm;
 import TFG.CUPES.components.GameUtils;
 import TFG.CUPES.entities.Authorities;
 import TFG.CUPES.entities.GameAlone;
@@ -33,6 +36,7 @@ import TFG.CUPES.entities.Player;
 import TFG.CUPES.entities.Position;
 import TFG.CUPES.services.AdministrationService;
 import TFG.CUPES.services.AuthoritiesService;
+import TFG.CUPES.services.GameAloneService;
 import TFG.CUPES.services.ImageService;
 import TFG.CUPES.services.PlayerService;
 import TFG.CUPES.services.PositionService;
@@ -63,6 +67,9 @@ public class AdministrationController {
 
     @Autowired
     private PositionService positionService;
+
+    @Autowired 
+    private GameAloneService gameAloneService;
     
     @GetMapping()
     public String administration() {
@@ -203,11 +210,38 @@ public class AdministrationController {
             List<GameAlone> games = playerService.getGamesByPlayer(player);
             PlayerAndGamesDTO dataToExport = new PlayerAndGamesDTO(player, games);
             response.setContentType("application/json");
-            response.setHeader("Content-Disposition", "attachment; filename=games_by_image.json");
+            response.setHeader("Content-Disposition", "attachment; filename=games_by_player.json");
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.registerModule(new JavaTimeModule());
             objectMapper.writeValue(response.getOutputStream(), dataToExport);
         }
+    }
+
+    public void exportData(List<GameAlone> games, HttpServletResponse response,DateRangeForm dateRange) throws IOException {
+        GameAloneDTO dataToExport = new GameAloneDTO(dateRange,games);
+        response.setContentType("application/json");
+        response.setHeader("Content-Disposition", "attachment; filename=games_in_date_range.json");
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.writeValue(response.getOutputStream(), dataToExport);
+    }
+
+    @PostMapping("/images/statistics")
+    public void exportData(DateRangeForm dateRange, HttpServletResponse response) throws IOException {
+        if(dateRange.getStartDate()==null && dateRange.getEndDate()==null){
+            List<GameAlone> games = gameAloneService.getAllGames();
+            exportData(games, response, dateRange);
+        }else if(dateRange.getStartDate()==null){
+            List<GameAlone> games = gameAloneService.getAllGamesDateBefore(dateRange.getEndDate().atTime(23, 59, 59));
+            exportData(games, response, dateRange);
+        }else if(dateRange.getEndDate()==null){
+            List<GameAlone> games = gameAloneService.getAllGamesDateAfter(dateRange.getStartDate().atStartOfDay());
+            exportData(games, response, dateRange);
+        }else{
+            List<GameAlone> games = gameAloneService.getAllGamesDateBeetwenn(dateRange.getStartDate().atStartOfDay(), dateRange.getEndDate().atTime(23, 59, 59));
+            exportData(games, response, dateRange);
+        }
+        
     }
 
     @GetMapping("/images/statistics")
@@ -294,6 +328,8 @@ public class AdministrationController {
         res.addObject("noYearSuccess2",df.format(imageService.getSuccesRateFromNameAndShifts(false,2)*100));
         res.addObject("noYearSuccess3",df.format(imageService.getSuccesRateFromNameAndShifts(false,3)*100));
         res.addObject("noYearSuccess4",df.format(imageService.getSuccesRateFromNameAndShifts(false,4)*100));
+        DateRangeForm dateRange = new DateRangeForm();
+        res.addObject("dateRangeForm", dateRange);
         return res;
     }
 

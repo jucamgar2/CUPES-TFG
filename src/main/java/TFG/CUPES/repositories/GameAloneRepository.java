@@ -1,5 +1,6 @@
 package TFG.CUPES.repositories;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,5 +58,14 @@ public interface GameAloneRepository extends CrudRepository<GameAlone, Integer> 
 
     @Query("SELECT g.player.username, COUNT(g) FROM GameAlone g WHERE g.win = true GROUP BY g.player.username ORDER BY COUNT(g) DESC")
     List<Object[]> getRankingWin(Pageable pageable);
+
+    @Query("SELECT g FROM GameAlone g WHERE g.date BETWEEN ?1 AND ?2")
+    List<GameAlone> findAllByGameDateBetween(LocalDateTime start, LocalDateTime end);
+
+    @Query("SELECT g FROM GameAlone g WHERE g.date >= ?1")
+    List<GameAlone> findAllByGameDateAfter(LocalDateTime start);
+
+    @Query("SELECT g FROM GameAlone g WHERE g.date <= ?1")
+    List<GameAlone> findAllByGameDateBefore(LocalDateTime end);
 
 }

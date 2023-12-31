@@ -1,5 +1,6 @@
 package TFG.CUPES.services;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -178,5 +179,20 @@ public class GameAloneService {
         return res;
     }
 
+    @Transactional(readOnly = true)
+    public List<GameAlone> getAllGames(){
+        return (List<GameAlone>) this.gameRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<GameAlone> getAllGamesDateBeetwenn(LocalDateTime start, LocalDateTime end){
+        return (List<GameAlone>) this.gameRepository.findAllByGameDateBetween(start, end);
+    }
+    public List<GameAlone> getAllGamesDateBefore(LocalDateTime atTime) {
+        return this.gameRepository.findAllByGameDateBefore(atTime);
+    }
+    public List<GameAlone> getAllGamesDateAfter(LocalDateTime atStartOfDay) {
+        return this.gameRepository.findAllByGameDateAfter(atStartOfDay);
+    }
 
 }
