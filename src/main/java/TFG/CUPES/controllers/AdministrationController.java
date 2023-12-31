@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import TFG.CUPES.DTOdata.ImageAndGamesDTO;
+import TFG.CUPES.DTOdata.PlayerAndGamesDTO;
 import TFG.CUPES.components.GameUtils;
 import TFG.CUPES.entities.Authorities;
 import TFG.CUPES.entities.GameAlone;
@@ -187,6 +188,20 @@ public class AdministrationController {
         if (image != null) {
             List<GameAlone> games = imageService.getGamesFromSelected(image);
             ImageAndGamesDTO dataToExport = new ImageAndGamesDTO(image, games);
+            response.setContentType("application/json");
+            response.setHeader("Content-Disposition", "attachment; filename=games_by_image.json");
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.registerModule(new JavaTimeModule());
+            objectMapper.writeValue(response.getOutputStream(), dataToExport);
+        }
+    }
+
+    @GetMapping("/players/exportData/{username}")
+    public void exportData(@PathVariable("username") String username, HttpServletResponse response) throws IOException {
+        Player player = playerService.getByUsername(username);
+        if (player != null) {
+            List<GameAlone> games = playerService.getGamesByPlayer(player);
+            PlayerAndGamesDTO dataToExport = new PlayerAndGamesDTO(player, games);
             response.setContentType("application/json");
             response.setHeader("Content-Disposition", "attachment; filename=games_by_image.json");
             ObjectMapper objectMapper = new ObjectMapper();

@@ -1,6 +1,8 @@
 package TFG.CUPES.entities;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ public class Player {
     @Id
     String username;
 
+    @JsonIgnore
     String password;
 
     Boolean enabled;

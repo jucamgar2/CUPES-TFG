@@ -2,6 +2,7 @@ package TFG.CUPES.services;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.entities.Player;
 import TFG.CUPES.repositories.PlayerRepository;
 
@@ -132,6 +133,10 @@ public class PlayerService {
 
     public Page<Player> getAllAuthoritiesPageable(PageRequest of) {
         return this.playerRepo.findAll(of);
+    }
+
+    public List<GameAlone> getGamesByPlayer(Player player) {
+        return this.playerRepo.findGamesByPlayer(player);
     }
 
 

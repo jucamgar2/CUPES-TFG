@@ -2,6 +2,7 @@
 <%@ taglib prefix="CUPES" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <CUPES:layout title="Perfil">
     <div class="doBody">
@@ -78,6 +79,11 @@
                             <td><c:out value="${perfectWinRate}" /></td>
                         </tr>
                     </table>
+            <div>
+                <sec:authorize access="hasAuthority('admin')">
+                    <a href="/administration/players/exportData/${player.getUsername()}" class="buttom">Exportar datos del jugador</a>
+                </sec:authorize>
+            </div>
         </div>
     </div>
 </CUPES:layout>
