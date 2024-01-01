@@ -3,15 +3,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<CUPES:layout title="Página de Inicio">
+<CUPES:layout title="Registrarse">
         <script>
             $(function () {
                 $("#birthDate").datepicker({dateFormat: 'dd/mm/yy' });
             });
         </script>
 
-    <div class="doBody">
-        <div class="theBody">
             <div class="register">
                 <h1 class="register">Registrarse</h1>
                 <c:if test="${not empty errors}">
@@ -70,11 +68,11 @@
                 <div class="registerInfo">
                     <h2>Registrate para poder tener acceso al modo de juego online, donde podrás competir contra jugadores de todo el mundo</h2>
                     <h2>Aunque si no quieres, puedes seguir jugando al modo un jugador para seguir practicando y adquiriendo más conocimiento</h2>
-                    <a class="buttom" href="/game/new">Comenzar una partida para un jugador</a>
+                    <a class="buttom" href="/game/new">Jugar</a>
                 </div>
             </div>
-        </div>
+
         <script src="/js/error_script.js"></script>
         <script src="/js/show_pasword.js"></script>
-    </div>
+
 </CUPES:layout>

@@ -3,9 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<CUPES:layout title="Página de Inicio">
-    <div class="doBody">
-        <div class="theBody">
+<CUPES:layout title="Iniciar sesión">
             <div class="register">
                 <h1 class="register">Iniciar Sesión</h1>
                 <c:if test="${not empty errors}">
@@ -44,10 +42,8 @@
                     <button class="buttom" type="submit">Iniciar Sesión</button>
                 </form:form>
             </div>
-        </div>
         <script src="/js/error_script.js"></script>
         <script src="/js/show_pasword.js"></script>
-    </div>
 
     
 </CUPES:layout>

@@ -27,7 +27,7 @@
   <nav class="navbar">
    
     <div class="container">
-    <p class="logo">CUPES</p>
+    <a class="logo" href="/"><p class="logo">CUPES</p></a>
      <input style="display:none" type="checkbox" id="check">
     <label for="check" class="checkbtn">
       <i class="fas fa-bars"></i>
@@ -74,8 +74,11 @@
 
 
     <div class="content">
-        
-        <jsp:doBody />
+        <div class="doBody">
+          <div class="theBody">
+            <jsp:doBody />
+          </div>
+        </div>
     </div>
     
 </body>
