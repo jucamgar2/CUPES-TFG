@@ -56,10 +56,10 @@ public class GameUtils {
     }
 
     public ModelAndView expelPlayer(){
-        ModelAndView res  = new ModelAndView("redirect:/");
+        ModelAndView res  = new ModelAndView("game/selectMode");
         List<String> msg = new ArrayList<>();
         msg.add("Estas intentando acceder a una partida que no existe o que ya ha finalizado");
-        res.addObject("errormsg", msg);
+        res.addObject("errors", msg);
         return res;
     }
 
@@ -68,7 +68,7 @@ public class GameUtils {
         for(Position p : positions){
             if(gamePositions.contains(p)){
             }else{
-                res +="<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:" +p.getY()+"px;left: "+(p.getX()+125)+"px;'><img src='/images/int.png'></img></div>";
+                res +="<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:" +p.getY()+"px;left: "+(p.getX())+"px;'><img src='/images/int.png'></img></div>";
             }
         }
         return res;

@@ -74,8 +74,8 @@ public class GameUtilsTest {
     @Test
     public void expelPlayerTest(){
         ModelAndView expel = this.GameUtils.expelPlayer();
-        assert(expel.getViewName().equals("redirect:/"));
-        assert(expel.getModel().containsKey("errormsg"));
+        assert(expel.getViewName().equals("game/selectMode"));
+        assert(expel.getModel().containsKey("errors"));
     }
 
     @Test
@@ -105,21 +105,21 @@ public class GameUtilsTest {
         positions.sort(c1.thenComparing(c2));
         gamePositions.add(positions.get(0));
         String style = this.GameUtils.generateImageStyle(positions, gamePositions);
-        String res = "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:0px;left: 250px;'><img src='/images/int.png'></img></div>";
+        String res = "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:0px;left: 125px;'><img src='/images/int.png'></img></div>";
+        res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:0px;left: 250px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:0px;left: 375px;'><img src='/images/int.png'></img></div>";
-        res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:0px;left: 500px;'><img src='/images/int.png'></img></div>";
+        res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:125px;left: 0px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:125px;left: 125px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:125px;left: 250px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:125px;left: 375px;'><img src='/images/int.png'></img></div>";
-        res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:125px;left: 500px;'><img src='/images/int.png'></img></div>";
+        res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:250px;left: 0px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:250px;left: 125px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:250px;left: 250px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:250px;left: 375px;'><img src='/images/int.png'></img></div>";
-        res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:250px;left: 500px;'><img src='/images/int.png'></img></div>";
+        res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:375px;left: 0px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:375px;left: 125px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:375px;left: 250px;'><img src='/images/int.png'></img></div>";
         res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:375px;left: 375px;'><img src='/images/int.png'></img></div>";
-        res += "<div style='width: 125px;height: 125px;position: absolute;background-color: red; top:375px;left: 500px;'><img src='/images/int.png'></img></div>";
         assertEquals(style, res);
     }
 

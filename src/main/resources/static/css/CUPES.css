@@ -29,6 +29,13 @@ div.theBody{
   text-align: center;
 }
 
+div.block{
+  padding-top: 50px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 @media (max-width: 1000px) {
   body{
     font-family: Arial, Helvetica, sans-serif;
@@ -334,7 +341,7 @@ div.register{
   text-align: center;
 }
 
-h1.register{
+h1.title{
   font-size: 60px;
   font-weight: bold;
   padding-bottom: 50px;
@@ -354,7 +361,7 @@ div.registerInfo{
     font-size: 35px;
   }
 
-  h1.register{
+  h1.title{
     font-size: 85px;
     font-weight: bold;
     padding-bottom: 50px;
@@ -544,9 +551,22 @@ input.input-game{
 
 /*PAGINA DE JUEGO*/
 
+div.image-container{
+  display: flex;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-color: black;
+}
 
+div.logo-selector div{
+  margin-top: 20px;
+}
 
-/*-------------------------------------------------*/
+div.logo-selector{
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
 h1.game{
   text-align: center;
@@ -559,19 +579,60 @@ p.game{
   font-weight: bold;
 }
 
+/*-------------------------------------------------*/
+
+
+/*LOCAL GAME*/
+.mobile-view{
+  display:none
+}
+
+.pc-view{
+  display:block
+}
+
+div.local-game-message{
+  background-color: rgba(248, 213, 17, 0.7);
+  border-radius: 20px;
+  margin-right: 20%;
+  margin-left: 20%;
+  font-size: 20px;
+}
+
+p.local-game-message{
+  margin: 10px;
+  text-align: justify;
+}
+
+div.local-game-start{
+  margin-top: 100px;
+}
+
+
+@media (max-width: 1000px) {
+  .mobile-view{
+    display:block
+  }
+  .pc-view{
+    display:none
+  }
+
+  div.local-game-message{
+    background-color: rgba(248, 213, 17, 0.7);
+    border-radius: 20px;
+    margin-right: 20%;
+    margin-left: 20%;
+    font-size: 35px;
+  }
+
+}
+/*---------------------------------------------------*/
 .ready{
   color:green;
 }
 
 .not-ready{
   color:red;
-}
-
-div.imageContainer{
-  display: flex;
-  margin: 0 auto;
-  margin-top: 50px;
-  border-color: black;
 }
 
 div.complete-image{
@@ -591,10 +652,6 @@ div.gameImage{
   overflow: hidden;
   border-color: white;
   box-shadow: 0 0 10px rgba(0, 0, 0);
-}
-
-div.logoSelector div{
-  margin-top: 20px;
 }
 
 div.game-result{
@@ -626,12 +683,7 @@ img.game-res-online{
   box-shadow: 0 0 10px rgba(0, 0, 0);
 }
 
-div.new-local-game{
-  padding-top: 30px;
-  text-align: center;
-  padding-left: 10%;
-  padding-right: 10%;
-}
+
 
 div.column{
   float:left;
@@ -646,22 +698,6 @@ div.column:last-child {
   border-right: none;
 }
 
-div.local-game-message{
-  background-color: rgba(248, 213, 17, 0.7);
-  border-radius: 20px;
-  margin-right: 20%;
-  margin-left: 20%;
-}
-
-p.local-game-message{
-  margin: 10px;
-  text-align: justify;
-}
-
-div.local-game-start{
-  margin-top: 100px;
-}
-
 div.join-message{
   background-color: rgba(248, 213, 17, 0.7);
   border-radius: 20px;
@@ -673,16 +709,6 @@ p.join-message{
   font-size: 20px;
   margin: 10px;
   text-align: justify;
-}
-
-div.local-game-start{
-  margin-top: 100px;
-}
-
-div.logoSelector{
-  align-items: center;
-  justify-content: center;
-  text-align: center;
 }
 
 div.selectGameMode{

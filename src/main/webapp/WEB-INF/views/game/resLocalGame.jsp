@@ -4,32 +4,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="Resultado de la partida">
-    <div class = "doBody">
-        <div class="theBody">
-            <h1>Estos son vuestros logos completos:</h1>
-
-            <p class="game"><c:out value="${winnerMsg}"/></p>
+    <div class="block">
+            <h1 class="title"><c:out value="${winnerMsg}"/></h1>
             <p class="game"><c:out value="${shiftsP1}"/></p>
             <p class="game"><c:out value="${shiftsP2}"/></p>
 
-            <div>
+            <div class="pc-view">
                 <div class="column">
                     <p class="game">Este es el escudo de <c:out value="${game.player1Name}"/></p>
-                    <div class="gameResult">
-                        <img class="gameRes" src="${imageUrl1}" alt="Estamos teniendo problemas">  
+                    <div class="center-items">
+                        <img class="welcome-logo" src="${imageUrl1}" alt="Estamos teniendo problemas">  
                     </div>
                 </div>
                 <div class="column">
                     <p class="game">Este es el escudo de <c:out value="${game.player2Name}"/></p>
-                    <div class="gameResult">
-                        <img class="gameRes" src="${imageUrl2}" alt="Estamos teniendo problemas">  
+                    <div class="center-items">
+                        <img class="welcome-logo" src="${imageUrl2}" alt="Estamos teniendo problemas">  
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-view">
+                <div>
+                    <p class="game">Este es el escudo de <c:out value="${game.player1Name}"/></p>
+                    <div class="center-items">
+                        <img class="welcome-logo" src="${imageUrl1}" alt="Estamos teniendo problemas">  
+                    </div>
+                </div>
+                <div>
+                    <p class="game">Este es el escudo de <c:out value="${game.player2Name}"/></p>
+                    <div class="center-items">
+                        <img class="welcome-logo" src="${imageUrl2}" alt="Estamos teniendo problemas">  
                     </div>
                 </div>
             </div>
             
 
-            <c:out value="${message}"/>
+            <a class="buttom" href="/game/localGame/new">Nueva partida</a>
 
-        </div>
     </div>
 </CUPES:layout>

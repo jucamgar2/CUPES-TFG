@@ -5,7 +5,7 @@
 
 <CUPES:layout title="Iniciar sesión">
             <div class="register">
-                <h1 class="register">Iniciar Sesión</h1>
+                <h1 class="title">Iniciar Sesión</h1>
                 <c:if test="${not empty errors}">
                     <div id="error-notifications">
                         <c:forEach items="${errors}" var="error">

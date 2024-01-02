@@ -5,9 +5,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<CUPES:layout title="game">
-    <div class="doBody">
-        <div class="theBody">
+<CUPES:layout title="Partida Local">
+        <div class="block">
             <h1 class="game">¿Es suficieste este pedazo para que adivines el escudo?</h1>
             <c:if test="${not empty errors}">
                 <div id="error-notifications">
@@ -19,17 +18,18 @@
                     </c:forEach>
                 </div>
             </c:if>
-            <div>
-                <div class="column">
-                    <div class="imageContainer">
-                        <div class="gameImage">
-                            <img class="game">
-                        </div>
+            <c:if test="${succes}">
+                <div id="succes">
+                    <div class="succes-notification">
+                        <span>¡Enhorabuena! El jugador 1 ha acertado</span>
+                        <button class="close-button">×</button>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="imageContainer" style="position: relative;">
-                        <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;margin-left: 125px;">
+            </c:if>
+            <div>
+                <div class="center-items">
+                    <div class="image-container" style="position: relative;">
+                        <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
                         ${fullImageStyle}
                        
                     </div>
@@ -39,7 +39,7 @@
             <p class="game">Es el turno de <c:out value="${game.getActualPlayer()}"/></p>
             
             <form:form modelAttribute="logo">
-                <div class="logoSelector">
+                <div class="logo-selector">
                     <p class="game"><c:out value="${shiftsMessage}"/></p>
                     <div>
                         <form:label path="name">¿De quién es este escudo?</form:label>
@@ -54,6 +54,6 @@
             </form:form>
 
             <script src="/js/autocomplete.js"></script>
+            <script src="/js/error_script.js"></script>
         </div>
-    </div>
 </CUPES:layout>

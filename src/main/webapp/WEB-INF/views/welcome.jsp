@@ -22,4 +22,5 @@
                     <a href="/players/new" class="buttom">Registrarse</a>
                 </div>
             </div>
+            <script src="/js/error_script.js"></script>
 </CUPES:layout>

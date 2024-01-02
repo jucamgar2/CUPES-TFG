@@ -164,6 +164,9 @@ public class LocalGameController {
                         this.localGameService.save(game);
                     }
                 }
+                if(game.getPlayer2Shifts()==0){
+                    res.addObject("succes", true);
+                }
                 String shiftsMessage = "Tienes 4 intentos y has gastado " + game.getPlayer2Shifts();
                 res.addObject("shiftsMessage", shiftsMessage);
                 String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer2Positions());

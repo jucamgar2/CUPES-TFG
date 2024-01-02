@@ -11,7 +11,7 @@
         </script>
 
             <div class="register">
-                <h1 class="register">Registrarse</h1>
+                <h1 class="title">Registrarse</h1>
                 <c:if test="${not empty errors}">
                     <div id="error-notifications">
                         <c:forEach items="${errors}" var="error">
