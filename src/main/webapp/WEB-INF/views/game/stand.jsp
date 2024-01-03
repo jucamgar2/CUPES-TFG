@@ -3,10 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="Unirse a una partida onine">
-    <div class = "doBody">
-        <div class = "theBody">
-            <h1 class="game">Has conseguido acertar todos tus escudos, espera a que tu rival termine para determinar el resultado </h1>
-        </div>
+    <div class = "block"> 
+            <h1 class="title">Terminaste, espera a que tu rival termine </h1>
         <script src="/js/finish_game.js"></script>
     </div>
 </CUPES:layout>

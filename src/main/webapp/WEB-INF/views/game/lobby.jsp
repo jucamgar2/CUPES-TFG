@@ -3,9 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="Unirse a una partida onine">
-    <div class="doBody">
-        <div class="theBody">
-            <h1></h1>
+    <div class="block">
+            <h1 class="title">Cuando ambos jugadores esteis listos empezará la partida</h1>
             <div>
                 <div class="column">
                     <div>
@@ -42,18 +41,17 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="block">
                 <a class="buttom" href="/game/onlineGame/start/${game.getId()}">Estoy Listo</a>
                 <a class="buttom" href="/game/onlineGame/leave/${game.getId()}">Salir</a>
             </div>
             <c:if test="${game.getPlayer2()==null}">
-                <div class="join-message">
-                    <p class ="join-message">
-                        Si tarda mucho en unirse un jugador, puede que no el flujo de jugadores que se quieren unir a una partida sea muy pequeño comparado a la cantidad de jugadore que crean partidas, podrías probar a unirte a una partida o jugar en los modos de juego para un jugador
+                <div class="local-game-message">
+                    <p class ="local-game-message">
+                        Si tarda mucho en unirse un jugador, puede que el flujo de jugadores que se quieren unir a una partida sea muy pequeño comparado a la cantidad de jugadores que crean partidas, podrías probar a unirte a una partida o jugar en los modos de juego para un jugador
                     </p>
                 </div>
             </c:if>
-        </div>
         <script src="/js/start_game.js"></script>
     </div>
 </CUPES:layout>

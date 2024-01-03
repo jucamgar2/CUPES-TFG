@@ -5,8 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="game">
-    <div class="doBody">
-        <div class="theBody">
+    <div class="block">
             <h1 class="game">¿Es suficieste este pedazo para que adivines el escudo?</h1>
             <c:if test="${error}">
                 <div id="error-notifications">
@@ -24,20 +23,11 @@
                     </div>
                 </div>
             </c:if>
-            <div>
-                <div class="column">
-                    <div class="imageContainer">
-                        <div class="gameImage">
-                            <img class="game">
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="imageContainer" style="position: relative;">
-                        <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;margin-left: 125px;">
-                        ${fullImageStyle}
-                       
-                    </div>
+            <div class="center-items">
+                <div class="image-container" style="position: relative;">
+                    <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
+                    ${fullImageStyle}
+                   
                 </div>
             </div>
 
@@ -66,14 +56,15 @@
                     <div>
                         <button  class="buttom" type="submit" href="/onlineGame/play/${game.id}">Enviar</button>
                     </div>
-                    </form:form>
-
-                    <a class="buttom-danger" href ="/game/onlineGame/leave/${game.id}">Abandonar</a>
-
                 </div>
+            </form:form>
+
+            <div class="block">
+                    <a class="buttom-danger" href ="/game/onlineGame/leave/${game.id}">Abandonar</a>
+            </div>
+                
 
                 <script src="/js/autocomplete.js"></script>
                 <script src="/js/error_script.js"></script>
-        </div>
     </div>
 </CUPES:layout>
