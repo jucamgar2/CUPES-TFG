@@ -70,7 +70,7 @@ public class OnlineGameController {
 
     @GetMapping("/join")
     public ModelAndView join(Principal principal,HttpServletResponse response){
-        response.addHeader("Refresh", "4");
+        //response.addHeader("Refresh", "4");
         ModelAndView res = new ModelAndView(JOIN_GAME);
         List<OnlineGame> games = this.onlineGameService.getNotStartedGames();
         if(!games.isEmpty()){

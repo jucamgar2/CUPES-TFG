@@ -9,6 +9,14 @@
                 <p class ="local-game-message">
                     Recuerda que si tarda mucho, puede que no haya partidas disponibles, por lo que podrías pensar en crear una nueva partida para que otro jugador se una a ti
                 </p>
-            </div>                
+            </div>    
+            <div class="grid-container">
+            </div>
+                <p class="game">Nº de intentos: <span class="shifts"></span></p>
+            <div class="center-items">
+                <button class="buttom" onclick="restart()">Reiniciar</button>
+            </div>
+            <script src="/js/memory_game.js"></script>         
+            <script src="/js/join_game.js"></script>   
     </div>
 </CUPES:layout>

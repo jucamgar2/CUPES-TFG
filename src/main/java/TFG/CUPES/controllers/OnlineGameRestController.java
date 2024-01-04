@@ -1,10 +1,14 @@
 package TFG.CUPES.controllers;
 
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.servlet.ModelAndView;
 
 import TFG.CUPES.entities.OnlineGame;
 import TFG.CUPES.services.OnlineGameService;
@@ -33,6 +37,14 @@ public class OnlineGameRestController {
         Boolean bothPlayersJoined=false;
         bothPlayersJoined =onlineGame.getPlayer1()!=null && onlineGame.getPlayer2()!=null && onlineGame.getPlayer1IsReady() && onlineGame.getPlayer2IsReady();
         return ResponseEntity.ok(bothPlayersJoined);
+    }
+
+    @GetMapping("/lobby")
+    public ResponseEntity<Boolean> checkLobbyStatus() {
+        List<OnlineGame> games = this.onlineGameService.getNotStartedGames();
+        Boolean gameJoin=false;
+        gameJoin=!games.isEmpty();
+        return ResponseEntity.ok(gameJoin);
     }
     
 }

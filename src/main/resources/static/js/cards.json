@@ -1,0 +1,114 @@
+[
+    {
+        "image": "/images/Logo/BM.jpg",
+        "name": "BM"
+    },
+    {
+        "image": "/images/Logo/Barca.jpg",
+        "name": "Barca"
+    },
+    {
+        "image":"/images/Logo/Betis.jpg",
+        "name": "Betis"
+    },
+    {
+        "image":"/images/Logo/ATM.jpg",
+        "name": "ATM"
+    },
+    {
+        "image":"/images/Logo/ADA.jpg",
+        "name": "ADA"
+    },
+    {
+        "image":"/images/Logo/Alaves.jpg",
+        "name": "Alaves"
+    },
+    {
+        "image":"/images/Logo/AG.jpg",
+        "name":"AG"
+    },
+    {
+        "image":"/images/Logo/Arsenal.jpg",
+        "name":"Arsenal"
+    },
+    {
+        "image": "/images/Logo/Brestois.jpg",
+        "name": "Brestois"
+    },
+    {
+        "image":"/images/Logo/BVB.jpg",
+        "name":"BVB"
+    },
+    {
+        "image":"/images/Logo/Cadiz.jpg",
+        "name":"Cadiz"
+    },
+    {
+        "image":"/images/Logo/Celta.jpg",
+        "name":"Celta"
+    },
+    {
+        "image":"/images/Logo/Chelsea.jpg",
+        "name":"Chelsea"
+    },
+    {
+        "image":"/images/Logo/Inter.jpg",
+        "name":"Inter"
+    },
+    {
+        "image":"/images/Logo/Juve.jpg",
+        "name":"Juve"
+    },
+    {
+        "image":"/images/Logo/Liverpool.jpg",
+        "name":"Liverpool"
+    },
+    {
+        "image":"/images/Logo/Madrid.jpg",
+        "name":"Madrid"
+    },
+    {
+        "image":"/images/Logo/Milan.jpg",
+        "name":"Milan"
+    },
+    {
+        "image":"/images/Logo/Munich.jpg",
+        "name":"Munich"
+    },
+    {
+        "image":"/images/Logo/OL.jpg",
+        "name":"OL"
+    },
+    {
+        "image":"/images/Logo/OM.jpg",
+        "name":"OM"
+    },
+    {
+        "image":"/images/Logo/Roma.jpg",
+        "name":"Roma"
+    },
+    {
+        "image":"/images/Logo/PSG.jpg",
+        "name":"PSG"
+    },
+    {
+        "image":"/images/Logo/SCF.jpg",
+        "name":"SCF"
+    },
+    {
+        "image":"/images/Logo/Sevilla.jpg",
+        "name":"Sevilla"
+    },
+    {
+        "image":"/images/Logo/Thorns.jpg",
+        "name":"Thorns"
+    },
+    {
+        "image":"/images/Logo/United.jpg",
+        "name":"United"
+    },
+    {
+        "image":"/images/Logo/Wave.jpg",
+        "name":"Wave"
+    }
+]

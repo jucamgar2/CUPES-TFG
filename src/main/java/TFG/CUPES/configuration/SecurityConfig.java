@@ -24,11 +24,12 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
 		.authorizeHttpRequests((authorize) -> authorize
-			.requestMatchers("/resources/**","/webjars/**","/h2-console/**","/css/**","/fonts/**","/images/**","/autocomplete/**","/js/**","/stand/**","/start/**","/statistics/**","/","/welcome","/game/**","/webapp/**","/WEB-INF/**").permitAll()
+			.requestMatchers("/resources/**","/webjars/**","/h2-console/**","/css/**","/fonts/**","/images/**","/autocomplete/**","/js/**","/stand/**","/start/**","/statistics/**","/","/welcome","/webapp/**","/WEB-INF/**","/lobby").permitAll()
             .requestMatchers("/login/**").permitAll()
             .requestMatchers("/players/new/**").permitAll()
             .requestMatchers("/h2-console/**").permitAll()
             .requestMatchers("/game/onlineGame/**").authenticated()
+            .requestMatchers("/game/**").permitAll()
             .requestMatchers("/administration/**").hasAuthority("admin")
             .requestMatchers("/players/profile/**","/players/edit").authenticated()
             .requestMatchers("/statistics/**").permitAll()
