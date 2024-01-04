@@ -116,7 +116,7 @@ public class PlayerService {
             if (p.getMail().length()>50){
             errors.add("La longitud del correo debe tener menos de 50 caracteres"); 
             }
-            if(findByMail(p.getMail())!=null){
+            if(findByMail(p.getMail())!=null && findByMail(p.getMail()).getUsername()!=p.getUsername()){
                 errors.add("Ya existe un usuario con ese correo");
             }
         }

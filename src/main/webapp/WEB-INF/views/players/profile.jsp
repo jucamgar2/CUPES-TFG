@@ -5,85 +5,92 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <CUPES:layout title="Perfil">
-    <div class="doBody">
-        <div class="theBody">
-            <p class="game">Perfil de <c:out value="${player.getUsername()}"/></p>
+    <div class="block">
+            <h1 class="title">Perfil de <c:out value="${player.getUsername()}"/></h1>
             <p class="game">Nombre: <c:out value="${player.getName()}"/></p>
             <p class="game">Email: <c:out value="${player.getMail()}"/></p>
             <p class="game">Fecha de nacimiento: <c:out value="${player.getBirthDate()}"/></p>
-            <c:if test="${player.getUsername()==principal.getName()}">
-                <a href="/players/edit" class="buttom">Editar mi perfil</a>
-            </c:if>
-                <h2>Estadísticas del usuario para el modo un jugador</h2>
+            <div class="block">
                 <table class="statistics-table">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Estadísticas del jugador en partidas en solitario</th>
+                        </tr>
+                    </thead>
                     <tr>
                         <td>Número de partidas:</td>
-                        <td><c:out value="${userGames}" /></td>
+                        <td class="left"><c:out value="${userGames}" /></td>
                     </tr>
                     <tr>
                         <td>Número de victorias:</td>
-                        <td><c:out value="${userWins1}" /></td>
+                        <td class="left"><c:out value="${userWins1}" /></td>
                     </tr>
                     <tr>
                         <td>Porcentaje de victorias:</td>
-                        <td><c:out value="${userWinRate}" /></td>
+                        <td class="left"><c:out value="${uwr}"/>%</td>
                     </tr>
                     <tr>
                         <td>Victorias en un intento:</td>
-                        <td><c:out value="${userWinsWithOneShift}" /></td>
+                        <td class="left"><c:out value="${userWinsWithOneShift}" /></td>
                     </tr>
                     <tr>
                         <td>Victorias en dos intentos:</td>
-                        <td><c:out value="${userWinsWithTwoShifts}" /></td>
+                        <td class="left"><c:out value="${userWinsWithTwoShifts}" /></td>
                     </tr>
                     <tr>
                         <td>Victorias en tres intentos:</td>
-                        <td><c:out value="${userWinsWithThreeShifts}" /></td>
+                        <td class="left"><c:out value="${userWinsWithThreeShifts}" /></td>
                     </tr>
                     <tr>
                         <td>Victorias en cuatro intentos:</td>
-                        <td><c:out value="${userWinsWithFourShifts}" /></td>
+                        <td class="left"><c:out value="${userWinsWithFourShifts}" /></td>
                     </tr>
                     <tr>
                         <td>Media de intentos para ganar:</td>
-                        <td><c:out value="${userAverageShiftsToWin}" /></td>
+                        <td class="left"><c:out value="${userAverageShiftsToWin}" /></td>
                     </tr>
                 </table>
-
-
- 
-                    <h2>Estadísticas de juegos en línea del usuario</h2>
+            </div>
+                <div class="block">
                     <table class="statistics-table">
+                        <thead>
+                            <th colspan="2">Estadísticas del jugador en partidas en línea</th>
+                        </thead>
                         <tr>
-                            <td>Número de juegos en línea:</td>
-                            <td><c:out value="${userOnlineGames}" /></td>
+                            <td>Número de partidas:</td>
+                            <td class="left"><c:out value="${userOnlineGames}" /></td>
                         </tr>
                         <tr>
                             <td>Número de victorias:</td>
-                            <td><c:out value="${userWins}" /></td>
+                            <td class="left"><c:out value="${userWins}" /></td>
                         </tr>
                         <tr>
                             <td>Número de victorias perfectas:</td>
-                            <td><c:out value="${userPerfectWins}" /></td>
+                            <td class="left"><c:out value="${userPerfectWins}" /></td>
                         </tr>
                         <tr>
                             <td>Media de intentos para ganar :</td>
-                            <td><c:out value="${userAverageOfShiftsToWinByPlayer1}" /></td>
+                            <td class="left"><c:out value="${userAverageOfShiftsToWinByPlayer1}" /></td>
                         </tr>
                         <tr>
-                            <td>Tasa de victorias del usuario:</td>
-                            <td><c:out value="${userWinRate}" /></td>
+                            <td>Tasa de victorias:</td>
+                            <td class="left"><c:out value="${userWinRate}" /></td>
                         </tr>
                         <tr>
-                            <td>Tasa de victorias perfectas del usuario:</td>
-                            <td><c:out value="${perfectWinRate}" /></td>
+                            <td>Tasa de victorias perfectas:</td>
+                            <td class="left"><c:out value="${perfectWinRate}" /></td>
                         </tr>
                     </table>
-            <div>
+                </div>
+            <div class="block">
+                    <c:if test="${player.getUsername()==principal.getName()}">
+                        <a href="/players/edit" class="buttom">Editar mi perfil</a>
+                    </c:if>
+            </div>
+            <div class="block">
                 <sec:authorize access="hasAuthority('admin')">
                     <a href="/administration/players/exportData/${player.getUsername()}" class="buttom">Exportar datos del jugador</a>
                 </sec:authorize>
             </div>
         </div>
-    </div>
 </CUPES:layout>

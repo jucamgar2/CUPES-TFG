@@ -805,21 +805,33 @@ div.selectGameMode a{
 }
 
 .statistics-table {
-  border: 1px solid #ccc;
   border-collapse: collapse;
   width: 100%;
   font-weight: bold;
 }
 
 .statistics-table td, .statistics-table th {
-  border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
 }
 
 .statistics-table th {
-  background-color: #f5f5f5;
+  background-color: #333;
   font-weight: bold;
+  color: #f5f5f5;
+  font-size: 20px;
+}
+
+td.left{
+  text-align: right;
+}
+
+.statistics-table tr:nth-child(odd) {
+  background-color: #c4c4c4;
+}
+
+.statistics-table tr:nth-child(even) {
+  background-color: #ffffff;
 }
 
 .user-statistics, .general-statistics {
@@ -832,7 +844,6 @@ div.selectGameMode a{
   font-size: 20px;
   margin-bottom: 10px;
 }
-
 
 
 @media (min-height: 1500px) {

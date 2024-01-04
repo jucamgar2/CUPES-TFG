@@ -43,9 +43,8 @@ public interface OnlineGameRepository extends CrudRepository<OnlineGame, Integer
     @Query("SELECT COUNT(g) FROM OnlineGame g WHERE g.player1Shifts = 3 AND g.winner = g.player1.username AND g.player1.username = ?1 OR g.player2Shifts = 3 AND g.winner = g.player2.username AND g.player2.username = ?1")
     Integer findNumOfPerfectWinsFromUser(String username);
 
-    //@Query("SELECT AVG(g) FROM OnlineGame g WHERE g.winner = g.player1.username AND g.player1.username = ?1 OR g.winner = g.player2.username AND g.player2.username = ?1")
-    @Query("SELECT COUNT(g) FROM OnlineGame g")
-    Double findAverageNumOfShiftsToWinByUser(String username);
+    @Query("SELECT g FROM OnlineGame g WHERE g.winner = g.player1.username AND g.player1.username = ?1 OR g.winner = g.player2.username AND g.player2.username = ?1")
+    List<OnlineGame> findWinsByUsername(String username);
 
     @Query("SELECT g.winner, COUNT(g) FROM OnlineGame g GROUP BY g.winner ORDER BY COUNT(g) DESC")
     List<Object[]> getRankingGame(Pageable pageable);

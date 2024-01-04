@@ -18,40 +18,40 @@ public interface GameAloneRepository extends CrudRepository<GameAlone, Integer> 
     Optional<GameAlone> getGameByTokenAndId(String token, Integer id);
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.player.username = ?1 AND g.isFinish = true")
-    Integer findNumOfGamesFromUser(String username);
+    Double findNumOfGamesFromUser(String username);
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.win = true AND g.player.username = ?1")
-    Integer findNumOfWinsFromUser(String username);
+    Double findNumOfWinsFromUser(String username);
     
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.player.username = ?1 AND g.win = true AND g.Shift = 1")
-    Integer findNumOfWinsWihtOneShiftFromUser(String username);
+    Double findNumOfWinsWihtOneShiftFromUser(String username);
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.player.username = ?1 AND g.win = true AND g.Shift = 2")
-    Integer findNumOfWinsWithTwoShiftsFromUser(String username);
+    Double findNumOfWinsWithTwoShiftsFromUser(String username);
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.player.username = ?1 AND g.win = true AND g.Shift = 3")
-    Integer findNumOfWinsWithThreeShiftsFromUser(String username);
+    Double findNumOfWinsWithThreeShiftsFromUser(String username);
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.player.username = ?1 AND g.win = true AND g.Shift = 4")
-    Integer findNumOfWinsWithFourShiftsFromUser(String username);
+    Double findNumOfWinsWithFourShiftsFromUser(String username);
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.isFinish = true")
-    Integer findNumOfFinishGames();
+    Double findNumOfFinishGames();
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.win = true")
-    Integer findNumOfWins();
+    Double findNumOfWins();
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.win = true AND g.Shift = 1")
-    Integer findNumOfWinsWihtOneShift();
+    Double findNumOfWinsWihtOneShift();
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.win = true AND g.Shift = 2")
-    Integer findNumOfWinsWithTwoShifts();
+    Double findNumOfWinsWithTwoShifts();
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.win = true AND g.Shift = 3")
-    Integer findNumOfWinsWithThreeShifts();
+    Double findNumOfWinsWithThreeShifts();
 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.win = true AND g.Shift = 4")
-    Integer findNumOfWinsWithFourShifts();
+    Double findNumOfWinsWithFourShifts();
 
     @Query("SELECT g.player.username, COUNT(g) FROM GameAlone g WHERE g.isFinish = true GROUP BY g.player.username ORDER BY COUNT(g) DESC")
     List<Object[]> getRankingGame(Pageable pageable);

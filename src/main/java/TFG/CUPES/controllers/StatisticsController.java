@@ -2,6 +2,7 @@ package TFG.CUPES.controllers;
 
 
 import java.security.Principal;
+import java.text.DecimalFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,8 @@ public class StatisticsController {
 
     private  OnlineGameService onlineGameService;
     private  GameAloneService gameAloneService;
+    DecimalFormat df = new DecimalFormat("#.##");
+    DecimalFormat iformat = new DecimalFormat("#");
 
     @Autowired
     public StatisticsController(OnlineGameService onlineGameService, GameAloneService gameAloneService) {
@@ -64,46 +67,46 @@ public class StatisticsController {
 
 
     public ModelAndView addOnlineGameStatisticsByUser(ModelAndView res, String username) {
-        res.addObject("userOnlineGames", this.onlineGameService.getNumOfGamesFromUser(username));
-        res.addObject("userWins", this.onlineGameService.getNumOfWinsFromUser(username));
-        res.addObject("userPerfectWins", this.onlineGameService.getNumOfPerfectWinsFromUser(username));
-        res.addObject("userAverageOfShiftsToWinByPlayer1", this.onlineGameService.getAverageOfShiftsToWinByPlayer1FromUser(username));
+        res.addObject("userOnlineGames", iformat.format( this.onlineGameService.getNumOfGamesFromUser(username)));
+        res.addObject("userWins",iformat.format( this.onlineGameService.getNumOfWinsFromUser(username)));
+        res.addObject("userPerfectWins", iformat.format(this.onlineGameService.getNumOfPerfectWinsFromUser(username)));
+        res.addObject("userAverageOfShiftsToWinByPlayer1", df.format(this.onlineGameService.getAverageOfShiftsToWinByPlayer1FromUser(username)));
         res.addObject("userWinRate",this.onlineGameService.getWinRate(username));
         res.addObject("perfectWinRate",this.onlineGameService.perfectWinsRate(username));
         return res;
     }
 
     private ModelAndView addOnlineGameGeneralStatistics(ModelAndView res) {
-        res.addObject("totalOnlineGames", this.onlineGameService.getNumOfGames());
-        res.addObject("totalOnlineWinsByPlayer1", this.onlineGameService.getNumOfWinsByPlayer1());
-        res.addObject("totalOnlineWinsByPlayer2", this.onlineGameService.getNumOfWinsByPlayer2());
-        res.addObject("totalOnlinePerfectWins", this.onlineGameService.getNumOfPerfectWins());
-        res.addObject("totalOnlineAverageOfShiftsToWinByPlayer1", this.onlineGameService.getAverageOfShiftsToWinByPlayer1());
-        res.addObject("totalOnlineAverageOfShiftsToWinByPlayer2", this.onlineGameService.getAverageOfShiftsToWinByPlayer2());
+        res.addObject("totalOnlineGames", iformat.format(this.onlineGameService.getNumOfGames()));
+        res.addObject("totalOnlineWinsByPlayer1", iformat.format(this.onlineGameService.getNumOfWinsByPlayer1()));
+        res.addObject("totalOnlineWinsByPlayer2", iformat.format(this.onlineGameService.getNumOfWinsByPlayer2()));
+        res.addObject("totalOnlinePerfectWins", iformat.format(this.onlineGameService.getNumOfPerfectWins()));
+        res.addObject("totalOnlineAverageOfShiftsToWinByPlayer1", df.format(this.onlineGameService.getAverageOfShiftsToWinByPlayer1()));
+        res.addObject("totalOnlineAverageOfShiftsToWinByPlayer2", df.format(this.onlineGameService.getAverageOfShiftsToWinByPlayer2()));
         return res;
     }
 
     public ModelAndView addGameAloneStatisticsByUser(ModelAndView res, String username){
-        res.addObject("userGames", this.gameAloneService.getNumOfGamesFromUser(username));
-        res.addObject("userWins1", this.gameAloneService.getNumOfWinsFromUser(username));
-        res.addObject("userWinsWithOneShift", this.gameAloneService.getNumOfWinsWihtOneShiftFromUser(username));
-        res.addObject("userWinsWithTwoShifts", this.gameAloneService.getNumOfWinsWithTwoShiftsFromUser(username));
-        res.addObject("userWinsWithThreeShifts", this.gameAloneService.getNumOfWinsWithThreeShiftsFromUser(username));
-        res.addObject("userWinsWithFourShifts", this.gameAloneService.getNumOfWinsWithFourShiftsFromUser(username));
-        res.addObject("userWinRate", this.gameAloneService.getWinRateFromUser(username) *100);
-        res.addObject("userAverageShiftsToWin", this.gameAloneService.getAverageShiftsTowinFromUser(username));
+        res.addObject("userGames", iformat.format(this.gameAloneService.getNumOfGamesFromUser(username)));
+        res.addObject("userWins1", iformat.format(this.gameAloneService.getNumOfWinsFromUser(username)));
+        res.addObject("userWinsWithOneShift", iformat.format(this.gameAloneService.getNumOfWinsWihtOneShiftFromUser(username)));
+        res.addObject("userWinsWithTwoShifts", iformat.format(this.gameAloneService.getNumOfWinsWithTwoShiftsFromUser(username)));
+        res.addObject("userWinsWithThreeShifts", iformat.format(this.gameAloneService.getNumOfWinsWithThreeShiftsFromUser(username)));
+        res.addObject("userWinsWithFourShifts", iformat.format(this.gameAloneService.getNumOfWinsWithFourShiftsFromUser(username)));
+        res.addObject("uwr", df.format(this.gameAloneService.getWinRateFromUser(username)*100));
+        res.addObject("userAverageShiftsToWin", df.format(this.gameAloneService.getAverageShiftsTowinFromUser(username)));
         return res;
     }
 
     public ModelAndView addGameAloneGeneralStatistics(ModelAndView res){
-        res.addObject("totalGames", this.gameAloneService.getNumOfFinishGames());
-        res.addObject("totalWins", this.gameAloneService.getNumOfWins());
-        res.addObject("totalWinsWithOneShift", this.gameAloneService.getNumOfWinsWihtOneShift());
-        res.addObject("totalWinsWithTwoShifts", this.gameAloneService.getNumOfWinsWithTwoShifts());
-        res.addObject("totalWinsWithThreeShifts", this.gameAloneService.getNumOfWinsWithThreeShifts());
-        res.addObject("totalWinsWithFourShifts", this.gameAloneService.getNumOfWinsWithFourShifts());
-        res.addObject("totalWinRate", this.gameAloneService.getWinRate() *100);
-        res.addObject("totalAverageShiftsToWin", this.gameAloneService.getAverageShiftsTowin());
+        res.addObject("totalGames", iformat.format(this.gameAloneService.getNumOfFinishGames()));
+        res.addObject("totalWins", iformat.format(this.gameAloneService.getNumOfWins()));
+        res.addObject("totalWinsWithOneShift", iformat.format(this.gameAloneService.getNumOfWinsWihtOneShift()));
+        res.addObject("totalWinsWithTwoShifts", iformat.format(this.gameAloneService.getNumOfWinsWithTwoShifts()));
+        res.addObject("totalWinsWithThreeShifts", iformat.format(this.gameAloneService.getNumOfWinsWithThreeShifts()));
+        res.addObject("totalWinsWithFourShifts", iformat.format(this.gameAloneService.getNumOfWinsWithFourShifts()));
+        res.addObject("totalWinRate", df.format(this.gameAloneService.getWinRate() *100));
+        res.addObject("totalAverageShiftsToWin", df.format(this.gameAloneService.getAverageShiftsTowin()));
         return res;
     }
 

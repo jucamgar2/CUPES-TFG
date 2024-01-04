@@ -98,11 +98,20 @@ public class OnlineGameService {
 
     @Transactional(readOnly = true)
     public Double getAverageOfShiftsToWinByPlayer1FromUser(String username){
-        Double res = this.onlineGameRepository.findAverageNumOfShiftsToWinByUser(username);
-        if(res == null){
+        List<OnlineGame> wins = this.onlineGameRepository.findWinsByUsername(username);
+        if (wins.isEmpty()){
             return 0.;
+        }else{
+            Double res = 0.;
+            for(OnlineGame g : wins){
+                if(username.equals(g.getPlayer1().getUsername())){
+                    res += g.getPlayer1Shifts();
+                }else{
+                    res += g.getPlayer2Shifts();
+                }
+            }
+            return res/wins.size();
         }
-        return res;
     }
 
     @Transactional(readOnly = true)

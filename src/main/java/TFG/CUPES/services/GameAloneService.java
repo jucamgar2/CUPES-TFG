@@ -45,42 +45,42 @@ public class GameAloneService {
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfGamesFromUser(String username){
+    public Double getNumOfGamesFromUser(String username){
         return this.gameRepository.findNumOfGamesFromUser(username);
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsFromUser(String username){
+    public Double getNumOfWinsFromUser(String username){
         return this.gameRepository.findNumOfWinsFromUser(username);
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsWihtOneShiftFromUser(String username){
+    public Double getNumOfWinsWihtOneShiftFromUser(String username){
         return this.gameRepository.findNumOfWinsWihtOneShiftFromUser(username);
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsWithTwoShiftsFromUser(String username){
+    public Double getNumOfWinsWithTwoShiftsFromUser(String username){
         return this.gameRepository.findNumOfWinsWithTwoShiftsFromUser(username);
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsWithThreeShiftsFromUser(String username){
+    public Double getNumOfWinsWithThreeShiftsFromUser(String username){
         return this.gameRepository.findNumOfWinsWithThreeShiftsFromUser(username);
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsWithFourShiftsFromUser(String username){
+    public Double getNumOfWinsWithFourShiftsFromUser(String username){
         return this.gameRepository.findNumOfWinsWithFourShiftsFromUser(username);
     }
 
     @Transactional(readOnly = true)
     public Double getAverageShiftsTowinFromUser(String username){
-        Integer oneShiftWins = this.gameRepository.findNumOfWinsWihtOneShiftFromUser(username);
-        Integer twoShiftWins = this.gameRepository.findNumOfWinsWithTwoShiftsFromUser(username);
-        Integer threeShiftWins = this.gameRepository.findNumOfWinsWithThreeShiftsFromUser(username);
-        Integer fourShiftWins = this.gameRepository.findNumOfWinsWithFourShiftsFromUser(username);
-        Integer wins = this.getNumOfWinsFromUser(username);
+        Double oneShiftWins = this.gameRepository.findNumOfWinsWihtOneShiftFromUser(username);
+        Double twoShiftWins = this.gameRepository.findNumOfWinsWithTwoShiftsFromUser(username);
+        Double threeShiftWins = this.gameRepository.findNumOfWinsWithThreeShiftsFromUser(username);
+        Double fourShiftWins = this.gameRepository.findNumOfWinsWithFourShiftsFromUser(username);
+        Double wins = this.getNumOfWinsFromUser(username);
         Double sum = (double) (4*fourShiftWins + 3*threeShiftWins + 2*twoShiftWins + oneShiftWins);
         Double res = (double) wins>0? sum/wins:0.;
         return res;
@@ -88,51 +88,51 @@ public class GameAloneService {
 
     public Double getWinRateFromUser(String username){
         Double res=0.;
-        Integer games = this.getNumOfGamesFromUser(username);
-        Integer wins = this.getNumOfWinsFromUser(username);
+        Double games = this.gameRepository.findNumOfGamesFromUser(username);
+        Double wins = this.gameRepository.findNumOfWinsFromUser(username);
         if(games>0){
-            res = (double) wins/games;
+            res = wins/games;
         }
         return res;
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfFinishGames(){
+    public Double getNumOfFinishGames(){
         return this.gameRepository.findNumOfFinishGames();
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWins(){
+    public Double getNumOfWins(){
         return this.gameRepository.findNumOfWins();
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsWihtOneShift(){
+    public Double getNumOfWinsWihtOneShift(){
         return this.gameRepository.findNumOfWinsWihtOneShift();
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsWithTwoShifts(){
+    public Double getNumOfWinsWithTwoShifts(){
         return this.gameRepository.findNumOfWinsWithTwoShifts();
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsWithThreeShifts(){
+    public Double getNumOfWinsWithThreeShifts(){
         return this.gameRepository.findNumOfWinsWithThreeShifts();
     }
 
     @Transactional(readOnly = true)
-    public Integer getNumOfWinsWithFourShifts(){
+    public Double getNumOfWinsWithFourShifts(){
         return this.gameRepository.findNumOfWinsWithFourShifts();
     }
 
     @Transactional(readOnly = true)
     public Double getAverageShiftsTowin(){
-        Integer oneShiftWins = this.gameRepository.findNumOfWinsWihtOneShift();
-        Integer twoShiftWins = this.gameRepository.findNumOfWinsWithTwoShifts();
-        Integer threeShiftWins = this.gameRepository.findNumOfWinsWithThreeShifts();
-        Integer fourShiftWins = this.gameRepository.findNumOfWinsWithFourShifts();
-        Integer wins = this.getNumOfWins();
+        Double oneShiftWins = this.gameRepository.findNumOfWinsWihtOneShift();
+        Double twoShiftWins = this.gameRepository.findNumOfWinsWithTwoShifts();
+        Double threeShiftWins = this.gameRepository.findNumOfWinsWithThreeShifts();
+        Double fourShiftWins = this.gameRepository.findNumOfWinsWithFourShifts();
+        Double wins = this.getNumOfWins();
         Double sum = (double) (4*fourShiftWins + 3*threeShiftWins + 2*twoShiftWins + oneShiftWins);
         Double res = (double) wins>0? sum/wins:0.;
         return res;
@@ -141,8 +141,8 @@ public class GameAloneService {
     @Transactional(readOnly = true)
     public Double getWinRate(){
         Double res = 0.;
-        Integer games = this.getNumOfFinishGames();
-        Integer wins = this.getNumOfWins();
+        Double games = this.getNumOfFinishGames();
+        Double wins = this.getNumOfWins();
         if(games>0){
             res = (double) wins/games;
         }
