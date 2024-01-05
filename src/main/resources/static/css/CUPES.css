@@ -826,6 +826,10 @@ td.left{
   text-align: right;
 }
 
+th.left{
+  text-align: right;
+}
+
 .statistics-table tr:nth-child(odd) {
   background-color: #c4c4c4;
 }

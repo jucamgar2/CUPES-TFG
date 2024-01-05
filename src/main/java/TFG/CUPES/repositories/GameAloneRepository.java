@@ -53,10 +53,10 @@ public interface GameAloneRepository extends CrudRepository<GameAlone, Integer> 
     @Query("SELECT COUNT(g) FROM GameAlone g WHERE g.win = true AND g.Shift = 4")
     Double findNumOfWinsWithFourShifts();
 
-    @Query("SELECT g.player.username, COUNT(g) FROM GameAlone g WHERE g.isFinish = true GROUP BY g.player.username ORDER BY COUNT(g) DESC")
+    @Query("SELECT g.player.username, COUNT(g) FROM GameAlone g WHERE (g.isFinish = true AND g.player IS NOT NULL AND g.player.username != '') GROUP BY g.player.username ORDER BY COUNT(g) DESC")
     List<Object[]> getRankingGame(Pageable pageable);
 
-    @Query("SELECT g.player.username, COUNT(g) FROM GameAlone g WHERE g.win = true GROUP BY g.player.username ORDER BY COUNT(g) DESC")
+    @Query("SELECT g.player.username, COUNT(g) FROM GameAlone g WHERE (g.win = true and g.player IS NOT NULL AND g.player.username != '') GROUP BY g.player.username ORDER BY COUNT(g) DESC")
     List<Object[]> getRankingWin(Pageable pageable);
 
     @Query("SELECT g FROM GameAlone g WHERE g.date BETWEEN ?1 AND ?2")
