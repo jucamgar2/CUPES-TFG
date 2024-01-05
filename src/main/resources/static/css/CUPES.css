@@ -253,7 +253,6 @@ a.buttom{
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-
 a.buttom-danger{
   display: inline-block;
   font-weight: bold;

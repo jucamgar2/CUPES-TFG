@@ -1,10 +1,11 @@
 package TFG.CUPES.services;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -150,32 +151,51 @@ public class GameAloneService {
     }
 
     @Transactional(readOnly = true)
-    public Map<String,Long> getRankingGame() {
+    public Map<String, Long> getRankingGame() {
         Pageable pageable = PageRequest.of(0, 10);
         List<Object[]> ls = this.gameRepository.getRankingGame(pageable);
-        Map<String, Long> res = new HashMap<String,Long>();
-        for (Object[] object:ls){
-            String player = (String) object[0];
-            if(player!=null && player!="draw"){
-                Long num = (Long) object[1];
-                res.put(player,num);
-            }
-        }
+        Map<String, Long> res = ls.stream()
+                .filter(object -> {
+                    String player = (String) object[0];
+                    return player != null && !player.equals("draw");
+                })
+                .collect(Collectors.toMap(
+                        object -> (String) object[0], 
+                        object -> (Long) object[1]    
+                ));
+
+        res = res.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, 
+                        LinkedHashMap::new 
+                ));
         return res;
     }
 
     @Transactional(readOnly = true)
-    public Map<String,Long> getRankingWin() {
-        Pageable pageable = PageRequest.of(0,11);
+    public Map<String, Long> getRankingWin() {
+        Pageable pageable = PageRequest.of(0, 11);
         List<Object[]> ls = this.gameRepository.getRankingWin(pageable);
-        Map<String, Long> res = new HashMap<String,Long>();
-        for (Object[] object:ls){
-            String player = (String) object[0];
-            if(player!=null && player!="draw"){
-                Long num = (Long) object[1];
-            res.put(player,num);
-            }
-        }
+        Map<String, Long> res = ls.stream()
+                .filter(object -> {
+                    String player = (String) object[0];
+                    return player != null && !player.equals("draw");
+                })
+                .collect(Collectors.toMap(
+                        object -> (String) object[0], 
+                        object -> (Long) object[1]   
+                ));
+        res = res.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, 
+                        LinkedHashMap::new 
+                ));
         return res;
     }
 

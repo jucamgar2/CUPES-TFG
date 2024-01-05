@@ -3,11 +3,9 @@
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<CUPES:layout title="Resultado de la partida">
-    <div class = "doBody">
-        <div class = "theBody">
-            <div class="game-result">
-                <div class="gameResult">
+<CUPES:layout title="Datos de la imagen">
+    <div class = "block">
+                <div class="center-items">
                     <div class="view-image">
                         <div class="grid-line horizontal-line" style="top: 25%;"></div>
                         <div class="grid-line horizontal-line" style="top: 50%;"></div>
@@ -16,7 +14,6 @@
                         <div class="grid-line vertical-line" style="left: 25%;"></div>
                         <div class="grid-line vertical-line" style="left: 50%;"></div>
                         <div class="grid-line vertical-line" style="left: 75%;"></div>
-                
                         <img class="gameRes" src="${image}" alt="Estamos teniendo problemas" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
@@ -61,17 +58,12 @@
                 <div>
                     <a href="/administration/images/exportData/${img.id}" class="buttom">Exportar datos</a>
                 </div>
-                
-                <div>
-                    <c:forEach var="position" items="${positions}">
-                        <div>
-                            <p class="game" ><c:out value="${position.key}"/> :</p>
-                            <p class="game"><c:out value="${position.value}"/></p>
-                        </div>
-                    </c:forEach>
+                <h2>Trozos validos:</h2>
+                <div class="center-items">
+                    <div class="image-container" style="position: relative;">
+                        <img src="${image}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
+                        ${positionStyle}
+                    </div>
                 </div>
-            </div>
-            
-        </div>
     </div>
 </CUPES:layout>

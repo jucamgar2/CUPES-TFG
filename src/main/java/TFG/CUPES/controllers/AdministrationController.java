@@ -3,7 +3,6 @@ package TFG.CUPES.controllers;
 import java.io.IOException;
 import java.security.Principal;
 import java.text.DecimalFormat;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -175,6 +174,19 @@ public class AdministrationController {
         res.addObject("img", image);
         res.addObject("image", imageSelected);
         res.addObject("positions", positionsMap);
+        res.addObject("positionStyle", generatePositionImageStyle(positions,positionsMap.keySet().stream().toList()));
+        return res;
+    }
+
+    public String generatePositionImageStyle(List<Position> positions,List<Position> notValids){
+        String res = "";
+        for (Position p: positions){
+            if(notValids.contains(p)){
+                res +="<div style='width: 125px;height: 125px;position: absolute;background-color: rgba(255, 0, 0, 0.5); top:" +p.getY()+"px;left: "+(p.getX())+"px;'></div>";
+            }else{
+                res +="<div style='width: 125px;height: 125px;position: absolute;background-color: rgba(0, 128, 0, 0.5); top:" +p.getY()+"px;left: "+(p.getX())+"px;'></div>";
+            }
+        }
         return res;
     }
 

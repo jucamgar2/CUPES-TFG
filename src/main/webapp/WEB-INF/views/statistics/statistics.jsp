@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<CUPES:layout title="statistics">
+<CUPES:layout title="Estadísticas">
     <div class="block">
         <sec:authorize access="!isAuthenticated()">
                     <div>

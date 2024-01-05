@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<CUPES:layout title="Página de Inicio">
+<CUPES:layout title="Estadísticas">
     <script>
         $(function () {
             $("#startDate").datepicker({dateFormat: 'dd/mm/yy' });
@@ -13,8 +13,6 @@
             $("#endDate").datepicker({dateFormat: 'dd/mm/yy' });
         });
     </script>
-    <div class="doBody">
-        <div class="theBody">
             <h1>Estadísticas para el administrador:</h1>
             <table class="statistics-table">
                 <thead>
@@ -175,6 +173,5 @@
                 </form:form>
             </div>
 
-        </div>
-    </div>
+
 </CUPES:layout>

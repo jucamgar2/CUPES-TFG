@@ -5,8 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <CUPES:layout title="Página de Inicio">
-    <div class="doBody">
-        <div class="theBody">
+    <div class="block">
             <c:if test="${not empty errors}">
                 <div id="error-notifications">
                     <c:forEach items="${errors}" var="error">
@@ -20,7 +19,7 @@
             <form:form modelAttribute="imageForm"  enctype="multipart/form-data">
                 <div>
                     <form:label path="file">Añade aqui la imagen</form:label> 
-                    <input name="file"  path="file" type="file">
+                    <input class="buttom" name="file"  path="file" type="file">
                 </div>
                 <div>
                     <form:label path="name">¿Cual es el nombre completo de este equipo?</form:label>
@@ -35,18 +34,15 @@
                     <input class="input-game" name="country"  path="country" type="text">
                 </div>
                 <div>
-                    <button  class="buttom" type="submit" href="/administration/image/new">Enviar</button>
-                </div>
-                <div>
                     <label for="category">Selecciona la categoría del equipo: </label>
-                    <select class="input-game" name="category" id="category">
+                    <select class="input-large" name="category" id="category">
                         <option value="1">Primera división</option>
                         <option value="2">Segunda división</option>
                     </select>
                 </div>
                 <div>
                     <label for="genre">Selecciona el género del equipo: </label>
-                    <select class="input-game" name="genre" id="genre">
+                    <select class="input-large" name="genre" id="genre">
                         <option value="M">Masculino</option>
                         <option value="F">Femenino</option>
                     </select>
@@ -54,7 +50,7 @@
                 
                 <div>
                     <label for="hasName">¿El escudo muestra el nombre del equipo? </label>
-                    <select class="input-game" name="hasName" id="hasName">
+                    <select class="input-large" name="hasName" id="hasName">
                         <option value="true">Si</option>
                         <option value="false">No</option>
                     </select>
@@ -62,7 +58,7 @@
 
                 <div>
                     <label for="hasInitials">¿El escudo muestra las iniciales del equipo? </label>
-                    <select class="input-game" name="hasInitials" id="hasInitials">
+                    <select class="input-large" name="hasInitials" id="hasInitials">
                         <option value="true">Si</option>
                         <option value="false">No</option>
                     </select>
@@ -70,7 +66,7 @@
 
                 <div>
                     <label for="hasYear">¿El escudo muestra el año de fundación del equipo? </label>
-                    <select class="input-game" name="hasYear" id="hasYear">
+                    <select class="input-large" name="hasYear" id="hasYear">
                         <option value="true">Si</option>
                         <option value="false">No</option>
                     </select>
@@ -79,13 +75,15 @@
                 
                 <div>
                     <label for="enabled">¿Deseas habilitar el escudo para que aparezca en partidas? </label>
-                    <select class="input-game" name="enabled" id="enabled">
+                    <select class="input-large" name="enabled" id="enabled">
                         <option value="true">Si</option>
                         <option value="false">No</option>
                     </select>
                 </div>
+                <div>
+                    <button  class="buttom" type="submit" href="/administration/image/new">Enviar</button>
+                </div>
             </form:form>
-        </div>
     </div>
     <script src="/js/error_script.js"></script>
 </CUPES:layout>

@@ -1,9 +1,10 @@
 package TFG.CUPES.services;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -135,22 +136,44 @@ public class OnlineGameService {
     }
 
     public Map<String,Long> getRankingGame() {
-        Map<String,Long> res = new HashMap<>();
-        Pageable pageable = PageRequest.of(0,10);
+        Pageable pageable = PageRequest.of(0, 10);
         List<Object[]> ranking = this.onlineGameRepository.getRankingGame(pageable);
-        for(Object[] o : ranking){
-            res.put((String)o[0], (Long)o[1]);
-        }
+        Map<String, Long> res = ranking.stream()
+                .collect(Collectors.toMap(
+                        o -> (String) o[0],
+                        o -> (Long) o[1]    
+                ));
+        res = res.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, 
+                        LinkedHashMap::new 
+                ));
+
         return res;
     }
 
     public Map<String,Long> getRankingWin() {
-        Map<String,Long> res = new HashMap<>();
-        Pageable pageable = PageRequest.of(0,10);
+        Pageable pageable = PageRequest.of(0, 10);
         List<Object[]> ranking = this.onlineGameRepository.getRankingWin(pageable);
-        for(Object[] o : ranking){
-            res.put((String)o[0], (Long)o[1]);
-        }
+
+
+        Map<String, Long> res = ranking.stream()
+                .collect(Collectors.toMap(
+                        o -> (String) o[0], 
+                        o -> (Long) o[1]    
+                ));
+        res = res.entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, 
+                        LinkedHashMap::new 
+                ));
+
         return res;
     }
 
