@@ -6,7 +6,7 @@
 <CUPES:layout title="Página de administración">
     <div class="block">
         
-            <h1>Como administrador puedes hacer muchas cosas por ejemplo:</h1>
+            <h1 class="title">Funciones de administrador</h1>
             <div>
                 <p class="game">
                     <a class="buttom" href="/administration/players">Administrar jugadores</a>
@@ -25,6 +25,11 @@
             <div>
                 <p class="game">
                     <a class="buttom" href="/administration/images/statistics">Ver estadísticas de las imágenes</a>
+                </p>
+            </div>
+            <div>
+                <p class="game">
+                    <a class="buttom" href="/administration/manual">Manual de administración</a>
                 </p>
             </div>
             

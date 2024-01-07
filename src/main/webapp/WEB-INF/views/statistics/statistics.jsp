@@ -74,7 +74,7 @@
                             </tr>
                             <tr>
                                 <td>Porcentaje de victorias:</td>
-                                <td class="left"><c:out value="${uwr}" /></td>
+                                <td class="left"><c:out value="${uwr}" />%</td>
                             </tr>
                             <tr>
                                 <td>Victorias en un intento:</td>

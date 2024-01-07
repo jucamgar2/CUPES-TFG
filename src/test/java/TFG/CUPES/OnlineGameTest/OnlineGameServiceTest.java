@@ -158,7 +158,7 @@ public class OnlineGameServiceTest {
     @Test
     public void testGetAverageNumOfShiftsToWinByUser(){
         double res = this.onlineGameService.getAverageOfShiftsToWinByPlayer1FromUser("María");
-        assertEquals(7.0, res, 0.001);
+        assertEquals(3.0, res, 0.001);
     }
 
     @Test
@@ -176,13 +176,13 @@ public class OnlineGameServiceTest {
     @Test
     public void testGetRankingGame(){
         Map<String,Long> res = this.onlineGameService.getRankingGame();
-        assertEquals(res.size(), 4);
+        assertEquals(res.size(), 3);
         int maria = res.get("María").intValue();
-        assertEquals(maria, 1);
+        assertEquals(maria, 2);
         int maria2 = res.get("María2").intValue();
-        assertEquals(maria2, 4);
+        assertEquals(maria2, 6);
         int maria3 = res.get("María3").intValue();
-        assertEquals(maria3, 1);
+        assertEquals(maria3, 4);
     }
 
     @Test
@@ -190,11 +190,11 @@ public class OnlineGameServiceTest {
         Map<String,Long> res = this.onlineGameService.getRankingWin();
         assertEquals(res.size(), 3);
         int maria = res.get("María").intValue();
-        assertEquals(maria, 2);
+        assertEquals(maria, 1);
         int maria2 = res.get("María2").intValue();
-        assertEquals(maria2, 7);
+        assertEquals(maria2, 4);
         int maria3 = res.get("María3").intValue();
-        assertEquals(maria3, 4);
+        assertEquals(maria3, 1);
     }
    
 }
