@@ -848,6 +848,40 @@ th.left{
   margin-bottom: 10px;
 }
 
+.manual{
+  max-width: 1500px;
+  font-size: 30px;
+  text-align: justify;
+  list-style-type: disc;
+}
+h1.manual{
+  font-size: 75px;
+  font-weight: bold;
+  padding-bottom: 50px;
+}
+
+ul.manual{
+  list-style-type: disc;
+}
+
+li.manual{
+  margin-left: 20px;
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1000px){
+  .manual{
+    max-width: 800px;
+    font-size: 35px;
+    text-align: justify;
+  }
+
+  h1.manual{
+    font-size: 85px;
+    font-weight: bold;
+    padding-bottom: 50px;
+  }
+}
 
 @media (min-height: 1500px) {
   .body {

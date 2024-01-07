@@ -47,7 +47,22 @@ public class GeneralController {
 
 	@GetMapping("/manual")
 	public String manual(){
-		return "TODO";
+		return "manual";
+	}
+
+	@GetMapping("/manual/GA")
+	public String manualGA(){
+		return "manualGA";
+	}
+
+	@GetMapping("/manual/LG")
+	public String manualLG(){
+		return "manualLG";
+	}
+
+	@GetMapping("/manual/OG")
+	public String manualOG(){
+		return "manualOG";
 	}
     
 }
