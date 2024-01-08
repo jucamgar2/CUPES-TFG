@@ -24,7 +24,7 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
 		.authorizeHttpRequests((authorize) -> authorize
-			.requestMatchers("/resources/**","/webjars/**","/h2-console/**","/css/**","/fonts/**","/images/**","/autocomplete/**","/js/**","/stand/**","/start/**","/statistics/**","/","/welcome","/webapp/**","/WEB-INF/**","/lobby","/manual").permitAll()
+			.requestMatchers("/resources/**","/webjars/**","/h2-console/**","/css/**","/fonts/**","/images/**","/autocomplete/**","/js/**","/stand/**","/start/**","/statistics/**","/","/welcome","/webapp/**","/WEB-INF/**","/lobby","/manual/**").permitAll()
             .requestMatchers("/login/**").permitAll()
             .requestMatchers("/players/new/**").permitAll()
             .requestMatchers("/h2-console/**").permitAll()

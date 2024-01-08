@@ -399,5 +399,9 @@ public class AdministrationController {
         }
         return res;
     }
+    @GetMapping("/manual")
+    public String manual(){
+        return "administration/manual";
+    }
 
 }
