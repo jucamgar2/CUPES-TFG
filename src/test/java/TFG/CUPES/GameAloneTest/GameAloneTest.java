@@ -1,11 +1,12 @@
 package TFG.CUPES.GameAloneTest;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.entities.Player;
 
-
+@ActiveProfiles("test")
 public class GameAloneTest {
 
     @Test

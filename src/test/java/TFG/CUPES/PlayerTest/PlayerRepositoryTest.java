@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
+import org.springframework.test.context.ActiveProfiles;
 
 import TFG.CUPES.entities.Player;
 import TFG.CUPES.repositories.PlayerRepository;
-
+@ActiveProfiles("test")
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Repository.class))
 public class PlayerRepositoryTest {
 

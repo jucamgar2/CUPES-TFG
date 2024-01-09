@@ -2,13 +2,18 @@ package TFG.CUPES.controllers;
 
 
 import java.security.Principal;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +36,11 @@ public class PlayerController {
 
     StatisticsController statisticsController;
 
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        binder.registerCustomEditor(LocalDate.class, new CustomDateEditor(dateFormat, true));
+    }
 
     @Autowired
     public PlayerController(PlayerService playerService, AuthoritiesService authoritiesService,StatisticsController statisticsController){
@@ -57,6 +67,7 @@ public class PlayerController {
         if(!errors.isEmpty()){
             ModelAndView result = new ModelAndView("players/createPlayer");
             result.addObject("errors", errors);
+            System.out.println(errors);
             return result;
         }
         p.setEnabled(true);
@@ -67,7 +78,6 @@ public class PlayerController {
         a.setAuthority("player");
         a.setPlayer(p);
         a.setId(this.authoritiesService.findMaxId()+1);
-        System.out.println("ID: "+a.getId());
         authoritiesService.save(a);
         ModelAndView result =new ModelAndView("redirect:/");
         return result;

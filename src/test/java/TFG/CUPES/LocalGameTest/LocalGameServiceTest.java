@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.ActiveProfiles;
 
 import TFG.CUPES.entities.LocalGame;
 import TFG.CUPES.services.LocalGameService;
 
 @DataJpaTest(includeFilters = @Filter(Service.class))
+@ActiveProfiles("test")
 public class LocalGameServiceTest {
 
     @Autowired

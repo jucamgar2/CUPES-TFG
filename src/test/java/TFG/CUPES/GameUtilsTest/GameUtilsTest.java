@@ -1,6 +1,7 @@
 package TFG.CUPES.GameUtilsTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.servlet.ModelAndView;
 
 import TFG.CUPES.services.PositionService;
@@ -21,6 +23,7 @@ import TFG.CUPES.repositories.PositionRepository;
 
 
 @DataJpaTest(includeFilters = @ComponentScan.Filter(Service.class))
+@ActiveProfiles("test")
 public class GameUtilsTest {
     @Autowired
     private PositionService positionService;
@@ -49,10 +52,11 @@ public class GameUtilsTest {
         Position p15 = new Position(250,375);
         Position p16 = new Position(375,375);
         List<Position> toSave = List.of(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16);
-        positionRepository.saveAll(toSave);
+        //positionRepository.saveAll(toSave);
 
         List<Position> gamePositions = new ArrayList<>();
         List<Position> positions = positionService.findAll();
+        assertTrue(!positions.isEmpty());
         Random rand = new Random();
         gamePositions.add(positions.get(rand.nextInt(positions.size())));
         for(int i = 0; i < 4; i++){
@@ -97,7 +101,7 @@ public class GameUtilsTest {
         Position p15 = new Position(250,375);
         Position p16 = new Position(375,375);
         List<Position> toSave = List.of(p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12,p13,p14,p15,p16);
-        positionRepository.saveAll(toSave);
+        //positionRepository.saveAll(toSave);
         List<Position> gamePositions = new ArrayList<>();
         List<Position> positions = this.positionService.findAll();
         Comparator<Position> c1 = Comparator.comparing(x->x.getY());

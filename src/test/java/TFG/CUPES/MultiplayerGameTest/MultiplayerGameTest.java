@@ -2,10 +2,11 @@ package TFG.CUPES.MultiplayerGameTest;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import TFG.CUPES.entities.LocalGame;
 
-
+@ActiveProfiles("test")
 public class MultiplayerGameTest {
 
     @Test

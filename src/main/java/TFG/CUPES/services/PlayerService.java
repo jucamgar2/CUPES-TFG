@@ -86,9 +86,6 @@ public class PlayerService {
             }
         }
         
-        if(p.getBirthDate()==null){
-            errors.add("La fecha de nacimiento no puede estar vacía");
-        }
         if(p.getBirthDate()!=null && p.getBirthDate().isAfter(LocalDate.now())){
             errors.add("La fecha de nacimiento no puede ser posterior a la fecha actual");
         }
@@ -119,10 +116,6 @@ public class PlayerService {
             if(findByMail(p.getMail())!=null && findByMail(p.getMail()).getUsername()!=p.getUsername()){
                 errors.add("Ya existe un usuario con ese correo");
             }
-        }
-        
-        if(p.getBirthDate()==null){
-            errors.add("La fecha de nacimiento no puede estar vacía");
         }
         if(p.getBirthDate()!=null && p.getBirthDate().isAfter(LocalDate.now())){
             errors.add("La fecha de nacimiento no puede ser posterior a la fecha actual");

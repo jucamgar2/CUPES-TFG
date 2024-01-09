@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import TFG.CUPES.entities.LocalGame;
 
 
-
+@ActiveProfiles("test")
 public class LocalGameTest {
     
     
