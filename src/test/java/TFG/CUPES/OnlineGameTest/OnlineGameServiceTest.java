@@ -15,6 +15,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.stereotype.Service;
 import org.springframework.test.context.ActiveProfiles;
 
+import TFG.CUPES.entities.Image;
 import TFG.CUPES.entities.OnlineGame;
 import TFG.CUPES.entities.Player;
 import TFG.CUPES.services.OnlineGameService;
@@ -41,11 +42,6 @@ public class OnlineGameServiceTest {
     OnlineGame og6 = new OnlineGame(1218,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
     OnlineGame og7 = new OnlineGame(1219,p2,null,null,null,null,null,null,null,0,0,0,0,false,false,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
     
-
-
-
-
-
     @BeforeEach
     public void setup(){
         og.setWinner(p.getUsername());
@@ -90,6 +86,56 @@ public class OnlineGameServiceTest {
         playerService.delete(p);
         playerService.delete(p2);
         playerService.delete(p3);
+    }
+
+    @Test
+    public void testGetterAndSetters(){
+        Image i = new Image();
+        OnlineGame oga = new OnlineGame();
+        oga.setId(1);
+        assert(oga.getId()==1);
+        oga.setPlayer1Image1(i);
+        assert(oga.getPlayer1Image1().equals(i));
+        oga.setPlayer1Image2(i);
+        assert(oga.getPlayer1Image2().equals(i));
+        oga.setPlayer1Image3(i);
+        assert(oga.getPlayer1Image3().equals(i));
+        oga.setPlayer2Image1(i);
+        assert(oga.getPlayer2Image1().equals(i));
+        oga.setPlayer2Image2(i);
+        assert(oga.getPlayer2Image2().equals(i));
+        oga.setPlayer2Image3(i);
+        assert(oga.getPlayer2Image3().equals(i));
+        oga.setPlayer1X(150);
+        assert(oga.getPlayer1X()==150);
+        oga.setPlayer1Y(150);
+        assert(oga.getPlayer1Y()==150);
+        oga.setPlayer2X(150);
+        assert(oga.getPlayer2X()==150);
+        oga.setPlayer2Y(150);
+        assert(oga.getPlayer2Y()==150);
+        oga.setGameStart(true);
+        assert(oga.getGameStart());
+        oga.setPlayer1Succes(2);
+        assert(oga.getPlayer1Succes()==2);
+        oga.setPlayer2Succes(3);
+        assert(oga.getPlayer2Succes()==3);
+        oga.setCurrentPlayer1Image(1);
+        assert(oga.getCurrentPlayer1Image()==1);
+        oga.setCurrentPlayer2Image(2);
+        assert(oga.getCurrentPlayer2Image()==2);
+        oga.setPlayer1Positions(List.of());
+        assert(oga.getPlayer1Positions().isEmpty());
+        oga.setPlayer2Positions(List.of());
+        assert(oga.getPlayer2Positions().isEmpty());
+        oga.setPlayer1Redt(false);
+        assert(!oga.getPlayer1Redt());
+        oga.setPlayer2Redt(true);
+        assert(oga.getPlayer2Redt());
+        oga.removePlayer2();
+        assert(oga.getPlayer2()==null);
+        
+
     }
 
     @Test

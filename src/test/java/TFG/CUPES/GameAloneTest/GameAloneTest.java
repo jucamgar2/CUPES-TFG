@@ -1,5 +1,7 @@
 package TFG.CUPES.GameAloneTest;
 
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -23,6 +25,8 @@ public class GameAloneTest {
         ga.setX(0);
         ga.setY(1);
         ga.setSelected(null);
+        LocalDateTime date = LocalDateTime.now();
+        ga.setDate(date);
         assert(ga.getId()==897);
         assert(ga.getPlayer()==p);
         assert(ga.getIsFinish()==false);
@@ -33,6 +37,7 @@ public class GameAloneTest {
         assert(ga.getX()==0);
         assert(ga.getY()==1);
         assert(ga.getSelected()==null);
+        assert(ga.getDate()==date);
     }
     
 }
