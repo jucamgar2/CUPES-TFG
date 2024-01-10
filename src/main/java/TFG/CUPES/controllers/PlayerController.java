@@ -71,8 +71,9 @@ public class PlayerController {
             return result;
         }
         p.setEnabled(true);
-        //p.setPassword(passwordEncoder.encode(p.getPassword()));
-        p.setPassword(p.getPassword());
+        p.setPassword(passwordEncoder.encode(p.getPassword()));
+        System.out.println(p.getPassword());
+        //p.setPassword(p.getPassword());
         playerService.save(p);
         Authorities a = new Authorities();
         a.setAuthority("player");
