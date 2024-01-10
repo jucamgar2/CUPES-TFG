@@ -51,8 +51,6 @@ public class AdministrationService {
         byte[] data = outputStream.toByteArray();
         ByteArrayInputStream inputStream = new ByteArrayInputStream(data);
         BufferedImage img =  ImageIO.read(inputStream);
-        ImageIO.write(img, "jpg", new File("src/main/resources/static/images/Logo/" + imageForm.getName().toLowerCase().strip() + ".jpg"));
-        
-       
+        ImageIO.write(img, "jpg", new File("src/main/resources/static/images/Logo/" + imageForm.getName().toLowerCase().strip() + ".jpg"));   
     }
 }

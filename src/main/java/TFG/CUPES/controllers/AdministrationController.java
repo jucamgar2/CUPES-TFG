@@ -86,8 +86,6 @@ public class AdministrationController {
     @PostMapping(value = "/images/new", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ModelAndView newImage(ImageForm imageForm, Principal principal) throws IOException {
         ModelAndView res = new ModelAndView("redirect:/administration");
-        Authorities a = authoritiesService.findByUsername(principal.getName());
-        if (a.getAuthority().equals("admin")) {
             if(imageForm == null ||imageForm.getFile().isEmpty()){
                 res = new ModelAndView(NEW_IMAGE);
                 res.addObject("errors", List.of("No se ha seleccionado ninguna imagen"));
@@ -119,9 +117,6 @@ public class AdministrationController {
             image.setHasYear(imageForm.getHasYear());
             image.setEnabled(imageForm.getEnabled());
             imageService.save(image);
-
-            
-        }
         res.addObject("imageForm", imageForm);
         return res;
     }
