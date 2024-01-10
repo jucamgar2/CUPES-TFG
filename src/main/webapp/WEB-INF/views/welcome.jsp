@@ -18,7 +18,7 @@
                 <h2>4 oportunidades para adivinar el nombre de un equipo de fútbol</h2>
                 <div>
                     <a href="/game/new" class="buttom">Jugar</a>
-                    <a href="#" class="buttom">¿Como jugar?</a>
+                    <a href="/manual" class="buttom">¿Como jugar?</a>
                     <a href="/players/new" class="buttom">Registrarse</a>
                 </div>
             </div>

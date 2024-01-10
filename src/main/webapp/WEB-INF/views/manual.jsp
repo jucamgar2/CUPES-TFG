@@ -31,14 +31,14 @@
                 <img class="manual" src="/images/manual/2.png"/>
             </div>
             <div class="mobile-view">
-                <img class="manual" src="/images/manual/mobile/2.jpg"/>
+                <img class="manual" src="/images/manual/mobile/2.jpeg"/>
             </div>
             Una vez registrados podrán iniciar sesión:
             <div class="pc-view">
                 <img class="manual" src="/images/manual/3.png"/>
             </div>
             <div class="mobile-view">
-                <img class="manual" src="/images/manual/mobile/3.jpg"/>
+                <img class="manual" src="/images/manual/mobile/3.jpeg"/>
             </div>
             En cualquier momento, los usuarios podrán consultar el apartado de estadísticas y si han iniciado sesión, no solo se mostrarán las estadísticas generales, sino que se les mostrará sus propias estadísticas:
             <div class="pc-view">
@@ -59,7 +59,7 @@
                 <img class="manual" src="/images/manual/6.png"/>
             </div>
             <div class="mobile-view">
-                <img class="manual" src="/images/manual/mobile/6.jpg"/>
+                <img class="manual" src="/images/manual/mobile/6.jpeg"/>
             </div>
             Como la aplicación consta de varios modos de juegos, cada modo de juego tendrá su propio manual. En primer lugar, en la siguiente pantalla podemos seleccionar el modo de juego.
             <div class="pc-view">

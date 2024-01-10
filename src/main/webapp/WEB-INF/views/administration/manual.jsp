@@ -47,7 +47,7 @@
             </div>
             Si pulsamos sobre el ojo, accederemos a los datos de una imagen:
             <div class="pc-view">
-                <img class="manual" src="/images/manual/32.jpg"/>
+                <img class="manual" src="/images/manual/32.png"/>
             </div>
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/32.jpeg"/>

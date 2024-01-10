@@ -10,6 +10,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     <title>${title}</title>
 
+    <link rel="icon" href="/images/Logotipo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/Logotipo.png" type="image/x-icon">
+
+
     <link rel="stylesheet" type="text/css" href="/css/CUPES.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
