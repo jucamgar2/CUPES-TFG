@@ -63,6 +63,7 @@ public class OnlineGameController {
         game.setPlayer1IsReady(false);
         game.setPlayer2IsReady(false);
         game.setGameStart(false);
+        game.setCreationDate(LocalDateTime.now());
         this.onlineGameService.save(game);
         ModelAndView res = new ModelAndView("redirect:/game/onlineGame/join/" + game.getId());
         return res;
@@ -73,6 +74,8 @@ public class OnlineGameController {
         //response.addHeader("Refresh", "4");
         ModelAndView res = new ModelAndView(JOIN_GAME);
         List<OnlineGame> games = this.onlineGameService.getNotStartedGames();
+        List<OnlineGame> staleGames = this.onlineGameService.getStaleGames();
+        staleGames.forEach(x->this.onlineGameService.delete(x));
         if(!games.isEmpty()){
             Random random = new Random();
             OnlineGame game = games.get(random.nextInt(games.size()));

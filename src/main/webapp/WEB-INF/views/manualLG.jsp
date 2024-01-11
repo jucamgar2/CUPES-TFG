@@ -6,6 +6,7 @@
 <CUPES:layout title="Manual">
 
     <div class="block">
+        <div class="center-items">
         <div class="manual">
             <h1>Manual de 1vs1 local</h1>
             Para jugar una partida 1vs1 local, primero tendremos que dirigirnos al selector de modos de juego que anteriormente hemos comentado y pulsar sobre el botón 1vs1 local, es importante recordar que para jugar a este modo tampoco hace falta haber iniciado sesión y que no hay apartado estadístico para este modo. Tras pulsar el botón observaremos la siguiente pantalla:
@@ -54,6 +55,7 @@
             <a class="buttom" href="/manual/GA">Manual partidas en solitario</a>
             <a class="buttom" href="/manual">Manual de la aplicación</a>
             <a class="buttom" href="/manual/OG">Manual de partidas en línea</a>
+        </div>
         </div>
     </div>
 </CUPES:layout>

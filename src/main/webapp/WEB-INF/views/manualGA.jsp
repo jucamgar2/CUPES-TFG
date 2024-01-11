@@ -6,6 +6,7 @@
 <CUPES:layout title="Manual">
 
     <div class="block">
+        <div class="center-items">
         <div class="manual">
             <h1>Manual de partidas en solitario</h1>
             Para jugar al modo de juego un jugador, no será necesario haber iniciado sesión ni haberse registrado, puesto que es un modo de juego rápido y cuya finalidad es practicar, aunque, si hemos iniciado sesión se guardarán nuestras estadísticas en este modo de juego. Una vez que en el selector de modos juegos pulsemos sobre jugar modo un jugador, la partida comenzará automáticamente y se nos mostrará la siguiente pantalla:
@@ -47,5 +48,6 @@
             <a class="buttom" href="/manual">Manual de la aplicación</a>
             <a class="buttom" href="/manual/OG">Manual de partidas en línea</a>
         </div>
+    </div>
     </div>
 </CUPES:layout>

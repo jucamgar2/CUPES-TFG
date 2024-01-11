@@ -13,8 +13,11 @@ import TFG.CUPES.entities.OnlineGame;
 @Repository
 public interface OnlineGameRepository extends CrudRepository<OnlineGame, Integer>{
     
-    @Query("SELECT g FROM OnlineGame g WHERE g.player2 IS NULL")
+    @Query("SELECT g FROM OnlineGame g WHERE g.player2 IS NULL AND TIMESTAMPDIFF(MINUTE, g.creationDate, CURRENT_TIMESTAMP) < 5")
     List<OnlineGame> findNotStartedGames();
+
+    @Query("SELECT g FROM OnlineGame g WHERE g.player2 IS NULL AND TIMESTAMPDIFF(MINUTE, g.creationDate, CURRENT_TIMESTAMP) >= 5")
+    List<OnlineGame> findStaleGames();
 
     @Query("SELECT COUNT(g) FROM OnlineGame g WHERE g.winner IS NOT NULL")
     Integer findNumOfGames();

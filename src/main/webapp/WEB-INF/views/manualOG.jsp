@@ -6,6 +6,7 @@
 <CUPES:layout title="Manual">
 
     <div class="block">
+        <div class="center-items">
         <div class="manual">
             <h1>Manual del modo de juego en línea</h1>
             Para jugar una partida en línea en primer lugar tendremos que habernos identificado en el sistema previamente y tras identificarnos, tendremos dos opciones, podremos crear una partida o unirnos a una que ya este creada y no haya empezado. Para cualquiera de las opciones, tendremos que ir a la página de modos de juego y ahí podremos seleccionar la opción que más nos convenza. Si decidimos crear una partida, la aplicación la creará y nos llevará al lobby. 
@@ -82,5 +83,6 @@
             <a class="buttom" href="/manual">Manual de la aplicación</a>
             <a class="buttom" href="/manual/LG">Manual 1vs1 local</a>
         </div>
+    </div>
     </div>
 </CUPES:layout>

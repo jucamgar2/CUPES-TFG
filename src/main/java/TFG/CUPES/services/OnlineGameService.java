@@ -177,10 +177,9 @@ public class OnlineGameService {
         return res;
     }
 
-
-
-
-    
-
+    @Transactional(readOnly = true)
+    public List<OnlineGame> getStaleGames(){
+        return this.onlineGameRepository.findStaleGames();
+    }
 
 }

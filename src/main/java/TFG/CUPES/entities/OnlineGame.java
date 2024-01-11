@@ -1,5 +1,6 @@
 package TFG.CUPES.entities;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -84,6 +85,8 @@ public class OnlineGame extends MultiplayerGame{
     private Boolean player1Redt;
 
     private Boolean player2Redt;
+
+    private LocalDateTime creationDate;
 
     public void removePlayer2(){
         this.player2 = null;

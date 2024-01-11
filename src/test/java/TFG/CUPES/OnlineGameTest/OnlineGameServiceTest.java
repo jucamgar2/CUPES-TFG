@@ -3,6 +3,7 @@ package TFG.CUPES.OnlineGameTest;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -34,13 +35,13 @@ public class OnlineGameServiceTest {
     Player p = new Player("María","1111",true,LocalDate.of(2015,1,1),"maria@maria.com","María");
     Player p2 = new Player("María2","1111",true,LocalDate.of(2015,1,1),"maria2@maria2.com","María2");
     Player p3 = new Player("María3","1111",true,LocalDate.of(2015,1,1),"maria3@gmail.com","María3");
-    OnlineGame og = new OnlineGame(1213,p,p2,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
-    OnlineGame og2 = new OnlineGame(1214,p,p2,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
-    OnlineGame og3 = new OnlineGame(1215,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
-    OnlineGame og4 = new OnlineGame(1216,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
-    OnlineGame og5 = new OnlineGame(1217,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
-    OnlineGame og6 = new OnlineGame(1218,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
-    OnlineGame og7 = new OnlineGame(1219,p2,null,null,null,null,null,null,null,0,0,0,0,false,false,true,false,false,3,3,3,3,List.of(),List.of(),true,true);
+    OnlineGame og = new OnlineGame(1213,p,p2,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true,LocalDateTime.now());
+    OnlineGame og2 = new OnlineGame(1214,p,p2,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true,LocalDateTime.now());
+    OnlineGame og3 = new OnlineGame(1215,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true,LocalDateTime.now());
+    OnlineGame og4 = new OnlineGame(1216,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true,LocalDateTime.now());
+    OnlineGame og5 = new OnlineGame(1217,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true,LocalDateTime.now());
+    OnlineGame og6 = new OnlineGame(1218,p2,p3,null,null,null,null,null,null,0,0,0,0,true,true,true,false,false,3,3,3,3,List.of(),List.of(),true,true,LocalDateTime.now());
+    OnlineGame og7 = new OnlineGame(1219,p2,null,null,null,null,null,null,null,0,0,0,0,false,false,true,false,false,3,3,3,3,List.of(),List.of(),true,true,LocalDateTime.now());
     
     @BeforeEach
     public void setup(){

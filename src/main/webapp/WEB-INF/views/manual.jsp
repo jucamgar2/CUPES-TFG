@@ -6,6 +6,7 @@
 <CUPES:layout title="Manual">
 
     <div class="block">
+        <div class="center-items">
         <div class="manual">
             <h1>Manual de usuario</h1>
             Una vez se accede a la aplicación web, la página principal que se puede observar es la siguiente:
@@ -73,6 +74,7 @@
             <a class="buttom" href="/manual/LG">1vs1 local</a>
             <a class="buttom" href="/manual/OG">Partidas en línea</a>
         </div>
+    </div>
         
     </div>
 

@@ -6,6 +6,7 @@
 <CUPES:layout title="Manual">
 
     <div class="block">
+        <div class="center-items">
         <div class="manual">
             <h1>Manual de administración</h1>
             Si iniciamos sesión con una cuenta que tenga permisos de administrador, podremos acceder a todas las funcionalidades explicadas en el manual general y adicionalmente se podrá acceder a las funciones del módulo de administración, para obtener permisos de administrador, podemos iniciar sesión con las siguientes credenciales: admin 1111. Tras iniciar sesión, podremos observar que en la barra de navegación a aparecido una nueva opción.
@@ -70,5 +71,6 @@
             <a class="buttom" href="/manual">Manual de la aplicación</a>
 
         </div>
+    </div>
     </div>
 </CUPES:layout>
