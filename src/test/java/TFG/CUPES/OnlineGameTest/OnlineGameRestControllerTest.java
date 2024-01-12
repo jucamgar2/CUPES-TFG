@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.test.context.ActiveProfiles;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cglib.core.Local;
 import org.springframework.test.web.servlet.MockMvc;
 
 import TFG.CUPES.entities.OnlineGame;
@@ -38,6 +39,7 @@ public class OnlineGameRestControllerTest {
         OnlineGame og = new OnlineGame();
         og.setPlayer1FInish(LocalDateTime.now());
         og.setPlayer2Finish(LocalDateTime.now());
+        og.setCreationDate(LocalDateTime.now());
         onlineGameService.save(og);
         mockMvc.perform(get("/stand/"+og.getId()))
         .andExpect(status().isOk())
@@ -48,6 +50,7 @@ public class OnlineGameRestControllerTest {
     @Test
     public void checkGameStatusTest2() throws Exception{
         OnlineGame og = new OnlineGame();
+        og.setCreationDate(LocalDateTime.now());
         og.setPlayer1Leaves(true);
         onlineGameService.save(og);
         mockMvc.perform(get("/stand/"+og.getId()))
@@ -61,6 +64,7 @@ public class OnlineGameRestControllerTest {
         OnlineGame og = new OnlineGame();
         og.setPlayer2Leaves(true);
         og.setPlayer1Leaves(false);
+        og.setCreationDate(LocalDateTime.now());
         onlineGameService.save(og);
         mockMvc.perform(get("/stand/"+og.getId()))
         .andExpect(status().isOk())
@@ -73,6 +77,7 @@ public class OnlineGameRestControllerTest {
         OnlineGame og = new OnlineGame();
         og.setPlayer1Leaves(false);
         og.setPlayer2Leaves(false);
+        og.setCreationDate(LocalDateTime.now());
         onlineGameService.save(og);
         mockMvc.perform(get("/stand/"+og.getId()))
         .andExpect(status().isOk())
@@ -139,6 +144,7 @@ public class OnlineGameRestControllerTest {
     @Test
     public void checkLobbyTest() throws Exception{
         OnlineGame og = new OnlineGame();
+        og.setCreationDate(LocalDateTime.now());
         this.onlineGameService.save(og);
         mockMvc.perform(get("/lobby"))
         .andExpect(status().isOk())

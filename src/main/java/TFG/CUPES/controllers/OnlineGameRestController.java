@@ -26,7 +26,7 @@ public class OnlineGameRestController {
     public ResponseEntity<Boolean> checkGameStatus(@PathVariable("gameId") Integer gameId) {
         OnlineGame onlineGame = onlineGameService.getOnlineGameByid(gameId).orElse(null);
         Boolean bothPlayersFinished=false;
-        if(ChronoUnit.MINUTES.between(onlineGame.getCreationDate(), LocalDateTime.now())>5){
+        if(ChronoUnit.MINUTES.between(onlineGame.getCreationDate(), LocalDateTime.now())>7){
             if(onlineGame.getPlayer1FInish()==null){
                 onlineGame.setPlayer1Leaves(true);
                 onlineGame.setWinner(onlineGame.getPlayer2().getUsername());
