@@ -240,7 +240,7 @@ public class LocalGameController {
     }
 
     public ModelAndView gameResult(LocalGame game,ModelAndView res){
-        if(game.getWinner().equals("draw")){
+        if(game.getWinner().equals("draw")||game.getWinner().equals("Empate")){
             res.addObject("winnerMsg", "Vaya, habeis empatado, los dos habeis usado los mismos intetos y habeis tardado el mismo tiempo");
         }else{
             res.addObject("winnerMsg", "El ganador ha sido " + game.getWinner());
