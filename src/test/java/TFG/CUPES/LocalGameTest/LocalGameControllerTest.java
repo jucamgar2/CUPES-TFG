@@ -18,7 +18,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.entities.LocalGame;
 import TFG.CUPES.services.LocalGameService;
 
