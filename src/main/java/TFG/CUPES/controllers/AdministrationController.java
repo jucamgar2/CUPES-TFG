@@ -27,14 +27,12 @@ import TFG.CUPES.DTOdata.ImageAndGamesDTO;
 import TFG.CUPES.DTOdata.PlayerAndGamesDTO;
 import TFG.CUPES.components.DateRangeForm;
 import TFG.CUPES.components.GameUtils;
-import TFG.CUPES.entities.Authorities;
 import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.entities.Image;
 import TFG.CUPES.entities.ImageForm;
 import TFG.CUPES.entities.Player;
 import TFG.CUPES.entities.Position;
 import TFG.CUPES.services.AdministrationService;
-import TFG.CUPES.services.AuthoritiesService;
 import TFG.CUPES.services.GameAloneService;
 import TFG.CUPES.services.ImageService;
 import TFG.CUPES.services.PlayerService;
@@ -55,9 +53,6 @@ public class AdministrationController {
 
     @Autowired
     private PlayerService playerService;
-
-    @Autowired
-    private AuthoritiesService authoritiesService;
 
     @Autowired
     private AdministrationService administrationService;

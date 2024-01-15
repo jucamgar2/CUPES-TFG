@@ -33,7 +33,7 @@
                         <i id="iconoMostrar" class="fas fa-eye"></i>
                     </div>
                     <div>
-                        <input type="password" class ="input-large" id="password" name="password" required>
+                        <input type="password" class ="input-large" id="password" name="password">
                     </div>
                     <div class="errors" style="color:red">
                         <c:out value="${passwordError}"/>

@@ -182,4 +182,8 @@ public class OnlineGameService {
         return this.onlineGameRepository.findStaleGames();
     }
 
+    public List<OnlineGame> getAllOnlineGames() {
+        return (List<OnlineGame>) this.onlineGameRepository.findAll();
+    }
+
 }

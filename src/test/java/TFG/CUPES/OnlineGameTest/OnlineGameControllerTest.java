@@ -1,6 +1,5 @@
 package TFG.CUPES.OnlineGameTest;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
-import TFG.CUPES.entities.Image;
 import TFG.CUPES.entities.OnlineGame;
 import TFG.CUPES.entities.Player;
 import TFG.CUPES.services.ImageService;
@@ -51,23 +50,21 @@ public class OnlineGameControllerTest {
     public void testCreateGame() throws Exception {
         Player p1 = new Player("p1","p1",true,null,"p1","p1");
         this.playerService.save(p1);
-        MvcResult mvcResult = mockMvc.perform(get("/game/onlineGame/new"))
+        mockMvc.perform(get("/game/onlineGame/new"))
         .andExpect(status().is3xxRedirection())
         .andReturn();
-        String redirectedUrl = mvcResult.getResponse().getHeader("Location");
-        assert(redirectedUrl.startsWith("/game/onlineGame/"));
-        String[] urlParts = redirectedUrl.split("/");
-        String part = urlParts[urlParts.length-1];
-        Integer gameId = Integer.parseInt(String.valueOf(part.charAt(0)));
-        OnlineGame game = onlineGameService.getOnlineGameByid(gameId).orElse(null);
-        assert(game != null);
-        assert(game.getPlayer1().getUsername().equals("p1"));
-        this.onlineGameService.delete(game);
+        List<OnlineGame> games = this.onlineGameService.getAllOnlineGames();
+        assert(!games.isEmpty());
+        games.forEach(x->this.onlineGameService.delete(x));
     }
 
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void joinNoGamesTest() throws Exception{
+        List<OnlineGame> games = this.onlineGameService.getAllOnlineGames();
+        for(OnlineGame game : games){
+            this.onlineGameService.delete(game);
+        }
         Player p1 = new Player("p1","p1",true,null,"p1","p1");
         this.playerService.save(p1);
         mockMvc.perform(get("/game/onlineGame/join"))
@@ -319,30 +316,6 @@ public class OnlineGameControllerTest {
         Player p2 = new Player("p2","p2",true,null,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
-        Image i = new Image();
-        i.setId(1678);
-        i.setName("test");
-        i.setResourceName("OL");
-        i.setEnabled(true);
-        this.imageService.save(i);
-        Image i2 = new Image();
-        i2.setId(1679);
-        i2.setName("test2");
-        i2.setResourceName("OL");
-        i2.setEnabled(true);
-        this.imageService.save(i2);
-        Image i3 = new Image();
-        i3.setId(1680);
-        i3.setName("test3");
-        i3.setResourceName("OL");
-        i3.setEnabled(true);
-        this.imageService.save(i3);
-        Image i4 = new Image();
-        i4.setId(1681);
-        i4.setName("test4");
-        i4.setResourceName("OL");
-        i4.setEnabled(true);
-        this.imageService.save(i4);
         OnlineGame og = new OnlineGame();
         og.setPlayer1(p1);
         og.setPlayer2(p2);
@@ -421,7 +394,7 @@ public class OnlineGameControllerTest {
         og.setPlayer1Succes(0);
         og.setPlayer2Leaves(false);
         og.setPlayer1FInish(LocalDateTime.now());
-        og.setPlayer1Succes(2);
+        og.setPlayer1Succes(3);
         this.onlineGameService.save(og);
         mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
         .andExpect(status().isOk())
@@ -466,6 +439,544 @@ public class OnlineGameControllerTest {
         mockMvc.perform(get("/game/onlineGame/finish/" + og.getId()))
         .andExpect(status().isOk())
         .andExpect(view().name("game/finish"));
+        this.onlineGameService.delete(og);
+    }
+
+    @Test
+    @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
+    public void player1LosesNoSuccessTest() throws Exception{
+        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        this.playerService.save(p1);
+        this.playerService.save(p2);
+        OnlineGame og = new OnlineGame();
+        og.setPlayer1(p1);
+        og.setPlayer2(p2);
+        og.setPlayer1IsReady(true);
+        og.setPlayer2IsReady(true);
+        og.setGameStart(true);
+        og.setCreationDate(LocalDateTime.now());
+        og.setPlayer1IsReady(true);
+        og.setPlayer2IsReady(true);
+        og.setGameStart(true);
+        og.setPlayer1Leaves(false);
+        og.setPlayer1Succes(0);
+        og.setPlayer2Leaves(false);
+        og.setPlayer2Succes(4);
+        og.setPlayer2Finish(LocalDateTime.now());
+        this.onlineGameService.save(og);
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assertNotNull(og);
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/stand/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assertEquals(15, og.getPlayer1Shifts());
+        mockMvc.perform(get("/game/onlineGame/stand/" + og.getId()))
+        .andExpect(view().name("redirect:/game/onlineGame/finish/" + og.getId()));
+        mockMvc.perform(get("/game/onlineGame/finish/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/finish"));
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assertNotNull(og.getWinner());
+        this.onlineGameService.delete(og);
+    }
+
+    @Test
+    @WithMockUser(username = "p2", password = "p2", authorities = {"player"})
+    public void player2LosesNoSuccessTest() throws Exception{
+        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        this.playerService.save(p1);
+        this.playerService.save(p2);
+        OnlineGame og = new OnlineGame();
+        og.setPlayer1(p1);
+        og.setPlayer2(p2);
+        og.setPlayer1IsReady(true);
+        og.setPlayer2IsReady(true);
+        og.setGameStart(true);
+        og.setCreationDate(LocalDateTime.now());
+        og.setPlayer1IsReady(true);
+        og.setPlayer2IsReady(true);
+        og.setGameStart(true);
+        og.setPlayer1Leaves(false);
+        og.setPlayer1Succes(0);
+        og.setPlayer2Leaves(false);
+        og.setPlayer1Succes(4);
+        og.setPlayer1FInish(LocalDateTime.now());
+        this.onlineGameService.save(og);
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assertNotNull(og);
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/play/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        mockMvc.perform(get("/game/onlineGame/play/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/playOnlineGame"))
+        .andExpect(model().attributeExists("game"))
+        .andExpect(model().attributeExists("logo"))
+        .andExpect(model().attributeExists("imageUrl"));
+        mockMvc.perform(post("/game/onlineGame/play/" + og.getId())
+        .with(SecurityMockMvcRequestPostProcessors.csrf())
+        .param("name","x"))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/game/onlineGame/stand/" + og.getId()));
+        assertEquals(0, this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null).getPlayer1Succes());
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assertEquals(15, og.getPlayer2Shifts());
+        mockMvc.perform(get("/game/onlineGame/stand/" + og.getId()))
+        .andExpect(view().name("redirect:/game/onlineGame/finish/" + og.getId()));
+        mockMvc.perform(get("/game/onlineGame/finish/" + og.getId()))
+        .andExpect(status().isOk())
+        .andExpect(view().name("game/finish"));
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assertNotNull(og.getWinner());
+        this.onlineGameService.delete(og);
+    }
+
+    @Test
+    @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
+    public void leaveCreatedGameNotStartedTest() throws Exception{
+        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        this.playerService.save(p1);
+        OnlineGame og = new OnlineGame();
+        og.setPlayer1(p1);
+        og.setPlayer1IsReady(false);
+        og.setPlayer2IsReady(false);
+        og.setGameStart(false);
+        og.setCreationDate(LocalDateTime.now());
+        this.onlineGameService.save(og);
+        mockMvc.perform(get("/game/onlineGame/leave/" + og.getId()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/"))
+        .andExpect(model().attributeExists("message"))
+        .andExpect(model().attribute("message", "Has abandonado la partida y esta ha sido borrada ya que no había empezado"));
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assert(og==null);
+    }
+
+    @Test
+    @WithMockUser(username = "p2", password = "p2", authorities = {"player"})
+    public void leaveJoinedGameNotStartedTest() throws Exception{
+        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        this.playerService.save(p1);
+        this.playerService.save(p2);
+        OnlineGame og = new OnlineGame();
+        og.setPlayer1(p1);
+        og.setPlayer2(p2);
+        og.setGameStart(false);
+        this.onlineGameService.save(og);
+        mockMvc.perform(get("/game/onlineGame/leave/" + og.getId()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/"))
+        .andExpect(model().attributeExists("message"))
+        .andExpect(model().attribute("message", "Has abandonado la partida antes de que empezara, por lo que ahora queda un hueco"));
+        this.onlineGameService.delete(og);
+    }
+
+    @Test
+    @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
+    public void leavePlayer1StartedGameTest() throws Exception{
+        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        this.playerService.save(p1);
+        this.playerService.save(p2);
+        OnlineGame og = new OnlineGame();
+        og.setPlayer1(p1);
+        og.setPlayer2(p2);
+        og.setGameStart(true);
+        og.setPlayer1Image1(this.imageService.getRandomLogo());
+        og.setPlayer1Image2(this.imageService.getRandomLogo());
+        og.setPlayer1Image3(this.imageService.getRandomLogo());
+        og.setPlayer2Image1(this.imageService.getRandomLogo());
+        og.setPlayer2Image2(this.imageService.getRandomLogo());
+        og.setPlayer2Image3(this.imageService.getRandomLogo());
+        this.onlineGameService.save(og);
+        mockMvc.perform(get("/game/onlineGame/leave/" + og.getId()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/"))
+        .andExpect(model().attributeExists("message"))
+        .andExpect(model().attribute("message", "Has abandonado la partida y por tanto has perdido"));
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assert(og!=null);
+        assert(og.getWinner()==og.getPlayer2().getUsername());
+        mockMvc.perform(get("/game/onlineGame/finish/" + og.getId()))
+        .andExpect(status().isOk());
+        this.onlineGameService.delete(og);
+    }
+
+    @Test
+    @WithMockUser(username = "p2", password = "p2", authorities = {"player"})
+    public void leavePlayer2StartedGameTest() throws Exception{
+        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        this.playerService.save(p1);
+        this.playerService.save(p2);
+        OnlineGame og = new OnlineGame();
+        og.setPlayer1(p1);
+        og.setPlayer2(p2);
+        og.setGameStart(true);
+        og.setPlayer1Leaves(false);
+        og.setPlayer1Image1(this.imageService.getRandomLogo());
+        og.setPlayer1Image2(this.imageService.getRandomLogo());
+        og.setPlayer1Image3(this.imageService.getRandomLogo());
+        og.setPlayer2Image1(this.imageService.getRandomLogo());
+        og.setPlayer2Image2(this.imageService.getRandomLogo());
+        og.setPlayer2Image3(this.imageService.getRandomLogo());
+        this.onlineGameService.save(og);
+        mockMvc.perform(get("/game/onlineGame/leave/" + og.getId()))
+        .andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/"))
+        .andExpect(model().attributeExists("message"))
+        .andExpect(model().attribute("message", "Has abandonado la partida y por tanto has perdido"));
+        og = this.onlineGameService.getOnlineGameByid(og.getId()).orElse(null);
+        assert(og!=null);
+        assert(og.getWinner()==og.getPlayer1().getUsername());
+        mockMvc.perform(get("/game/onlineGame/finish/" + og.getId()))
+        .andExpect(status().isOk());
         this.onlineGameService.delete(og);
     }
 

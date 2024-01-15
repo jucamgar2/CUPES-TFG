@@ -6,7 +6,7 @@
 
 <CUPES:layout title="game">
     <div class="block">
-            <h1 class="game">¿Es suficieste este pedazo para que adivines el escudo?</h1>
+            <h1 class="game">¿Es suficiente este pedazo para que adivines el escudo?</h1>
             <c:if test="${error}">
                 <div id="error-notifications">
                     <div class="error-notification">
