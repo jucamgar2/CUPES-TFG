@@ -4,12 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="Registrarse">
-        <script>
-            $(function () {
-                $("#birthDate").datepicker({dateFormat: 'dd/mm/yy' });
-            });
-        </script>
-
             <div class="register">
                 <h1 class="title">Registrarse</h1>
                 <c:if test="${not empty errors}">
@@ -54,13 +48,6 @@
                     </div>
                     <div>
                         <input class="input-large"type="text" id="mail" name="mail" required>
-                    </div>
-
-                    <div>
-                        <label for="birthDate">Fecha de nacimiento:</label>
-                    </div>
-                    <div>
-                        <input class="input-large"type="text" id="birthDate" name="birthDate" required>
                     </div>
 
                     <button class="buttom" type="submit">Registrarme</button>

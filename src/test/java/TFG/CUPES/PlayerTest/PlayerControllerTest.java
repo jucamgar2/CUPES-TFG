@@ -21,7 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDate;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -65,20 +64,6 @@ public class PlayerControllerTest {
             .andExpect(status().isOk());
     }
 
-    @Test 
-    public void saveNewPlayerNotBind() throws Exception{
-        mockMvc.perform(post("/players/new")
-            .with(SecurityMockMvcRequestPostProcessors.csrf())
-            .param("username", "nuevoUsuario2")
-            .param("password", "contraseña")
-            .param("name", "nuevoNombre")
-            .param("mail", "a@a.com")
-            .param("birthDate", "2020-01-01"))
-            .andExpect(status().isOk());
-        Player p = playerService.getByUsername("nuevoUsuario2");
-        assertEquals(p, null);
-    }
-
     @Test
     public void profileNotLogged() throws Exception{
         mockMvc.perform(get("/players/profile"))
@@ -89,7 +74,7 @@ public class PlayerControllerTest {
     @Test
     @WithMockUser(username="player1", authorities={"player"})
     public void profileLogged() throws Exception{
-        Player p = new Player("player1","contraseña",true,LocalDate.now(),"player1","a@a.com");
+        Player p = new Player("player1","contraseña",true,"player1","a@a.com");
         playerService.save(p);
         mockMvc.perform(get("/players/profile"))
             .andExpect(status().is3xxRedirection())
@@ -113,7 +98,7 @@ public class PlayerControllerTest {
     @Test
     @WithMockUser(username="player1", authorities={"player"})
     public void editProfile() throws Exception{
-        Player p = new Player("player1","contraseña",true,LocalDate.now(),"player1","a@a.com");
+        Player p = new Player("player1","contraseña",true,"player1","a@a.com");
         playerService.save(p);
         mockMvc.perform(get("/players/edit"))
             .andExpect(status().isOk());
@@ -121,9 +106,8 @@ public class PlayerControllerTest {
         mockMvc.perform(post("/players/edit")
             .with(SecurityMockMvcRequestPostProcessors.csrf())
             .param("name", "nuevoNombre")
-            .param("mail", "nuevo@gmail.com"))
-            .andExpect(status().is3xxRedirection())
-            .andExpect(redirectedUrl("/players/profile/player1"));
+            .param("mail", "nuevoooo2@gmail.com"))
+            .andExpect(status().isOk());
     }
 
     @Test

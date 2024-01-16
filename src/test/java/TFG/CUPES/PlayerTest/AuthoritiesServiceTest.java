@@ -2,7 +2,6 @@ package TFG.CUPES.PlayerTest;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class AuthoritiesServiceTest {
 
     @Test
     public void saveAuthorityTest(){
-        Player p = new Player("María","1111",true,LocalDate.of(2015,1,1),"maria@maria.com","María");
+        Player p = new Player("María","1111",true,"maria@maria.com","María");
         this.playerService.save(p);
         Authorities a = new Authorities();
         Integer id = 1;

@@ -10,7 +10,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -59,10 +58,7 @@ public class PlayerController {
     }
 
     @PostMapping("/new")
-    public ModelAndView saveNewPlayer(Player p, BindingResult br){
-        if(br.hasErrors()){
-            return new ModelAndView("players/createPlayer",br.getModel());
-        }
+    public ModelAndView saveNewPlayer(Player p){
         List<String> errors = this.playerService.checkPlayerRestrictions(p);
         if(!errors.isEmpty()){
             ModelAndView result = new ModelAndView("players/createPlayer");
@@ -125,14 +121,10 @@ public class PlayerController {
     }
 
     @PostMapping("/edit")
-    public ModelAndView saveEditProfile(Player p, BindingResult br, Principal principal){
+    public ModelAndView saveEditProfile(Player p, Principal principal){
         Player player = playerService.getByUsername(principal.getName());
         player.setName(p.getName());
         player.setMail(p.getMail());
-        player.setBirthDate(p.getBirthDate());
-        if(br.hasErrors()){
-            return new ModelAndView("players/edit",br.getModel());
-        }
         List<String> errors = this.playerService.editPlayerErrors(player);
         if(!errors.isEmpty()){
             ModelAndView result = new ModelAndView("players/edit");

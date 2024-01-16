@@ -48,7 +48,7 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void testCreateGame() throws Exception {
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
         this.playerService.save(p1);
         mockMvc.perform(get("/game/onlineGame/new"))
         .andExpect(status().is3xxRedirection())
@@ -65,7 +65,7 @@ public class OnlineGameControllerTest {
         for(OnlineGame game : games){
             this.onlineGameService.delete(game);
         }
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
         this.playerService.save(p1);
         mockMvc.perform(get("/game/onlineGame/join"))
         .andExpect(status().isOk())
@@ -75,8 +75,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void joinTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -97,8 +97,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void joinningTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -131,9 +131,9 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void joinningGameWith2PlayersTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
-        Player p3 = new Player("p3","p3",true,null,"p3","p3");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
+        Player p3 = new Player("p3","p3",true,"p3","p3");
         this.playerService.save(p1);
         this.playerService.save(p2);
         this.playerService.save(p3);
@@ -155,8 +155,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void lobbyTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -186,9 +186,9 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void lobbyGameWith2PlayersTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
-        Player p3 = new Player("p3","p3",true,null,"p3","p3");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
+        Player p3 = new Player("p3","p3",true,"p3","p3");
         this.playerService.save(p1);
         this.playerService.save(p2);
         this.playerService.save(p3);
@@ -210,8 +210,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void lobbyWithStartedGameTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -240,8 +240,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void startGamePlayer2Test() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -263,8 +263,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p2", password = "p2", authorities = {"player"})
     public void startGamePlayer1Test() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -287,9 +287,9 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p3", password = "p3", authorities = {"player"})
     public void startGamePlayerNotInGameTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
-        Player p3 = new Player("p3","p3",true,null,"p3","p3");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
+        Player p3 = new Player("p3","p3",true,"p3","p3");
         this.playerService.save(p1);
         this.playerService.save(p2);
         this.playerService.save(p3);
@@ -312,8 +312,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void playGame3SuccessPlayer1() throws Exception {
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -376,8 +376,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p2", password = "p2", authorities = {"player"})
     public void playGame3SuccessPlayer2() throws Exception {
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -445,8 +445,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void player1LosesNoSuccessTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -662,8 +662,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p2", password = "p2", authorities = {"player"})
     public void player2LosesNoSuccessTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -879,7 +879,7 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void leaveCreatedGameNotStartedTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
         this.playerService.save(p1);
         OnlineGame og = new OnlineGame();
         og.setPlayer1(p1);
@@ -900,8 +900,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p2", password = "p2", authorities = {"player"})
     public void leaveJoinedGameNotStartedTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -920,8 +920,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p1", password = "p1", authorities = {"player"})
     public void leavePlayer1StartedGameTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();
@@ -951,8 +951,8 @@ public class OnlineGameControllerTest {
     @Test
     @WithMockUser(username = "p2", password = "p2", authorities = {"player"})
     public void leavePlayer2StartedGameTest() throws Exception{
-        Player p1 = new Player("p1","p1",true,null,"p1","p1");
-        Player p2 = new Player("p2","p2",true,null,"p2","p2");
+        Player p1 = new Player("p1","p1",true,"p1","p1");
+        Player p2 = new Player("p2","p2",true,"p2","p2");
         this.playerService.save(p1);
         this.playerService.save(p2);
         OnlineGame og = new OnlineGame();

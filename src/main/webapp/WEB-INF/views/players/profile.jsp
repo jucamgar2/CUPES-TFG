@@ -9,7 +9,6 @@
             <h1 class="title">Perfil de <c:out value="${player.getUsername()}"/></h1>
             <p class="game">Nombre: <c:out value="${player.getName()}"/></p>
             <p class="game">Email: <c:out value="${player.getMail()}"/></p>
-            <p class="game">Fecha de nacimiento: <c:out value="${player.getBirthDate()}"/></p>
             <div class="block">
                 <table class="statistics-table">
                     <thead>
