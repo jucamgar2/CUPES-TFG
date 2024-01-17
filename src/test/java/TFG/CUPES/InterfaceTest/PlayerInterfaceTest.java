@@ -76,20 +76,6 @@ public class PlayerInterfaceTest {
     }
 
     @Test
-    public void seePerfilTest(){
-        driver.get("http://localhost:8080/");
-        driver.manage().window().setSize(new Dimension(1695, 1087));
-        driver.findElement(By.linkText("Registrarse")).click();
-        driver.findElement(By.id("username")).click();
-        driver.findElement(By.id("username")).sendKeys("Joselillo2");
-        driver.findElement(By.id("password")).sendKeys("1111");
-        driver.findElement(By.id("name")).sendKeys("Joselillo");
-        driver.findElement(By.id("mail")).sendKeys("jose@jose.com");
-        driver.findElement(By.className("buttom")).click();
-        driver.findElement(By.linkText("Perfil")).click();
-    }
-
-    @Test
     public void editPerfilTest(){
         driver.get("http://localhost:8080/");
         driver.manage().window().setSize(new Dimension(1695, 1087));
@@ -106,7 +92,7 @@ public class PlayerInterfaceTest {
         driver.findElement(By.id("password")).sendKeys("1111");
         driver.findElement(By.className("buttom")).click();
         driver.findElement(By.linkText("Perfil")).click();
-        driver.findElement(By.linkText("Exportar datos del jugador")).click();
+        driver.findElement(By.linkText("Editar mi perfil")).click();
         driver.findElement(By.id("name")).clear();
         driver.findElement(By.id("name")).sendKeys("Pepe2");
         driver.findElement(By.className("buttom")).click();

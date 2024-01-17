@@ -56,12 +56,15 @@ public class GameAloneInterfaceTest {
         Thread.sleep(1000L);
         driver.findElement(By.id("autocompleteInput")).sendKeys("x");
         driver.findElement(By.id("autocompleteInput")).sendKeys(Keys.ENTER);
+        Thread.sleep(1000L);
         driver.findElement(By.id("autocompleteInput")).click();
         driver.findElement(By.id("autocompleteInput")).sendKeys("x");
         driver.findElement(By.id("autocompleteInput")).sendKeys(Keys.ENTER);
+        Thread.sleep(1000L);
         driver.findElement(By.id("autocompleteInput")).click();
         driver.findElement(By.id("autocompleteInput")).sendKeys("x");
         driver.findElement(By.id("autocompleteInput")).sendKeys(Keys.ENTER);
+        Thread.sleep(1000L);
         driver.findElement(By.id("autocompleteInput")).click();
         driver.findElement(By.id("autocompleteInput")).sendKeys("x");
         driver.findElement(By.id("autocompleteInput")).sendKeys(Keys.ENTER);
