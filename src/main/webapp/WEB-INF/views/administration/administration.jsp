@@ -7,7 +7,6 @@
     <div class="block">
         
             <h1 class="title">Funciones de administrador</h1>
-            
             <div>
                 <p class="game">
                     <a class="buttom" href="/administration/players">Administrar jugadores</a>

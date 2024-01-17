@@ -12,6 +12,34 @@
                 <input class="input-large" type="text" id="name" name="name">
                 <button type="submit" class="buttom">Buscar</button>
             </form>
+            <c:if test="${succes}">
+                <div id="succes">
+                    <div class="succes-notification">
+                        <span>Imagen añadida correctamente</span>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+            </c:if>
+
+            <c:if test="${enabled}">
+                <div id="succes">
+                    <div class="succes-notification">
+                        <span>Imagen habilitada correctamente</span>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+            </c:if>
+
+            <c:if test="${disabled}">
+                <div id="succes">
+                    <div class="error-notification">
+                        <span>Imagen deshabilitada correctamente</span>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+            </c:if>
+
+
             <div class="block">
                 <table class="statistics-table">
                     <thead>
@@ -52,4 +80,5 @@
                 </div>    
             </c:if>
     </div>
+    <script src="/js/error_script.js"></script>
 </CUPES:layout>

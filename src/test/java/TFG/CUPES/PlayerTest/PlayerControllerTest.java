@@ -107,7 +107,7 @@ public class PlayerControllerTest {
             .with(SecurityMockMvcRequestPostProcessors.csrf())
             .param("name", "nuevoNombre")
             .param("mail", "nuevoooo2@gmail.com"))
-            .andExpect(status().isOk());
+            .andExpect(status().is3xxRedirection());
     }
 
     @Test
