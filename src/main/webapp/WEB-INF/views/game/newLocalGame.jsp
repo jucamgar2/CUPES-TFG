@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="local-game-message">
-                        <p class ="local-game-message">¡Importante! Recordad que una vez que envieis este formulario para registrar el nombre de los jugadores, comenzará la partida y empezará a contar el tiempo para el jugador número 1</p>
+                        <p class ="local-game-message">¡Importante! Recordad que una vez que enviéis este formulario para registrar el nombre de los jugadores, comenzará la partida y empezará a contar el tiempo para el jugador número 1</p>
                     </div>
                 </form:form>
             </div>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="local-game-message">
-                        <p class ="local-game-message">¡Importante! Recordad que una vez que envieis este formulario para registrar el nombre de los jugadores, comenzará la partida y empezará a contar el tiempo para el jugador número 1</p>
+                        <p class ="local-game-message">¡Importante! Recordad que una vez que enviéis este formulario para registrar el nombre de los jugadores, comenzará la partida y empezará a contar el tiempo para el jugador número 1</p>
                     </div>
                 </form:form>
             </div>

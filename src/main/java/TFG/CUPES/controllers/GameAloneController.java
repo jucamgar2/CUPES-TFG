@@ -121,7 +121,7 @@ public class GameAloneController {
             
             if(game.getShift()>0){
                 List<String> errors = new ArrayList<>();
-                errors.add("¡Lo siento! Fallaste en tu último intento");
+                errors.add("¡Lo siento! Fallaste en tu anterior intento");
                 res.addObject("errors", errors);
             }
             

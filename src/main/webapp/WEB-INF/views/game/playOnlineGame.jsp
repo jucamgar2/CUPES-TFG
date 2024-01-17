@@ -10,7 +10,7 @@
             <c:if test="${error}">
                 <div id="error-notifications">
                     <div class="error-notification">
-                        <span>¡Lo siento! Fallaste en tu último intento</span>
+                        <span>¡Lo siento! Fallaste en tu anterior intento</span>
                         <button class="close-button">×</button>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
             <c:if test="${succes}">
                 <div id="succes">
                     <div class="succes-notification">
-                        <span>¡Enhorabuena! Acertaste en tu último intento</span>
+                        <span>¡Enhorabuena! Acertaste en tu anterior intento</span>
                         <button class="close-button">×</button>
                     </div>
                 </div>

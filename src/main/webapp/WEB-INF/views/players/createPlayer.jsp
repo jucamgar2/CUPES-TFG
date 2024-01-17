@@ -53,7 +53,7 @@
                     <button class="buttom" type="submit">Registrarme</button>
                 </form:form>
                 <div class="registerInfo">
-                    <h2>Registrate para poder tener acceso al modo de juego online, donde podrás competir contra jugadores de todo el mundo</h2>
+                    <h2>Regístrate para poder tener acceso al modo de juego online, donde podrás competir contra jugadores de todo el mundo</h2>
                     <h2>Aunque si no quieres, puedes seguir jugando al modo un jugador para seguir practicando y adquiriendo más conocimiento</h2>
                     <a class="buttom" href="/game/new">Jugar</a>
                 </div>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import TFG.CUPES.entities.Authorities;
@@ -68,8 +69,6 @@ public class PlayerController {
         }
         p.setEnabled(true);
         p.setPassword(passwordEncoder.encode(p.getPassword()));
-        System.out.println(p.getPassword());
-        //p.setPassword(p.getPassword());
         playerService.save(p);
         Authorities a = new Authorities();
         a.setAuthority("player");
@@ -77,6 +76,7 @@ public class PlayerController {
         a.setId(this.authoritiesService.findMaxId()+1);
         authoritiesService.save(a);
         ModelAndView result =new ModelAndView("redirect:/");
+        result.addObject("succes",true);
         return result;
     }
 
@@ -90,7 +90,7 @@ public class PlayerController {
     }
 
     @GetMapping("/profile/{username}")
-    public ModelAndView showProfile(@PathVariable("username") String username,Principal principal){ 
+    public ModelAndView showProfile(@PathVariable("username") String username,@RequestParam(name="succes",required = false) Boolean succes,Principal principal){ 
         ModelAndView result = new ModelAndView("players/profile");
         String authority = authoritiesService.findByUsername(principal.getName()).getAuthority();
         if(principal==null || principal.getName()==null || principal.getName().equals("")){
@@ -103,6 +103,9 @@ public class PlayerController {
         Player p = playerService.getByUsername(username);
         result.addObject("player", p);
         result.addObject("principal", principal);
+        if(succes!=null && succes){
+            result.addObject("succes", true);
+        }
         result =statisticsController.addGameAloneStatisticsByUser(result, username);
         result = statisticsController.addOnlineGameStatisticsByUser(result, username);
         return result;
@@ -133,6 +136,7 @@ public class PlayerController {
         }
         playerService.save(player);
         ModelAndView result =new ModelAndView("redirect:/players/profile/"+principal.getName());
+        result.addObject("succes",true);
         return result;
     }
 }

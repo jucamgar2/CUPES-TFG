@@ -5,8 +5,9 @@
 <CUPES:layout title="Unirse a una partida onine">
     <div class = "block"> 
             <h1 class="title">Terminaste, espera a que tu rival termine </h1>
-
+            <p class="game">Mientras que esperas a que tu rival termine, te proponemos este minijuego donde deberás levantar las cartas de dos en dos para encontrar las parejas</p>  
             <div class="grid-container">
+
             </div>
                 <p class="game">Nº de intentos: <span class="shifts"></span></p>
             <div class="center-items">

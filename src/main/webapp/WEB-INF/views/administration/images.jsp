@@ -5,7 +5,7 @@
 
 <CUPES:layout title="Listado de imagenes">
     <div class="block">
-            <h1 class="title">Estas son las imagenes que pueden aparecer en la aplicación</h1>
+            <h1 class="title">Estas son las imágenes que pueden aparecer en la aplicación</h1>
 
             <form id="buscarImageForm" onsubmit="return sendImageForm()">
                 <label for="name">Buscar imagenes:</label>

@@ -6,7 +6,17 @@
 
 <CUPES:layout title="Perfil">
     <div class="block">
+
+            
             <h1 class="title">Perfil de <c:out value="${player.getUsername()}"/></h1>
+            <c:if test="${succes}">
+                <div id="succes">
+                    <div class="succes-notification">
+                        <span>Perfil actualizado correctamente</span>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+            </c:if>
             <p class="game">Nombre: <c:out value="${player.getName()}"/></p>
             <p class="game">Email: <c:out value="${player.getMail()}"/></p>
             <div class="block">

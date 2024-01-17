@@ -4,7 +4,7 @@
 
 <CUPES:layout title="Unirse a una partida onine">
     <div class="block">
-            <h1 class="title">Cuando ambos jugadores esteis listos empezará la partida</h1>
+            <h1 class="title">Cuando ambos jugadores estéis listos empezará la partida</h1>
             <div>
                 <div class="column">
                     <div>

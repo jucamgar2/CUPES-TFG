@@ -18,11 +18,11 @@
                 </c:if>
                 <h2>En el modo un jugador, tendrás tres intentos para adivinar un escudo</h2>
                 <a class="buttom" href="/game/new">Un jugador</a>
-                <h2>En el modo uno contra uno local, podrás jugar con otra persona en tu mismo dispositivo y cada uno tendrá que adivinar un escudo en el menor numero posible de intentos y de tiempo</h2>
+                <h2>En el modo uno contra uno local, podrás jugar con otra persona en tu mismo dispositivo y cada uno tendrá que adivinar un escudo en el menor número posible de intentos y de tiempo</h2>
                 <a class="buttom" href="/game/localGame/new">1vs1 local</a>
-                <h2>En el modo en linea jugaras contra otra persona y ambos tendreis que adivinar un escudo en el menor número de intentos posible, tardando el menor tiempo posible</h2>
-                <a class="buttom" href="/game/onlineGame/new">Crear una partida 1vs1 en linea</a>
-                <a class="buttom" href="/game/onlineGame/join">Unirse a una partida 1vs1 en linea</a>
+                <h2>En el modo en línea jugarás contra otra persona y ambos tendréis que adivinar un escudo en el menor número de intentos posible, tardando el menor tiempo posible</h2>
+                <a class="buttom" href="/game/onlineGame/new">Crear una partida 1vs1 en línea</a>
+                <a class="buttom" href="/game/onlineGame/join">Unirse a una partida 1vs1 en línea</a>
                 <h2>Si tienes alguna duda sobre como jugar, puedes consultar el manual</h2>
                 <a href="/manual" class="buttom">Ir al manual</a>
             </div>
