@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import TFG.CUPES.entities.GameAlone;
-import TFG.CUPES.entities.Player;
 import TFG.CUPES.services.GameAloneService;
 import TFG.CUPES.services.PlayerService;
 

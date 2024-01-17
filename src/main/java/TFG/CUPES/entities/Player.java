@@ -1,5 +1,4 @@
 package TFG.CUPES.entities;
-import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,8 +22,6 @@ public class Player {
     String password;
 
     Boolean enabled;
-
-    LocalDate birthDate;
     
     String mail;
 

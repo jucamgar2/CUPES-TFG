@@ -14,6 +14,24 @@
                 <input class="input-large" type="text" id="username" name="username">
                 <button type="submit" class="buttom">Buscar</button>
             </form>
+
+            <c:if test="${enabled}">
+                <div id="succes">
+                    <div class="succes-notification">
+                        <span>Jugador habilitado correctamente</span>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+            </c:if>
+
+            <c:if test="${disabled}">
+                <div id="succes">
+                    <div class="error-notification">
+                        <span>Jugador deshabilitado correctamente</span>
+                        <button class="close-button">×</button>
+                    </div>
+                </div>
+            </c:if>
             <div class="block">
                 <table class="statistics-table">
                     <thead>
@@ -58,4 +76,5 @@
                 </div>  
             </c:if>  
     </div>
+    <script src="/js/error_script.js"></script>
 </CUPES:layout>

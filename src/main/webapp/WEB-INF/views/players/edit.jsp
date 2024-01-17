@@ -38,13 +38,6 @@
                         <div>
                             <input class="input-large" type="text" id="mail" name="mail" value="<c:out value='${player.getMail()}'/>" required>
                         </div>
-
-                        <div>
-                            <label for="birthDate">Fecha de nacimiento:</label>
-                        </div>
-                        <div>
-                            <input class="input-large" type="text" id="birthDate" name="birthDate" value="<c:out value='${player.getBirthDate()}'/>" required>
-                        </div>
                     </div>
                     <div class="block">
                         <button class="buttom" type="submit">Editar</button>

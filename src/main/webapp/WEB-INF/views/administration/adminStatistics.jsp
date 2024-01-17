@@ -17,7 +17,7 @@
             <table class="statistics-table">
                 <thead>
                     <tr>
-                        <th>Estadísticas por imagenes del modo un jugador</th>
+                        <th>Estadísticas por imágenes del modo un jugador</th>
                         <th>Estadísticas generales</th>
                         <th>Con un intento</th>
                         <th>Con dos intentos</th>
@@ -26,7 +26,7 @@
                     </tr>
                 </thead>
                 <tr>
-                    <td>Porcentaje de acierto en escudos de españa:</td>
+                    <td>Porcentaje de acierto en escudos de España:</td>
                     <td><c:out value="${spainSuccess}"/></td>
                     <td><c:out value="${spainSuccess1}"/></td>
                     <td><c:out value="${spainSuccess2}"/></td>
@@ -34,7 +34,7 @@
                     <td><c:out value="${spainSuccess4}"/></td>
                 </tr>
                 <tr>
-                    <td>Porcentaje de acierto en escudos de alemania:</td>
+                    <td>Porcentaje de acierto en escudos de Alemania:</td>
                     <td><c:out value="${germanySuccess}" /></td>
                     <td><c:out value="${germanySuccess1}" /></td>
                     <td><c:out value="${germanySuccess2}" /></td>
@@ -42,7 +42,7 @@
                     <td><c:out value="${germanySuccess4}" /></td>
                 </tr>
                 <tr>
-                    <td>Porcentaje de acierto en escudos de francia:</td>
+                    <td>Porcentaje de acierto en escudos de Francia:</td>
                     <td><c:out value="${franceSuccess}" /></td>
                     <td><c:out value="${franceSuccess1}" /></td>
                     <td><c:out value="${franceSuccess2}" /></td>
@@ -50,7 +50,7 @@
                     <td><c:out value="${franceSuccess4}" /></td>
                 </tr>
                 <tr>
-                    <td>Porcentaje de acierto en escudos de italia:</td>
+                    <td>Porcentaje de acierto en escudos de Italia:</td>
                     <td><c:out value="${italySuccess}" /></td>
                     <td><c:out value="${italySuccess1}" /></td>
                     <td><c:out value="${italySuccess2}" /></td>
@@ -90,7 +90,7 @@
                     <td><c:out value="${femaleSuccess4}" /></td>
                 </tr>
                 <tr>
-                    <td>Procentaje de acierto en clubes de primeras divisiones</td>
+                    <td>Porcentaje de acierto en clubes de primeras divisiones</td>
                     <td><c:out value="${firstDivisionSuccess}" /></td>
                     <td><c:out value="${firstDivisionSuccess1}" /></td>
                     <td><c:out value="${firstDivisionSuccess2}" /></td>
@@ -98,7 +98,7 @@
                     <td><c:out value="${firstDivisionSuccess4}" /></td>
                 </tr>
                 <tr>
-                    <td>Porcentaje de acierto en clubes de segunda division</td>
+                    <td>Porcentaje de acierto en clubes de segunda división</td>
                     <td><c:out value="${secondDivisionSuccess}" /></td>
                     <td><c:out value="${secondDivisionSuccess1}" /></td>
                     <td><c:out value="${secondDivisionSuccess2}" /></td>

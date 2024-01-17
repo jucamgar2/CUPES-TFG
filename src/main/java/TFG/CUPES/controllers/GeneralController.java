@@ -11,6 +11,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.util.StreamUtils;
 
@@ -28,7 +29,7 @@ public class GeneralController {
 	ImageService imageService;
 
     @GetMapping({"/","/welcome"})
-	public ModelAndView welcome(Map<String, Object> model) {
+	public ModelAndView welcome(Map<String, Object> model,@RequestParam(name="succes",required = false) Boolean succes) {
 		if(imageService.getAllLogos().isEmpty()){
 			try {
                 ClassPathResource resource = new ClassPathResource("data.sql");
@@ -42,6 +43,9 @@ public class GeneralController {
             }
 		}
 		ModelAndView res = new ModelAndView("welcome");
+		if(succes!=null && succes){
+			res.addObject("succes",true);
+		}
 	    return res;
 	}
 

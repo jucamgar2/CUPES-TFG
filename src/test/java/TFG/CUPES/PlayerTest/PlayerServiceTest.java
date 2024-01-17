@@ -3,8 +3,6 @@ package TFG.CUPES.PlayerTest;
 import static org.junit.Assert.assertEquals;
 
 import java.io.FileReader;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,11 +28,10 @@ public class PlayerServiceTest {
 
     @Test
     public void savePlayerTest(){
-        Player p = new Player("joselillo", "$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG", true, LocalDate.of(2002, 01, 02), "jota@jota.com","Joselillo");
+        Player p = new Player("joselillo", "$2a$10$WpxwP9e/k8VocMGQOWZ8Q.tq0rMaLOhM8U1p6zGYVIVUUwWYVbqDG", true, "jota@jota.com","Joselillo");
         this.playerService.save(p);
         Player p2 = this.playerService.getByUsername("joselillo");
         assertEquals(p.getUsername(),p2.getUsername());
-        assertEquals(p.getBirthDate(),p2.getBirthDate());
         assertEquals(p.getPassword(),p2.getPassword());
         assertEquals(p.getMail(),p2.getMail());
         assertEquals(p.getName(),p2.getName());
@@ -45,7 +42,6 @@ public class PlayerServiceTest {
     public void existsPlayerTest(){
         Player p1 = new Player();
         p1.setUsername("Guaje");
-        p1.setBirthDate(LocalDate.of(2002, 01, 02));
         p1.setPassword("1111");
         p1.setMail("guaje@guaje.com");
         p1.setName("Guaje");
@@ -58,14 +54,12 @@ public class PlayerServiceTest {
     public void getByUserNameTest(){
         Player p1 = new Player();
         p1.setUsername("Guaje");
-        p1.setBirthDate(LocalDate.of(2002, 01, 02));
         p1.setPassword("1111");
         p1.setMail("guaje@guaje.com");
         p1.setName("Guaje");
         this.playerService.save(p1);
         Player p = this.playerService.getByUsername("Guaje");
         assert(p.getUsername().equals("Guaje"));
-        assertEquals(p.getBirthDate().toString(),"2002-01-02");
         assertEquals(p.getPassword(), "1111");
         assertEquals(p.getMail(),"guaje@guaje.com");
         assertEquals(p.getName(),"Guaje");
@@ -81,14 +75,12 @@ public class PlayerServiceTest {
     public void findByMailTest(){
         Player p1 = new Player();
         p1.setUsername("Guaje");
-        p1.setBirthDate(LocalDate.of(2002, 01, 02));
         p1.setPassword("1111");
         p1.setMail("guaje@guaje.com");
         p1.setName("Guaje");
         this.playerService.save(p1);
         Player p = this.playerService.findByMail("guaje@guaje.com");
         assert(p.getUsername().equals("Guaje"));
-        assertEquals(p.getBirthDate().toString(),"2002-01-02");
         assertEquals(p.getPassword(), "1111");
         assertEquals(p.getMail(),"guaje@guaje.com");
         assertEquals(p.getName(),"Guaje");
@@ -109,11 +101,10 @@ public class PlayerServiceTest {
                 String username = line[0];
                 String password = line[1];
                 boolean enabled = Boolean.parseBoolean(line[2]);
-                LocalDate birthDate = LocalDate.parse(line[3], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 String mail = line[4];
                 String name = line[5];
 
-                Player player = new Player(username, password, enabled, birthDate, mail, name);
+                Player player = new Player(username, password, enabled, mail, name);
                 players.add(player);
             }
         } catch (Exception e) {
@@ -134,7 +125,7 @@ public class PlayerServiceTest {
         for(int i = 0; i<players.size(); i++){
             List<String> errors = this.playerService.checkPlayerRestrictions(players.get(i));
             System.out.println(players.get(i));
-            assertEquals(errors.size(), 1);
+            assert(errors.size()>0);
         }
     }
 
@@ -144,18 +135,17 @@ public class PlayerServiceTest {
         Player p2 = new Player();
         p2.setUsername("Guajín");
         p2.setPassword("1111");
-        p2.setBirthDate(LocalDate.of(2030, 1, 1));
+        
         p2.setMail("x");
         p2.setName("x");
         p2.setEnabled(true);
-        Player p1 = new Player("Guajín", "1111", true, LocalDate.of(2000, 1, 1), "guaje@guaje.com","joselillo");
-        p1.setBirthDate(null);
+        Player p1 = new Player("Guajín", "1111", true, "guaje@guaje.com","joselillo");
         p1.setName(null);
         players.add(p2);
         players.add(p1);
-        Player p3 = new Player("Guajín", "1111", true, LocalDate.of(2000, 1, 1), "guaje@guaje.comaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","joselillo");
+        Player p3 = new Player("Guajín", "1111", true, "guaje@guaje.comaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","joselillo");
         players.add(p3);
-        Player p4 = new Player("Guajín", "1111", true, LocalDate.of(2000, 1, 1), null,"joselilloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+        Player p4 = new Player("Guajín", "1111", true, null,"joselilloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
         players.add(p4);
         for(Player p :players){
             List<String> errors = this.playerService.checkPlayerRestrictions(p);

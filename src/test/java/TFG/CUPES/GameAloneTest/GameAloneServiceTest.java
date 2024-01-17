@@ -2,7 +2,6 @@ package TFG.CUPES.GameAloneTest;
 
 import static org.junit.Assert.assertEquals;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
@@ -32,8 +31,8 @@ public class GameAloneServiceTest {
     private PlayerService playerService;
 
 
-    Player p = new Player("María","1111",true,LocalDate.of(2015,1,1),"maria@maria.com","María");
-    Player p2 = new Player("María2","1111",true,LocalDate.of(2015,1,1),"maria2@maria2.com","María2");
+    Player p = new Player("María","1111",true,"maria@maria.com","María");
+    Player p2 = new Player("María2","1111",true,"maria2@maria2.com","María2");
     GameAlone g = new GameAlone(5555,null,1,true,true,0,0,"token",p,null,LocalDateTime.now());
     GameAlone g2 = new GameAlone(5556,null,4,true,false,0,0,"token",p,null,LocalDateTime.now());
     GameAlone g3 = new GameAlone(5557,null,3,true,true,0,0,"token",p,null,LocalDateTime.now());

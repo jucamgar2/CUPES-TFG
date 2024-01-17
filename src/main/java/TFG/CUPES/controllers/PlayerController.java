@@ -10,13 +10,13 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import TFG.CUPES.entities.Authorities;
@@ -59,10 +59,7 @@ public class PlayerController {
     }
 
     @PostMapping("/new")
-    public ModelAndView saveNewPlayer(Player p, BindingResult br){
-        if(br.hasErrors()){
-            return new ModelAndView("players/createPlayer",br.getModel());
-        }
+    public ModelAndView saveNewPlayer(Player p){
         List<String> errors = this.playerService.checkPlayerRestrictions(p);
         if(!errors.isEmpty()){
             ModelAndView result = new ModelAndView("players/createPlayer");
@@ -72,8 +69,6 @@ public class PlayerController {
         }
         p.setEnabled(true);
         p.setPassword(passwordEncoder.encode(p.getPassword()));
-        System.out.println(p.getPassword());
-        //p.setPassword(p.getPassword());
         playerService.save(p);
         Authorities a = new Authorities();
         a.setAuthority("player");
@@ -81,6 +76,7 @@ public class PlayerController {
         a.setId(this.authoritiesService.findMaxId()+1);
         authoritiesService.save(a);
         ModelAndView result =new ModelAndView("redirect:/");
+        result.addObject("succes",true);
         return result;
     }
 
@@ -94,7 +90,7 @@ public class PlayerController {
     }
 
     @GetMapping("/profile/{username}")
-    public ModelAndView showProfile(@PathVariable("username") String username,Principal principal){ 
+    public ModelAndView showProfile(@PathVariable("username") String username,@RequestParam(name="succes",required = false) Boolean succes,Principal principal){ 
         ModelAndView result = new ModelAndView("players/profile");
         String authority = authoritiesService.findByUsername(principal.getName()).getAuthority();
         if(principal==null || principal.getName()==null || principal.getName().equals("")){
@@ -107,6 +103,9 @@ public class PlayerController {
         Player p = playerService.getByUsername(username);
         result.addObject("player", p);
         result.addObject("principal", principal);
+        if(succes!=null && succes){
+            result.addObject("succes", true);
+        }
         result =statisticsController.addGameAloneStatisticsByUser(result, username);
         result = statisticsController.addOnlineGameStatisticsByUser(result, username);
         return result;
@@ -125,14 +124,10 @@ public class PlayerController {
     }
 
     @PostMapping("/edit")
-    public ModelAndView saveEditProfile(Player p, BindingResult br, Principal principal){
+    public ModelAndView saveEditProfile(Player p, Principal principal){
         Player player = playerService.getByUsername(principal.getName());
         player.setName(p.getName());
         player.setMail(p.getMail());
-        player.setBirthDate(p.getBirthDate());
-        if(br.hasErrors()){
-            return new ModelAndView("players/edit",br.getModel());
-        }
         List<String> errors = this.playerService.editPlayerErrors(player);
         if(!errors.isEmpty()){
             ModelAndView result = new ModelAndView("players/edit");
@@ -141,6 +136,7 @@ public class PlayerController {
         }
         playerService.save(player);
         ModelAndView result =new ModelAndView("redirect:/players/profile/"+principal.getName());
+        result.addObject("succes",true);
         return result;
     }
 }

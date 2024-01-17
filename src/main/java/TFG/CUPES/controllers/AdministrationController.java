@@ -80,7 +80,7 @@ public class AdministrationController {
 
     @PostMapping(value = "/images/new", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ModelAndView newImage(ImageForm imageForm, Principal principal) throws IOException {
-        ModelAndView res = new ModelAndView("redirect:/administration");
+        ModelAndView res = new ModelAndView("redirect:/administration/images");
             if(imageForm == null ||imageForm.getFile().isEmpty()){
                 res = new ModelAndView(NEW_IMAGE);
                 res.addObject("errors", List.of("No se ha seleccionado ninguna imagen"));
@@ -113,13 +113,17 @@ public class AdministrationController {
             image.setEnabled(imageForm.getEnabled());
             imageService.save(image);
         res.addObject("imageForm", imageForm);
+        res.addObject("succes", true);
         return res;
     }
 
     @GetMapping("/images")
     public ModelAndView images(@RequestParam(name = "page", defaultValue = "0") int page,
                             @RequestParam(name = "size", defaultValue = "10") int size,
-                            @RequestParam(name = "name",required = false) String name) {
+                            @RequestParam(name = "name",required = false) String name,
+                            @RequestParam(name="succes", required = false) Boolean succes,
+                            @RequestParam(name="enabled", required = false) Boolean enabled,
+                            @RequestParam(name="disabled", required = false) Boolean disabled) {
         if(name!=null){
             Page<Image> imagesPage = imageService.getLogosByName(name,PageRequest.of(page, size));
             ModelAndView res = new ModelAndView(LIST_IMAGE);
@@ -127,6 +131,15 @@ public class AdministrationController {
             res.addObject("currentPage", page);
             res.addObject("totalPages", imagesPage.getTotalPages());
             res.addObject("name", name);
+            if(succes!=null){
+                res.addObject("succes", succes);
+            }
+            if(enabled!=null){
+                res.addObject("enabled", enabled);
+            }
+            if(disabled!=null){
+                res.addObject("disabled", disabled);
+            }
             return res;
         }else{
             Page<Image> imagesPage = imageService.getAllLogosPageable(PageRequest.of(page, size));
@@ -134,6 +147,15 @@ public class AdministrationController {
             res.addObject("images", imagesPage.getContent());
             res.addObject("currentPage", page);
             res.addObject("totalPages", imagesPage.getTotalPages());
+            if(succes!=null){
+                res.addObject("succes", succes);
+            }
+            if(enabled!=null){
+                res.addObject("enabled", enabled);
+            }
+            if(disabled!=null){
+                res.addObject("disabled", disabled);
+            }
             return res;
         }
     }
@@ -188,6 +210,7 @@ public class AdministrationController {
             image.setEnabled(false);
             imageService.save(image);
         }
+        res.addObject("disabled", true);
         return res;
     }
 
@@ -199,6 +222,7 @@ public class AdministrationController {
             image.setEnabled(true);
             imageService.save(image);
         }
+        res.addObject("enabled", true);
         return res;
     }
 
@@ -349,7 +373,9 @@ public class AdministrationController {
     @GetMapping("/players")
     public ModelAndView player(@RequestParam(name = "page", defaultValue = "0") int page,
                             @RequestParam(name = "size", defaultValue = "10") int size,
-                            @RequestParam(name = "username",required = false) String username) {
+                            @RequestParam(name = "username",required = false) String username,
+                            @RequestParam(name="enabled", required = false) Boolean enabled,
+                            @RequestParam(name="disabled", required = false) Boolean disabled) {
         if(username!=null){
             Page<Player> authoritiesPage = playerService.getPlayersByUsername(username,PageRequest.of(page, size));
             ModelAndView res = new ModelAndView(LIST_PLAYERS);
@@ -357,6 +383,12 @@ public class AdministrationController {
             res.addObject("currentPage", page);
             res.addObject("totalPages", authoritiesPage.getTotalPages());
             res.addObject("username", username);
+            if(enabled!=null){
+                res.addObject("enabled", enabled);
+            }
+            if(disabled!=null){
+                res.addObject("disabled", disabled);
+            }
             return res;
         }else{
             Page<Player> authoritiesPage = playerService.getAllAuthoritiesPageable(PageRequest.of(page, size));
@@ -364,6 +396,12 @@ public class AdministrationController {
             res.addObject("players", authoritiesPage.getContent());
             res.addObject("currentPage", page);
             res.addObject("totalPages", authoritiesPage.getTotalPages());
+            if(enabled!=null){
+                res.addObject("enabled", enabled);
+            }
+            if(disabled!=null){
+                res.addObject("disabled", disabled);
+            }
             return res;
         }
     }
@@ -376,6 +414,7 @@ public class AdministrationController {
             player.setEnabled(false);
             playerService.save(player);
         }
+        res.addObject("disabled", true);
         return res;
     }
 
@@ -387,6 +426,7 @@ public class AdministrationController {
             player.setEnabled(true);
             playerService.save(player);
         }
+        res.addObject("enabled", true);
         return res;
     }
     @GetMapping("/manual")

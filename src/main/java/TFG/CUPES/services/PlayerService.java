@@ -6,7 +6,6 @@ import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.entities.Player;
 import TFG.CUPES.repositories.PlayerRepository;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -85,10 +84,6 @@ public class PlayerService {
                 errors.add("Ya existe un usuario con ese correo");
             }
         }
-        
-        if(p.getBirthDate()!=null && p.getBirthDate().isAfter(LocalDate.now())){
-            errors.add("La fecha de nacimiento no puede ser posterior a la fecha actual");
-        }
         return errors;
     }
 
@@ -116,9 +111,6 @@ public class PlayerService {
             if(findByMail(p.getMail())!=null && findByMail(p.getMail()).getUsername()!=p.getUsername()){
                 errors.add("Ya existe un usuario con ese correo");
             }
-        }
-        if(p.getBirthDate()!=null && p.getBirthDate().isAfter(LocalDate.now())){
-            errors.add("La fecha de nacimiento no puede ser posterior a la fecha actual");
         }
         return errors;
     }

@@ -11,8 +11,8 @@
             <c:if test="${ !game.getPlayer1Leaves() && !game.getPlayer2Leaves()}">
                 <h1 class="title">El ganador ha sido <c:out value="${game.getWinner()}"/></h1>
                 <p class="game">Vuestras estadísticas han sido las siguientes:</p>
-                <p class="game"> <c:out value="${game.getPlayer1().getUsername()}"/> -> Intentos: <c:out value="${game.getPlayer1Shifts()}"/> , Timepo: <c:out value="${player1Time}"/> segundos, Aciertos: <c:out value="${game.getPlayer1Succes()}"/></p>
-                <p class="game"> <c:out value="${game.getPlayer2().getUsername()}"/> -> Intentos: <c:out value="${game.getPlayer2Shifts()}"/> , Timepo: <c:out value="${player2Time}"/> segundos, Aciertos: <c:out value="${game.getPlayer2Succes()}"/></p>
+                <p class="game"> <c:out value="${game.getPlayer1().getUsername()}"/> -> Intentos: <c:out value="${game.getPlayer1Shifts()}"/> , Tiempo: <c:out value="${player1Time}"/> segundos, Aciertos: <c:out value="${game.getPlayer1Succes()}"/></p>
+                <p class="game"> <c:out value="${game.getPlayer2().getUsername()}"/> -> Intentos: <c:out value="${game.getPlayer2Shifts()}"/> , Tiempo: <c:out value="${player2Time}"/> segundos, Aciertos: <c:out value="${game.getPlayer2Succes()}"/></p>
             </c:if>
             <div class="pc-view">
                 <div>
@@ -72,8 +72,8 @@
 
                 </div>
                 <div class="block">
-                    <a class="buttom" href="/game/onlineGame/new">Crear una partida 1vs1 en linea</a>
-                    <a class="buttom" href="/game/onlineGame/join">Unirse a una partida 1vs1 en linea</a>
+                    <a class="buttom" href="/game/onlineGame/new">Crear una partida 1vs1 en línea</a>
+                    <a class="buttom" href="/game/onlineGame/join">Unirse a una partida 1vs1 en línea</a>
                 </div>
                 
             </div>

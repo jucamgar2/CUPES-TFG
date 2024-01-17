@@ -18,17 +18,17 @@
             </c:if>
             <form:form modelAttribute="imageForm"  enctype="multipart/form-data">
                 <div>
-                    <form:label path="file">Añade aqui la imagen</form:label> 
+                    <form:label path="file">Añade aquí la imagen</form:label> 
                     <input class="buttom" name="file"  path="file" type="file">
                 </div>
                 <div>
-                    <form:label path="name">¿Cual es el nombre completo de este equipo?</form:label>
+                    <form:label path="name">¿Cuál es el nombre completo de este equipo?</form:label>
                 </div>
                 <div>
                     <input class="input-game" name="name"  path="name" type="text">
                 </div>
                 <div>
-                    <form:label path="country">¿Cual es el país de este equipo?</form:label>
+                    <form:label path="country">¿Cuál es el país de este equipo?</form:label>
                 </div>
                 <div>
                     <input class="input-game" name="country"  path="country" type="text">
