@@ -1,4 +1,5 @@
 package TFG.CUPES.services;
+import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,7 +123,8 @@ public class OnlineGameService {
         if(numOfGames == 0){
             return "0%";
         }
-        return String.format("%.2f", (double)numOfWins/numOfGames*100) + "%";
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format((double)numOfWins/numOfGames*100) + "%";
     }
 
     @Transactional(readOnly = true)
@@ -132,7 +134,8 @@ public class OnlineGameService {
         if(numOfGames == 0){
             return "0%";
         }
-        return String.format("%.2f", (double)numOfPerfectWins/numOfGames*100) + "%";
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format((double)numOfPerfectWins/numOfGames*100) + "%";
     }
 
     public Map<String,Long> getRankingGame() {

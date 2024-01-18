@@ -212,13 +212,13 @@ public class OnlineGameServiceTest {
     @Test
     public void testGetWinRate(){
         String res = this.onlineGameService.getWinRate("María");
-        assertEquals(res, "50,00%");
+        assertEquals(res, "50%");
     }
 
     @Test
     public void testPerfectWinsRate(){
         String res = this.onlineGameService.perfectWinsRate("María");
-        assertEquals(res, "50,00%");
+        assertEquals(res, "50%");
     }
 
     @Test
