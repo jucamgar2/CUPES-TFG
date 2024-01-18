@@ -29,10 +29,10 @@ public class GameAloneTest {
         ga.setDate(date);
         assert(ga.getId()==897);
         assert(ga.getPlayer()==p);
-        assert(ga.getIsFinish()==false);
+        assert(!ga.getIsFinish());
         assert(ga.getPositions()==null);
         assert(ga.getShift()==1);
-        assert(ga.getWin()==true);
+        assert(ga.getWin());
         assert(ga.getToken()=="token");
         assert(ga.getX()==0);
         assert(ga.getY()==1);

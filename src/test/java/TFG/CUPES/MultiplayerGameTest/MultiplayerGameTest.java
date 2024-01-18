@@ -28,8 +28,8 @@ public class MultiplayerGameTest {
         assert(lg.getPlayer2Start()==date);
         assert(lg.getPlayer1FInish()==date);
         assert(lg.getPlayer2Finish()==date);
-        assert(lg.getPlayer1CanWin()==true);
-        assert(lg.getPlayer2CanWin()==true);
+        assert(lg.getPlayer1CanWin());
+        assert(lg.getPlayer2CanWin());
         assert(lg.getWinner()=="Joselillo");
     }
 

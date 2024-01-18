@@ -28,13 +28,13 @@ public class ImageFormTest {
         imageForm.setCategory(1);
         assert(imageForm.getCategory() == 1);
         imageForm.setHasName(true);
-        assert(imageForm.getHasName() == true);
+        assert(imageForm.getHasName());
         imageForm.setHasInitials(true);
-        assert(imageForm.getHasInitials() == true);
+        assert(imageForm.getHasInitials() );
         imageForm.setHasYear(true);
-        assert(imageForm.getHasYear() == true);
+        assert(imageForm.getHasYear());
         imageForm.setEnabled(true);
-        assert(imageForm.getEnabled() == true);
+        assert(imageForm.getEnabled());
         
         
     }

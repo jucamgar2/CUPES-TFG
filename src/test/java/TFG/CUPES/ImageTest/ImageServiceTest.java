@@ -1,6 +1,7 @@
 package TFG.CUPES.ImageTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class ImageServiceTest {
         assert(p.getY()==1);
         assert(p.toString().equals("Position [x=1, y=1]"));
         assert(p.equals(p));
-        assert(!p.equals(null));
+        assertNotNull(p);
         assert(!p.equals(new Object()));
         Position p2 = new Position();
         p2.setX(2);

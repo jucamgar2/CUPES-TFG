@@ -4,11 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <CUPES:layout title="Editar mi perfil">
-        <script>
-            $(function () {
-                $("#birthDate").datepicker({dateFormat: 'dd/mm/yy' });
-            });
-        </script>
         <div class="block">
                 <h1 class="title">Editar mi perfil</h1>
                 <c:if test="${not empty errors}">
