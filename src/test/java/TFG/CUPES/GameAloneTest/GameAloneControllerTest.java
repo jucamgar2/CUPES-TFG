@@ -1,10 +1,8 @@
 package TFG.CUPES.GameAloneTest;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.startsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -18,14 +16,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
-import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import TFG.CUPES.entities.GameAlone;
 import TFG.CUPES.services.GameAloneService;
-import TFG.CUPES.services.PlayerService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,9 +33,6 @@ public class GameAloneControllerTest {
 
     @Autowired
     private GameAloneService gameAloneService;
-
-    @Autowired
-    private PlayerService playerService;
 
     @Test
     public void selectModeTest() throws Exception{

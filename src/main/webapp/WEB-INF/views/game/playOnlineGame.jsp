@@ -25,7 +25,7 @@
             </c:if>
             <div class="center-items">
                 <div class="image-container" style="position: relative;">
-                    <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
+                    <img src=<c:out value="${imageUrl}"/> style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
                     ${fullImageStyle}
                    
                 </div>
@@ -54,13 +54,13 @@
                         <datalist id="logos"></datalist>
                     </div>
                     <div>
-                        <button  class="buttom" type="submit" href="/onlineGame/play/${game.id}">Enviar</button>
+                        <button  class="buttom" type="submit" href="/onlineGame/play/<c:out value='${game.id}'/>">Enviar</button>
                     </div>
                 </div>
             </form:form>
 
             <div class="block">
-                    <a class="buttom-danger" href ="/game/onlineGame/leave/${game.id}">Abandonar</a>
+                    <a class="buttom-danger" href ="/game/onlineGame/leave/<c:out value='${game.id}'/>">Abandonar</a>
             </div>
                 
 

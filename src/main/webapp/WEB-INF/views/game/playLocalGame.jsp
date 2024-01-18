@@ -12,7 +12,7 @@
                 <div id="error-notifications">
                     <c:forEach items="${errors}" var="error">
                         <div class="error-notification">
-                            <span>${error}</span>
+                            <span><c:out value="${error}"/></span>
                             <button class="close-button">×</button>
                         </div>
                     </c:forEach>
@@ -29,7 +29,7 @@
             <div>
                 <div class="center-items">
                     <div class="image-container" style="position: relative;">
-                        <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
+                        <img src=<c:out value="${imageUrl}"/> style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
                         ${fullImageStyle}
                        
                     </div>
@@ -48,7 +48,7 @@
                     <datalist id="logos"></datalist>
                 
                     <div>
-                        <button  class="buttom" type="submit" href="/localGame/play/${game.id}?token=${game.token}">Enviar</button>
+                        <button  class="buttom" type="submit" href="/localGame/play/<c:out value='${game.id}'/>?token=<c:out value='${game.token}'/>">Enviar</button>
                     </div>
                 </div>
             </form:form>

@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import TFG.CUPES.entities.Player;
 import TFG.CUPES.services.PlayerService;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

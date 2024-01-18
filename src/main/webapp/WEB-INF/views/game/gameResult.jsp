@@ -11,7 +11,7 @@
                 <p class="game">Este es el logo completo:</p>
 
                 <div class="center-items">
-                    <img class="welcome-logo" src="${imageUrl}" alt="Estamos teniendo problemas">  
+                    <img class="welcome-logo" src=<c:out value ="${imageUrl}"/> alt="Estamos teniendo problemas">  
                 </div>
                 <p class="game" ><c:out value="${message}"/></p>
             </div>

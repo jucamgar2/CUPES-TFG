@@ -15,7 +15,7 @@
                     <div id="error-notifications">
                         <c:forEach items="${errors}" var="error">
                             <div class="error-notification">
-                                <span>${error}</span>
+                                <span><c:out value="${error}"/></span>
                                 <button class="close-button">×</button>
                             </div>
                         </c:forEach>
@@ -30,13 +30,13 @@
                             <label for="name">Nombre:</label>
                         </div>
                         <div>
-                            <input class="input-large" type="text" id="name" name="name" value="<c:out value='${player.getName()}'/>" required>
+                            <input class="input-large" type="text" id="name" name="name" value=<c:out value='${player.getName()}'/> required>
                         </div>
                         <div>
                             <label for="mail">Email:</label>
                         </div>
                         <div>
-                            <input class="input-large" type="text" id="mail" name="mail" value="<c:out value='${player.getMail()}'/>" required>
+                            <input class="input-large" type="text" id="mail" name="mail" value=<c:out value='${player.getMail()}'/> required>
                         </div>
                     </div>
                     <div class="block">

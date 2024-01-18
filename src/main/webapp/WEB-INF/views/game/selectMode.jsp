@@ -10,7 +10,7 @@
                     <div id="error-notifications">
                         <c:forEach items="${errors}" var="error">
                             <div class="error-notification">
-                                <span>${error}</span>
+                                <span><c:out value="${error}"/></span>
                                 <button class="close-button">×</button>
                             </div>
                         </c:forEach>

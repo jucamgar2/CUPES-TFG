@@ -11,7 +11,7 @@
                 <div id="error-notifications">
                     <c:forEach items="${errors}" var="error">
                         <div class="error-notification">
-                            <span>${error}</span>
+                            <span><c:out value="${error}"/></span>
                             <button class="close-button">×</button>
                         </div>
                     </c:forEach>
@@ -19,14 +19,14 @@
             </c:if>
             <div class="center-items">
                     <div class="image-container" style="position: relative;">
-                        <img src="${imageUrl}" style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
+                        <img src=<c:out value="${imageUrl}"/> style="width: 500px;height: 500px;border-color: black;box-shadow: 0 0 10px rgba(0, 0, 0);background-color: white;">
                         ${fullImageStyle}
                        
                     </div>
             </div>
 
 
-            <p class="game">Tienes un total de 4 intentos y has gastado ${game.getShift()} </p>
+            <p class="game">Tienes un total de 4 intentos y has gastado <c:out value="${game.getShift()}"/> </p>
             <form:form modelAttribute="logo">
                 <div class="logo-selector">
                     <div>
@@ -37,7 +37,7 @@
                     </div>
                     <datalist id="logos"></datalist>
                     <div>
-                        <button  class="buttom" type="submit" href="/game/play/${game.id}">Enviar</button>
+                        <button  class="buttom" type="submit" href="/game/play/<c:out value='${game.id}'/>">Enviar</button>
                     </div>
                 </div>
             </form:form>

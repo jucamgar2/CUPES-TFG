@@ -98,7 +98,7 @@
             </div>
             <div class="block">
                 <sec:authorize access="hasAuthority('admin')">
-                    <a href="/administration/players/exportData/${player.getUsername()}" class="buttom">Exportar datos del jugador</a>
+                    <a href="/administration/players/exportData/<c:out value='${player.getUsername()}'/>" class="buttom">Exportar datos del jugador</a>
                 </sec:authorize>
             </div>
         </div>

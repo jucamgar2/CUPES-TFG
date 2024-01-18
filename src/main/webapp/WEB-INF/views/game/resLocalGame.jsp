@@ -13,13 +13,13 @@
                 <div class="column">
                     <p class="game">Este es el escudo de <c:out value="${game.player1Name}"/></p>
                     <div class="center-items">
-                        <img class="welcome-logo" src="${imageUrl1}" alt="Estamos teniendo problemas">  
+                        <img class="welcome-logo" src=<c:out value="${imageUrl1}"/> alt="Estamos teniendo problemas">  
                     </div>
                 </div>
                 <div class="column">
                     <p class="game">Este es el escudo de <c:out value="${game.player2Name}"/></p>
                     <div class="center-items">
-                        <img class="welcome-logo" src="${imageUrl2}" alt="Estamos teniendo problemas">  
+                        <img class="welcome-logo" src=<c:out value="${imageUrl2}"/> alt="Estamos teniendo problemas">  
                     </div>
                 </div>
             </div>
@@ -28,13 +28,13 @@
                 <div>
                     <p class="game">Este es el escudo de <c:out value="${game.player1Name}"/></p>
                     <div class="center-items">
-                        <img class="welcome-logo" src="${imageUrl1}" alt="Estamos teniendo problemas">  
+                        <img class="welcome-logo" src=<c:out value="${imageUrl1}"/> alt="Estamos teniendo problemas">  
                     </div>
                 </div>
                 <div>
                     <p class="game">Este es el escudo de <c:out value="${game.player2Name}"/></p>
                     <div class="center-items">
-                        <img class="welcome-logo" src="${imageUrl2}" alt="Estamos teniendo problemas">  
+                        <img class="welcome-logo" src=<c:out value="${imageUrl2}"/> alt="Estamos teniendo problemas">  
                     </div>
                 </div>
             </div>
