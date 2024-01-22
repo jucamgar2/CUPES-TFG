@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.context.ActiveProfiles;
@@ -19,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 
 @SpringBootTest
@@ -115,4 +118,80 @@ public class PlayerControllerTest {
             .andExpect(status().is3xxRedirection())
             .andExpect(redirectedUrl("http://localhost/login"));
     }
+
+    @Test
+    @WithMockUser(username="player1", authorities={"player"})
+    public void getChangePassword() throws Exception{
+        Player p = new Player("player1","1111",true,"player1","a@a.com");
+        playerService.save(p);
+        mockMvc.perform(get("/players/changePassword"))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    @WithMockUser(username="player1", authorities={"player"})
+    public void changePassword() throws Exception{
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Player p = new Player("player1",passwordEncoder.encode("1111"),true,"player1","a@a.com");
+        playerService.save(p);
+        mockMvc.perform(get("/players/changePassword"))
+            .andExpect(status().isOk());
+        mockMvc.perform(post("/players/changePassword")
+            .with(SecurityMockMvcRequestPostProcessors.csrf())
+            .param("oldPassword", "1111")
+            .param("newPassword", "2222"))
+            .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    @WithMockUser(username="player1", authorities={"player"})
+    public void changePasswordBadOldPassword() throws Exception{
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Player p = new Player("player1",passwordEncoder.encode("1111"),true,"player1","a@a.com");
+        playerService.save(p);
+        mockMvc.perform(get("/players/changePassword"))
+            .andExpect(status().isOk());
+        mockMvc.perform(post("/players/changePassword")
+            .with(SecurityMockMvcRequestPostProcessors.csrf())
+            .param("oldPassword", "3333")
+            .param("newPassword", "2222"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("players/changePassword"))
+            .andExpect(model().attributeExists("errors"));
+    }
+
+    @Test
+    @WithMockUser(username="player1", authorities={"player"})
+    public void changePasswordBadNewPassword() throws Exception{
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Player p = new Player("player1",passwordEncoder.encode("1111"),true,"player1","a@a.com");
+        playerService.save(p);
+        mockMvc.perform(get("/players/changePassword"))
+            .andExpect(status().isOk());
+        mockMvc.perform(post("/players/changePassword")
+            .with(SecurityMockMvcRequestPostProcessors.csrf())
+            .param("oldPassword", "3333")
+            .param("newPassword", "2"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("players/changePassword"))
+            .andExpect(model().attributeExists("errors"));
+    }
+
+    @Test
+    @WithMockUser(username="player1", authorities={"player"})
+    public void changePasswordBadNewPassword2() throws Exception{
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Player p = new Player("player1",passwordEncoder.encode("1111"),true,"player1","a@a.com");
+        playerService.save(p);
+        mockMvc.perform(get("/players/changePassword"))
+            .andExpect(status().isOk());
+        mockMvc.perform(post("/players/changePassword")
+            .with(SecurityMockMvcRequestPostProcessors.csrf())
+            .param("oldPassword", "3333")
+            .param("newPassword", "22222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222"))
+            .andExpect(status().isOk())
+            .andExpect(view().name("players/changePassword"))
+            .andExpect(model().attributeExists("errors"));
+    }
+
 }

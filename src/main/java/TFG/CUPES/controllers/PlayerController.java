@@ -4,6 +4,7 @@ package TFG.CUPES.controllers;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import TFG.CUPES.components.ChangePasswordForm;
 import TFG.CUPES.entities.Authorities;
 import TFG.CUPES.entities.Player;
 import TFG.CUPES.services.AuthoritiesService;
@@ -134,6 +136,45 @@ public class PlayerController {
             result.addObject("errors", errors);
             return result;
         }
+        playerService.save(player);
+        ModelAndView result =new ModelAndView("redirect:/players/profile/"+principal.getName());
+        result.addObject("succes",true);
+        return result;
+    }
+
+    @GetMapping("/changePassword")
+    public ModelAndView changePassword(Principal principal){
+        if(principal==null){
+            ModelAndView result = new ModelAndView("redirect:/login");
+            return result;
+        }
+        ModelAndView result = new ModelAndView("players/changePassword");
+        Player p = playerService.getByUsername(principal.getName());
+        result.addObject("player", p);
+        ChangePasswordForm changePasswordForm = new ChangePasswordForm();
+        result.addObject("changePasswordForm", changePasswordForm);
+        return result;
+    }
+
+    @PostMapping("/changePassword")
+    public ModelAndView saveNewPassword(ChangePasswordForm form, Principal principal){
+        Player player = playerService.getByUsername(principal.getName());
+        List<String> errors = new ArrayList<>();
+        if (!passwordEncoder.matches(form.getOldPassword(), player.getPassword())) {
+            errors.add("La contraseña antigua no es correcta");
+        }
+        if(form.getNewPassword().contains(" ")){
+            errors.add("La contraseña no debe contener espacios en blanco");
+        }
+        if(form.getNewPassword().length()<4 || form.getNewPassword().length()>30){
+            errors.add("La longitud de la contraseña debe tener entre 4 y 30 caracteres");
+        }
+        if(!errors.isEmpty()){
+            ModelAndView result = new ModelAndView("players/changePassword");
+            result.addObject("errors", errors);
+            return result;
+        }
+        player.setPassword(passwordEncoder.encode(form.getNewPassword()));
         playerService.save(player);
         ModelAndView result =new ModelAndView("redirect:/players/profile/"+principal.getName());
         result.addObject("succes",true);

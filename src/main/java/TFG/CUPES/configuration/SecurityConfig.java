@@ -30,7 +30,7 @@ public class SecurityConfig {
             .requestMatchers("/game/onlineGame/**").authenticated()
             .requestMatchers("/game/**").permitAll()
             .requestMatchers("/administration/**").hasAuthority("admin")
-            .requestMatchers("/players/profile/**","/players/edit").authenticated()
+            .requestMatchers("/players/profile/**","/players/edit","/players/changePassword").authenticated()
             .requestMatchers("/statistics/**").permitAll()
 			.anyRequest().denyAll()
 		)

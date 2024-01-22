@@ -95,6 +95,9 @@
                     <c:if test="${player.getUsername()==principal.getName()}">
                         <a href="/players/edit" class="buttom">Editar mi perfil</a>
                     </c:if>
+                    <c:if test="${player.getUsername()==principal.getName()}">
+                        <a href="/players/changePassword" class="buttom">Cambiar mi contraseña</a>
+                    </c:if>
             </div>
             <div class="block">
                 <sec:authorize access="hasAuthority('admin')">
