@@ -97,36 +97,39 @@ public class GameAloneController {
             res.addObject("game",game);
             String imageSelected = "/images/"+game.getSelected().getImageType()+"/"+game.getSelected().getResourceName()+".jpg";
             res.addObject("imageUrl", imageSelected);
-            Position p;
-            if(game.getX()==null || game.getY()==null){
-                p = new Position(0,0);
-            }else{
-                p = new Position(game.getX(),game.getY());
-            }
-            if(game.getPositions().size() == game.getShift()){
-                p = gameUtils.randomImagePortion( game.getPositions(), positions);
-                while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                    p = gameUtils.randomImagePortion( game.getPositions(), positions);
-                }
-                game.setX(p.getX());
-                game.setY(p.getY());
-                game.getPositions().add(p);
-                
-            }
-            this.gameService.saveGame(game);
+            Position p = new Position(0,0);
+            p = selectNewPosition(p, game, positions, imageSelected);
             String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
             res.addObject("imageStyle", imageStyle);
             String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPositions());
             res.addObject("fullImageStyle", fullImageStyle);
-            
             if(game.getShift()>0){
                 List<String> errors = new ArrayList<>();
                 errors.add("¡Lo siento! Fallaste en tu anterior intento");
                 res.addObject("errors", errors);
             }
-            
         }
         return res;
+    }
+
+    public Position selectNewPosition(Position p,GameAlone game, List<Position> positions, String imageSelected) throws IOException{
+        if(game.getX()==null || game.getY()==null){
+            p = new Position(0,0);
+        }else{
+            p = new Position(game.getX(),game.getY());
+        }
+        if(game.getPositions().size() == game.getShift()){
+            p = gameUtils.randomImagePortion( game.getPositions(), positions);
+            while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                p = gameUtils.randomImagePortion( game.getPositions(), positions);
+            }
+            game.setX(p.getX());
+            game.setY(p.getY());
+            game.getPositions().add(p);
+            
+        }
+        this.gameService.saveGame(game);
+        return p;
     }
 
 

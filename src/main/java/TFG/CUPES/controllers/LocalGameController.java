@@ -80,7 +80,6 @@ public class LocalGameController {
         return res;
     }
     
-
     @GetMapping("/play/{id}")
     public ModelAndView playGame(@PathVariable("id") Integer id,@RequestParam(required = false) String token) throws IOException{
         ModelAndView res = new ModelAndView(PLAY_LOCAL_GAME);
@@ -104,84 +103,110 @@ public class LocalGameController {
                 imageSelected = "/images/"+game.getPlayer1Image().getImageType()+"/"+game.getPlayer1Image().getResourceName()+".jpg";
                 res.addObject("imageUrl", imageSelected);
                 if(game.getPlayer1Shifts()>=maxShifts){
-                    game.setPlayer1FInish(LocalDateTime.now());
-                    game.setPlayer1CanWin(false);
-                    game.setActualPlayer(game.getPlayer2Name());
-                    game.setPlayer2Start(LocalDateTime.now());
-                    this.localGameService.save(game);
-                    return new ModelAndView("redirect:/game/localGame/play/" + game.getId() + "?token=" + game.getToken());
+                    return finishPlayer1(game);
                 }else{
-                    if(game.getX()==null || game.getY()==null){
-                        p = new Position(0,0);
-                    }else{
-                        p = new Position(game.getX(),game.getY());
-                    }
-                    if(game.getPlayer1Positions().size() == game.getPlayer1Shifts()){
-                        p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
-                        while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                            p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
-                        }
-                        game.setX(p.getX());
-                        game.setY(p.getY());
-                        game.getPlayer1Positions().add(p);
-                        this.localGameService.save(game);
-                    }
-                   
-                    String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer1Positions());
-                    res.addObject("fullImageStyle", fullImageStyle);
+                    p = selectPlayer1Position(p, game, positions, imageSelected);
                 }
-                String shiftsMessage = "Tienes 4 intentos y has gastado " + game.getPlayer1Shifts();
-                res.addObject("shiftsMessage", shiftsMessage);
-                if(game.getPlayer1Shifts()>0){
-                    List<String> errors = new ArrayList<>();
-                    errors.add("¡Lo siento! Fallaste en tu anterior intento");
-                    res.addObject("errors", errors);
-                } 
+                res = setupPlayer1Layout(res, game, positions, imageSelected);
             }else{
                 imageSelected = "/images/"+game.getPlayer2Image().getImageType()+"/"+game.getPlayer2Image().getResourceName()+".jpg";
                 res.addObject("imageUrl", imageSelected);
                 if(game.getPlayer2Shifts()>=maxShifts){
-                    game.setPlayer2Finish(LocalDateTime.now());
-                    game.setPlayer2CanWin(false);
-                    game.setActualPlayer(null);
-                    game.setWinner(game.checkWinner(game.getPlayer1Name(), game.getPlayer2Name()));
-                    this.localGameService.save(game);
-                    res = new ModelAndView("redirect:/game/localGame/res/" + game.getId() + "?token=" + game.getToken());
+                    return finishPlayer2(game);
                 }else{
-                    if(game.getX()==null || game.getY()==null){
-                        p = new Position(0,0);
-                    }else{
-                        p = new Position(game.getX(),game.getY());
-                    }
-                    if(game.getPlayer2Positions().size() == game.getPlayer2Shifts()){
-                        p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
-                        while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                            p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
-                        }
-                        game.setX(p.getX());
-                        game.setY(p.getY());
-                        game.getPlayer2Positions().add(p);
-                        this.localGameService.save(game);
-                    }
+                    p = selectPlayer2Position(p, game, positions, imageSelected);
                 }
-                if(game.getPlayer2Shifts()==0){
-                    res.addObject("succes", true);
-                }
-                String shiftsMessage = "Tienes 4 intentos y has gastado " + game.getPlayer2Shifts();
-                res.addObject("shiftsMessage", shiftsMessage);
-                String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer2Positions());
-                res.addObject("fullImageStyle", fullImageStyle);
-                if(game.getPlayer2Shifts()>0){
-                    List<String> errors = new ArrayList<>();
-                    errors.add("¡Lo siento! Fallaste en tu anterior intento");
-                    res.addObject("errors", errors);
-                }
+                res = setupPlayer2Layout(game, res, positions, imageSelected);
             }
             String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
-            res.addObject("imageStyle", imageStyle);
-            
+            res.addObject("imageStyle", imageStyle);   
         }
         return res;
+    }
+
+    public ModelAndView finishPlayer1(LocalGame game){
+        game.setPlayer1FInish(LocalDateTime.now());
+        game.setPlayer1CanWin(false);
+        game.setActualPlayer(game.getPlayer2Name());
+        game.setPlayer2Start(LocalDateTime.now());
+        this.localGameService.save(game);
+        return new ModelAndView("redirect:/game/localGame/play/" + game.getId() + "?token=" + game.getToken());
+    }
+
+    public ModelAndView finishPlayer2(LocalGame game){
+        game.setPlayer2Finish(LocalDateTime.now());
+        game.setPlayer2CanWin(false);
+        game.setActualPlayer(null);
+        game.setWinner(game.checkWinner(game.getPlayer1Name(), game.getPlayer2Name()));
+        this.localGameService.save(game);
+        return new ModelAndView("redirect:/game/localGame/res/" + game.getId() + "?token=" + game.getToken());
+    }
+
+    public ModelAndView setupPlayer1Layout(ModelAndView res, LocalGame game, List<Position> positions, String imageSelected){
+        String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer1Positions());
+        res.addObject("fullImageStyle", fullImageStyle);
+        String shiftsMessage = "Tienes 4 intentos y has gastado " + game.getPlayer1Shifts();
+        res.addObject("shiftsMessage", shiftsMessage);
+        if(game.getPlayer1Shifts()>0){
+            List<String> errors = new ArrayList<>();
+            errors.add("¡Lo siento! Fallaste en tu anterior intento");
+            res.addObject("errors", errors);
+        } 
+        return res;
+    }
+
+    public ModelAndView setupPlayer2Layout(LocalGame game, ModelAndView res, List<Position> positions, String imageSelected) {
+        if(game.getPlayer2Shifts()==0 && game.getPlayer1CanWin()){
+            res.addObject("succes", true);
+        }
+        String shiftsMessage = "Tienes 4 intentos y has gastado " + game.getPlayer2Shifts();
+        res.addObject("shiftsMessage", shiftsMessage);
+        String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer2Positions());
+        res.addObject("fullImageStyle", fullImageStyle);
+        if(game.getPlayer2Shifts()>0){
+            List<String> errors = new ArrayList<>();
+            errors.add("¡Lo siento! Fallaste en tu anterior intento");
+            res.addObject("errors", errors);
+        }
+        return res;
+    }
+
+    public Position selectPlayer1Position(Position p, LocalGame game, List<Position> positions, String imageSelected) throws IOException{
+        if(game.getX()==null || game.getY()==null){
+            p = new Position(0,0);
+        }else{
+            p = new Position(game.getX(),game.getY());
+        }
+        if(game.getPlayer1Positions().size() == game.getPlayer1Shifts()){
+            p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
+            while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
+            }
+            game.setX(p.getX());
+            game.setY(p.getY());
+            game.getPlayer1Positions().add(p);
+            this.localGameService.save(game);
+        }
+        return p;
+    }
+    
+    public Position selectPlayer2Position(Position p, LocalGame game, List<Position> positions, String imageSelected) throws IOException{
+        if(game.getX()==null || game.getY()==null){
+            p = new Position(0,0);
+        }else{
+            p = new Position(game.getX(),game.getY());
+        }
+        if(game.getPlayer2Positions().size() == game.getPlayer2Shifts()){
+            p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
+            while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
+            }
+            game.setX(p.getX());
+            game.setY(p.getY());
+            game.getPlayer2Positions().add(p);
+            this.localGameService.save(game);
+        }
+        return p;
     }
 
     @PostMapping("/play/{id}")
@@ -195,30 +220,42 @@ public class LocalGameController {
             return gameUtils.expelPlayer();
         }else{
             if(game.getActualPlayer().equals(game.getPlayer1Name())){
-                game.setPlayer1Shifts(game.getPlayer1Shifts()+1);
-                if(logo.getName().equals(game.getPlayer1Image().getName())){
-                    game.setPlayer1FInish(LocalDateTime.now());
-                    game.setActualPlayer(game.getPlayer2Name());
-                    game.setPlayer1CanWin(true);
-                    game.setPlayer2Start(LocalDateTime.now());
-                }
-                res = new ModelAndView("redirect:/game/localGame/play/" + game.getId() + "?token=" + game.getToken());
+                res = checkPlayer1Success(game,res,logo);
             }else{
-                game.setPlayer2Shifts(game.getPlayer2Shifts()+1);
-                if(logo.getName().equals(game.getPlayer2Image().getName())){
-                    game.setPlayer2Finish(LocalDateTime.now());
-                    res = new ModelAndView("redirect:/game/localGame/res/"+game.getId());
-                    game.setActualPlayer(null);
-                    game.setPlayer2CanWin(true);
-                    game.setWinner(game.checkWinner(game.getPlayer1Name(), game.getPlayer2Name()));
-                    this.localGameService.save(game);
-                }
-                res = new ModelAndView("redirect:/game/localGame/res/" + game.getId() + "?token=" + game.getToken());
+                res = checkPlayer2Success(game, res, logo);   
             }
         }
         this.localGameService.save(game);
         return res;
     }
+
+    public ModelAndView checkPlayer1Success(LocalGame game, ModelAndView res, Image logo){
+        game.setPlayer1Shifts(game.getPlayer1Shifts()+1);
+        if(logo.getName().equals(game.getPlayer1Image().getName())){
+            game.setPlayer1FInish(LocalDateTime.now());
+            game.setActualPlayer(game.getPlayer2Name());
+            game.setPlayer1CanWin(true);
+            game.setPlayer2Start(LocalDateTime.now());
+            this.localGameService.save(game);
+        }
+        res = new ModelAndView("redirect:/game/localGame/play/" + game.getId() + "?token=" + game.getToken());
+        return res;
+    }
+
+    public ModelAndView checkPlayer2Success(LocalGame game, ModelAndView res, Image logo) {
+        game.setPlayer2Shifts(game.getPlayer2Shifts()+1);
+        if(logo.getName().equals(game.getPlayer2Image().getName())){
+            game.setPlayer2Finish(LocalDateTime.now());
+            res = new ModelAndView("redirect:/game/localGame/res/"+game.getId());
+            game.setActualPlayer(null);
+            game.setPlayer2CanWin(true);
+            game.setWinner(game.checkWinner(game.getPlayer1Name(), game.getPlayer2Name()));
+            this.localGameService.save(game);
+            }
+        res = new ModelAndView("redirect:/game/localGame/res/" + game.getId() + "?token=" + game.getToken());
+        return res;
+    }
+
 
     @GetMapping("/res/{id}")
     public ModelAndView localGameRes(@PathVariable("id") Integer id, @RequestParam(required = false) String token){
