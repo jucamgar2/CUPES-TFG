@@ -145,10 +145,10 @@ public class OnlineGameController {
         res.addObject("principal", principal);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         List<Position> positions = this.positionService.findAll();
-        if(game.getPlayer1Leaves() || game.getPlayer2Leaves()){
-            return new ModelAndView("redirect:/game/onlineGame/finish/" + id);
-        }
         if(game !=null){
+            if(game.getPlayer1Leaves() || game.getPlayer2Leaves()){
+                return new ModelAndView("redirect:/game/onlineGame/finish/" + id);
+            }
             Image logo = new Image();
             res.addObject("logo", logo);
             res.addObject("game",game);
@@ -159,61 +159,13 @@ public class OnlineGameController {
             imageSelected = setPlayerImage(game, res, principal);
             res.addObject("imageUrl", imageSelected);
             if(principal.getName().equals(game.getPlayer1().getUsername())){
-                Position p;
-                if(game.getPlayer1X()==null || game.getPlayer1Y()==null){
-                    p = new Position(0,0);
-                }else{
-                    p = new Position(game.getPlayer1X(),game.getPlayer1Y());
-                }
-                if(game.getPlayer1Redt() || game.getPlayer1Positions().isEmpty()){
-                    game.setPlayer1Redt(false);
-                    p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
-                    while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                        p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
-                    }
-                    game.setPlayer1X(p.getX());
-                    game.setPlayer1Y(p.getY());
-                    game.getPlayer1Positions().add(p);
-                    this.onlineGameService.save(game);
-                }
-                String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer1Positions());
-                res.addObject("fullImageStyle", fullImageStyle);
-                String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
-                res.addObject("imageStyle", imageStyle);
-                if(game.getPlayer1Shifts()>0&& player1succes== null){
-                    res.addObject("error",true);
-                }
-                if(player1succes!=null && player1succes){
-                    res.addObject("succes", true);
-                }
+                Position p = new Position();
+                p = selectPlayer1Position(game, positions, imageSelected, p);
+                res = setupPlayer1Layout(res, game, positions, imageSelected, p, player1succes);
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
-                Position p;
-                if(game.getPlayer2X()==null || game.getPlayer2Y()==null){
-                    p = new Position(0,0);
-                }else{
-                    p = new Position(game.getPlayer2X(),game.getPlayer2Y());
-                }
-                if(game.getPlayer2Redt()|| game.getPlayer2Positions().isEmpty()){
-                    p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
-                    while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
-                        p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
-                    }
-                    game.setPlayer2X(p.getX());
-                    game.setPlayer2Y(p.getY());
-                    game.getPlayer2Positions().add(p);
-                    game.setPlayer2Redt(false);
-                    this.onlineGameService.save(game);
-                }
-                String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer2Positions());
-                res.addObject("fullImageStyle", fullImageStyle);
-                String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
-                res.addObject("imageStyle", imageStyle);
-                if(game.getPlayer2Shifts()>0 && player2succes== null){
-                    res.addObject("error",true);
-                }
-                if(player2succes!=null && player2succes){
-                    res.addObject("succes", true);
-                }
+                Position p = new Position();
+                p = selectPlayer2Position(game, positions, imageSelected, p);
+                res = setupPlayer2Layout(res, game, positions, imageSelected, p, player2succes);
                 this.onlineGameService.save(game);
             }else{
                 return gameUtils.expelPlayer();
@@ -224,14 +176,82 @@ public class OnlineGameController {
         return res;
     }
 
+    public ModelAndView setupPlayer1Layout(ModelAndView res,OnlineGame game,List<Position> positions, String imageSelected, Position p,Boolean player1succes){
+        String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer1Positions());
+        res.addObject("fullImageStyle", fullImageStyle);
+        String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
+        res.addObject("imageStyle", imageStyle);
+        if(game.getPlayer1Shifts()>0&& player1succes== null){
+            res.addObject("error",true);
+        }
+        if(player1succes!=null && player1succes){
+            res.addObject("succes", true);
+        }
+        return res;
+    }
+
+    public ModelAndView setupPlayer2Layout(ModelAndView res, OnlineGame game,List<Position> positions, String imageSelected, Position p,Boolean player2succes) {
+        String fullImageStyle = gameUtils.generateImageStyle(positions, game.getPlayer2Positions());
+        res.addObject("fullImageStyle", fullImageStyle);
+        String imageStyle = gameUtils.generateImageStyle(imageSelected, p);
+        res.addObject("imageStyle", imageStyle);
+        if(game.getPlayer2Shifts()>0 && player2succes== null){
+            res.addObject("error",true);
+        }
+        if(player2succes!=null && player2succes){
+            res.addObject("succes", true);
+        }
+        return res;
+    }
+
+    public Position selectPlayer1Position(OnlineGame game,List<Position> positions, String imageSelected, Position p) throws IOException{
+        if(game.getPlayer1X()==null || game.getPlayer1Y()==null){
+            p = new Position(0,0);
+        }else{
+            p = new Position(game.getPlayer1X(),game.getPlayer1Y());
+        }
+        if(game.getPlayer1Redt() || game.getPlayer1Positions().isEmpty()){
+            game.setPlayer1Redt(false);
+            p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
+            while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                p = gameUtils.randomImagePortion( game.getPlayer1Positions(), positions);
+            }
+            game.setPlayer1X(p.getX());
+            game.setPlayer1Y(p.getY());
+            game.getPlayer1Positions().add(p);
+            this.onlineGameService.save(game);
+        }
+        return p;
+    }
+
+    public Position selectPlayer2Position(OnlineGame game, List<Position> positions, String imageSelected, Position p) throws IOException{
+        if(game.getPlayer2X()==null || game.getPlayer2Y()==null){
+            p = new Position(0,0);
+        }else{
+            p = new Position(game.getPlayer2X(),game.getPlayer2Y());
+        }
+        if(game.getPlayer2Redt()|| game.getPlayer2Positions().isEmpty()){
+            p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
+            while(!gameUtils.checkImageHasMoreThan1Color(imageSelected, p)){
+                p = gameUtils.randomImagePortion( game.getPlayer2Positions(), positions);
+            }
+            game.setPlayer2X(p.getX());
+            game.setPlayer2Y(p.getY());
+            game.getPlayer2Positions().add(p);
+            game.setPlayer2Redt(false);
+            this.onlineGameService.save(game);
+        }
+        return p;
+    }
+
     @PostMapping("/play/{id}")
     public ModelAndView playGame(@ModelAttribute("logo") Image logo,@PathVariable("id") Integer id,Principal principal){
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         ModelAndView res = new ModelAndView("redirect:/game/onlineGame/play/" + id );
-        if(game.getPlayer1Leaves() || game.getPlayer2Leaves()){
-            return new ModelAndView("redirect:/game/onlineGame/finish/" + id);
-        }
         if(game !=null){
+            if(game.getPlayer1Leaves() || game.getPlayer2Leaves()){
+                return new ModelAndView("redirect:/game/onlineGame/finish/" + id);
+            }
             if(principal.getName().equals(game.getPlayer1().getUsername())){
                 res = checkSucces(game, principal, logo,res);
                 if(game.getPlayer1Succes() == 3 || game.getPlayer1FInish()!=null){
@@ -259,10 +279,10 @@ public class OnlineGameController {
     public ModelAndView stand(@PathVariable("id") Integer id, Principal principal, HttpServletResponse response){
         ModelAndView res = new ModelAndView(STAND_GAME);
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
-        if(game.getPlayer1Leaves()|| game.getPlayer2Leaves()){
-            return new ModelAndView("redirect:/game/onlineGame/finish/" + id);
-        }
         if(game!=null){
+            if(game.getPlayer1Leaves()|| game.getPlayer2Leaves()){
+                return new ModelAndView("redirect:/game/onlineGame/finish/" + id);
+            }
             res.addObject("game", game);
             if(game.getPlayer1FInish()!=null && game.getPlayer2Finish()!=null){
                 checkPlayersCanWin(game);
@@ -319,31 +339,41 @@ public class OnlineGameController {
         OnlineGame game = this.onlineGameService.getOnlineGameByid(id).orElse(null);
         if(game != null){
             if(principal.getName().equals(game.getPlayer1().getUsername())){
-                if(!game.getGameStart()){
-                    res.addObject("message","Has abandonado la partida y esta ha sido borrada ya que no había empezado");
-                    this.onlineGameService.delete(game);
-                }else{
-                    game.setWinner(game.getPlayer2().getUsername());
-                    game.setPlayer1Leaves(true);
-                    game.setWinner(game.getPlayer2().getUsername());
-                    res.addObject("message","Has abandonado la partida y por tanto has perdido");
-                    this.onlineGameService.save(game);
-                }
+                res = casePlayer1Leaves(game, res);
             }else if(principal.getName().equals(game.getPlayer2().getUsername())){
-                if(!game.getGameStart()){
-                    res.addObject("message","Has abandonado la partida antes de que empezara, por lo que ahora queda un hueco");
-                    game.removePlayer2();
-                    game.setPlayer2IsReady(false);
-                    this.onlineGameService.save(game);
-                }else{
-                    game.setWinner(game.getPlayer1().getUsername());
-                    game.setPlayer2Leaves(true);
-                    game.setWinner(game.getPlayer1().getUsername());
-                    this.onlineGameService.save(game);
-                    res.addObject("message","Has abandonado la partida y por tanto has perdido");
-                    this.onlineGameService.save(game);
-                }
+                res = casePlayer2Leaves(game, res);
             }
+        }
+        return res;
+    }
+
+    public ModelAndView casePlayer1Leaves(OnlineGame game,ModelAndView res){
+        if(!game.getGameStart()){
+            res.addObject("message","Has abandonado la partida y esta ha sido borrada ya que no había empezado");
+            this.onlineGameService.delete(game);
+        }else{
+            game.setWinner(game.getPlayer2().getUsername());
+            game.setPlayer1Leaves(true);
+            game.setWinner(game.getPlayer2().getUsername());
+            res.addObject("message","Has abandonado la partida y por tanto has perdido");
+            this.onlineGameService.save(game);
+        }
+        return res;
+    }
+
+    public ModelAndView casePlayer2Leaves(OnlineGame game,ModelAndView res){
+        if(!game.getGameStart()){
+            res.addObject("message","Has abandonado la partida antes de que empezara, por lo que ahora queda un hueco");
+            game.removePlayer2();
+            game.setPlayer2IsReady(false);
+            this.onlineGameService.save(game);
+        }else{
+            game.setWinner(game.getPlayer1().getUsername());
+            game.setPlayer2Leaves(true);
+            game.setWinner(game.getPlayer1().getUsername());
+            this.onlineGameService.save(game);
+            res.addObject("message","Has abandonado la partida y por tanto has perdido");
+            this.onlineGameService.save(game);
         }
         return res;
     }
@@ -352,6 +382,19 @@ public class OnlineGameController {
         LocalDateTime now = LocalDateTime.now();
         game.setPlayer1Start(now);
         game.setPlayer2Start(now);
+        game = selectPlayerImages(game);
+        game.setPlayer1Shifts(0);
+        game.setPlayer2Shifts(0);
+        game.setPlayer1Succes(0);
+        game.setPlayer2Succes(0);
+        game.setCurrentPlayer1Image(0);
+        game.setCurrentPlayer2Image(0);
+        game.setPlayer1Redt(false);
+        game.setPlayer2Redt(false);
+        this.onlineGameService.save(game);
+    }
+
+    public OnlineGame selectPlayerImages(OnlineGame game){
         game.setPlayer1Image1(imageService.getRandomLogo());
         game.setPlayer2Image1(imageService.getRandomLogo());
         Image player1Image2 = imageService.getRandomLogo();
@@ -374,15 +417,7 @@ public class OnlineGameController {
             player2Image3 = imageService.getRandomLogo();
         }
         game.setPlayer2Image3(player2Image3);
-        game.setPlayer1Shifts(0);
-        game.setPlayer2Shifts(0);
-        game.setPlayer1Succes(0);
-        game.setPlayer2Succes(0);
-        game.setCurrentPlayer1Image(0);
-        game.setCurrentPlayer2Image(0);
-        game.setPlayer1Redt(false);
-        game.setPlayer2Redt(false);
-        this.onlineGameService.save(game);
+        return game;
     }
 
     public String setPlayerImage(OnlineGame game,ModelAndView res,Principal principal){
@@ -409,62 +444,73 @@ public class OnlineGameController {
 
     public ModelAndView checkSucces(OnlineGame game,Principal principal,Image logo,ModelAndView res){
         if(principal.getName().equals(game.getPlayer1().getUsername())){
-            game.setPlayer1Shifts(game.getPlayer1Shifts()+1);
-            if(game.getCurrentPlayer1Image() == 0){
-                if(game.getPlayer1Image1().getName().equals(logo.getName())){
-                    res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player1succes=true");
-                    game.setPlayer1Succes(game.getPlayer1Succes()+1);
-                    game.setCurrentPlayer1Image(1);
-                    game.getPlayer1Positions().clear();
-                }else{
-                    checkPlayersFails4Time(game, principal);
-                }
-            }else if(game.getCurrentPlayer1Image() == 1){
-                if(game.getPlayer1Image2().getName().equals(logo.getName())){
-                    res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player1succes=true");
-                    game.setPlayer1Succes(game.getPlayer1Succes()+1);
-                    game.setCurrentPlayer1Image(2);
-                    game.getPlayer1Positions().clear();;
-                }else{
-                    checkPlayersFails4Time(game, principal);
-                }
-            }else{
-                if(game.getPlayer1Image3().getName().equals(logo.getName())){
-                    game.setPlayer1Succes(game.getPlayer1Succes()+1);
-                }else{
-                    checkPlayersFails4Time(game, principal);
-                }
-            }
-            game.setPlayer1Redt(true);
+            res = checkPlayer1Success(game, principal, logo, res);
         }else if(principal.getName().equals(game.getPlayer2().getUsername())){
-            game.setPlayer2Shifts(game.getPlayer2Shifts()+1);
-            if(game.getCurrentPlayer2Image() == 0){
-                if(game.getPlayer2Image1().getName().equals(logo.getName())){
-                    res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player2succes=true");
-                    game.setPlayer2Succes(game.getPlayer2Succes()+1);
-                    game.setCurrentPlayer2Image(1);
-                    game.getPlayer2Positions().clear();
-                }else{
-                    checkPlayersFails4Time(game, principal);
-                }
-            }else if(game.getCurrentPlayer2Image() == 1){
-                if(game.getPlayer2Image2().getName().equals(logo.getName())){
-                    res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player2succes=true");
-                    game.setPlayer2Succes(game.getPlayer2Succes()+1);
-                    game.setCurrentPlayer2Image(2);
-                    game.getPlayer2Positions().clear();;
-                }else{
-                    checkPlayersFails4Time(game, principal);
-                }
-            }else{
-                if(game.getPlayer2Image3().getName().equals(logo.getName())){
-                    game.setPlayer2Succes(game.getPlayer2Succes()+1);
-                }else{
-                    checkPlayersFails4Time(game, principal);
-                }
-            }
-            game.setPlayer2Redt(true);
+            res = checkPlayer2Success(game, principal, logo, res);
         }
+        return res;
+    }
+
+    public ModelAndView checkPlayer1Success(OnlineGame game, Principal principal, Image logo, ModelAndView res){
+        game.setPlayer1Shifts(game.getPlayer1Shifts()+1);
+        if(game.getCurrentPlayer1Image() == 0){
+            if(game.getPlayer1Image1().getName().equals(logo.getName())){
+                res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player1succes=true");
+                game.setPlayer1Succes(game.getPlayer1Succes()+1);
+                game.setCurrentPlayer1Image(1);
+                game.getPlayer1Positions().clear();
+            }else{
+                checkPlayersFails4Time(game, principal);
+            }
+        }else if(game.getCurrentPlayer1Image() == 1){
+            if(game.getPlayer1Image2().getName().equals(logo.getName())){
+                res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player1succes=true");
+                game.setPlayer1Succes(game.getPlayer1Succes()+1);
+                game.setCurrentPlayer1Image(2);
+                game.getPlayer1Positions().clear();;
+            }else{
+                checkPlayersFails4Time(game, principal);
+            }
+        }else{
+            if(game.getPlayer1Image3().getName().equals(logo.getName())){
+                game.setPlayer1Succes(game.getPlayer1Succes()+1);
+            }else{
+                checkPlayersFails4Time(game, principal);
+            }
+        }
+        game.setPlayer1Redt(true);
+        this.onlineGameService.save(game);
+        return res;
+    }
+
+    public ModelAndView checkPlayer2Success(OnlineGame game, Principal principal, Image logo, ModelAndView res){
+        game.setPlayer2Shifts(game.getPlayer2Shifts()+1);
+        if(game.getCurrentPlayer2Image() == 0){
+            if(game.getPlayer2Image1().getName().equals(logo.getName())){
+                res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player2succes=true");
+                game.setPlayer2Succes(game.getPlayer2Succes()+1);
+                game.setCurrentPlayer2Image(1);
+                game.getPlayer2Positions().clear();
+            }else{
+                checkPlayersFails4Time(game, principal);
+            }
+        }else if(game.getCurrentPlayer2Image() == 1){
+            if(game.getPlayer2Image2().getName().equals(logo.getName())){
+                res = new ModelAndView("redirect:/game/onlineGame/play/" + game.getId() +"?player2succes=true");
+                game.setPlayer2Succes(game.getPlayer2Succes()+1);
+                game.setCurrentPlayer2Image(2);
+                game.getPlayer2Positions().clear();;
+            }else{
+                checkPlayersFails4Time(game, principal);
+            }
+        }else{
+            if(game.getPlayer2Image3().getName().equals(logo.getName())){
+                game.setPlayer2Succes(game.getPlayer2Succes()+1);
+            }else{
+                checkPlayersFails4Time(game, principal);
+            }
+        }
+        game.setPlayer2Redt(true);
         this.onlineGameService.save(game);
         return res;
     }
