@@ -53,10 +53,11 @@
                     <button class="buttom" type="submit">Registrarme</button>
                 </form:form>
                 <div class="registerInfo">
-                    <h2>Regístrate para poder tener acceso al modo de juego online, donde podrás competir contra jugadores de todo el mundo</h2>
-                    <h2>Aunque si no quieres, puedes seguir jugando al modo un jugador para seguir practicando y adquiriendo más conocimiento</h2>
+                    <p class="game">Regístrate para poder tener acceso al modo de juego online, donde podrás competir contra jugadores de todo el mundo</p>
+                    <p class="game">Aunque si no quieres, puedes seguir jugando al modo un jugador para seguir practicando y adquiriendo más conocimiento</p>
                     <a class="buttom" href="/game/new">Jugar</a>
                 </div>
+                <p class="game">¿Ya tienes una cuenta?<a href="/login" class="buttom-positive">Iniciar sesión</a> </p>
             </div>
 
         <script src="/js/error_script.js"></script>

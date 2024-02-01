@@ -43,7 +43,7 @@
             </div>
             <div class="block">
                 <a class="buttom" href="/game/onlineGame/start/<c:out value='${game.getId()}'/>">Estoy Listo</a>
-                <a class="buttom" href="/game/onlineGame/leave/<c:out value='${game.getId()}'/>">Salir</a>
+                <a class="buttom-danger" href="/game/onlineGame/leave/<c:out value='${game.getId()}'/>">Salir</a>
             </div>
             <c:if test="${game.getPlayer2()==null}">
                 <div class="local-game-message">

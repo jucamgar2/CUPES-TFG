@@ -8,9 +8,9 @@
 <CUPES:layout title="Estadísticas">
     <div class="block">
         <sec:authorize access="!isAuthenticated()">
-                    <div>
-                        <h1 class="title">Debes iniciar sesión si quieres poder ver tus Estadísticas</h1>
-                    </div>
+            <div class="error-notification">
+                <span>Debes iniciar sesión si quieres poder ver tus estadísticas</span>
+            </div>
                 </sec:authorize>
         <div class="pc-view">
             <div class="statistics-container">

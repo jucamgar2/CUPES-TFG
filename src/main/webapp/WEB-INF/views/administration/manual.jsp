@@ -68,6 +68,7 @@
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/34.jpeg"/>
             </div>
+            <a class="buttom" href="/">Inicio</a>
             <a class="buttom" href="/manual">Manual de la aplicación</a>
 
         </div>

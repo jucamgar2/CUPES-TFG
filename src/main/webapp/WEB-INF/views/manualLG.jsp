@@ -52,8 +52,9 @@
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/17.jpeg"/>
             </div>
-            <a class="buttom" href="/manual/GA">Manual partidas en solitario</a>
+            <a class="buttom" href="/">Inicio</a>
             <a class="buttom" href="/manual">Manual de la aplicación</a>
+            <a class="buttom" href="/manual/GA">Manual partidas en solitario</a>
             <a class="buttom" href="/manual/OG">Manual de partidas en línea</a>
         </div>
         </div>

@@ -73,9 +73,11 @@ public class OnlineGameController {
     public ModelAndView join(Principal principal,HttpServletResponse response){
         //response.addHeader("Refresh", "4");
         ModelAndView res = new ModelAndView(JOIN_GAME);
-        List<OnlineGame> games = this.onlineGameService.getNotStartedGames();
+        List<OnlineGame> allGames = this.onlineGameService.getNotStartedGames();
         List<OnlineGame> staleGames = this.onlineGameService.getStaleGames();
         staleGames.forEach(x->this.onlineGameService.delete(x));
+        List<OnlineGame> games = allGames.stream().filter(x->x.getPlayer1()!=null && !x.getPlayer1().getUsername().equals(principal.getName())).toList();
+        allGames.stream().filter(x->x.getPlayer1() !=null && x.getPlayer1().getUsername().equals(principal.getName())).forEach(x->this.onlineGameService.delete(x));
         if(!games.isEmpty()){
             Random random = new Random();
             OnlineGame game = games.get(random.nextInt(games.size()));

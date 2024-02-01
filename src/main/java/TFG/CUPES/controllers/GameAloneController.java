@@ -26,6 +26,7 @@ import TFG.CUPES.entities.Player;
 import TFG.CUPES.entities.Position;
 import TFG.CUPES.services.GameAloneService;
 import TFG.CUPES.services.ImageService;
+import TFG.CUPES.services.OnlineGameService;
 import TFG.CUPES.services.PlayerService;
 import TFG.CUPES.services.PositionService;
 
@@ -43,18 +44,23 @@ public class GameAloneController {
     private ImageService logoService;
     private PlayerService playerService;
     private PositionService positionService;
+    private OnlineGameService onlineGameService;
 
     @Autowired
-    public GameAloneController(GameAloneService gameS, ImageService logoS,PlayerService playerService, PositionService positionService){
+    public GameAloneController(GameAloneService gameS, ImageService logoS,PlayerService playerService, PositionService positionService,OnlineGameService onlineGameService){
         this.gameService = gameS;
         this.logoService = logoS;
         this.playerService = playerService;
         this.positionService = positionService;
+        this.onlineGameService = onlineGameService;
     }
 
     @GetMapping("")
-    public String selectMode(Model model) {
-        return SELECT_MODE;
+    public ModelAndView selectMode(Model model) {
+        ModelAndView res = new ModelAndView(SELECT_MODE);
+        Integer numOfGames = this.onlineGameService.getNotStartedGames().size();
+        res.addObject("numOfGames", numOfGames);
+        return res;
     }
 
     @GetMapping("/new")

@@ -70,9 +70,11 @@
                 <img class="manual" src="/images/manual/mobile/7.jpeg"/>
             </div>
             Para ir a los manuales de los distintos modos de juego:
-            <a class="buttom" href="/manual/GA">Partidas en solitario</a>
-            <a class="buttom" href="/manual/LG">1vs1 local</a>
-            <a class="buttom" href="/manual/OG">Partidas en línea</a>
+            <div>
+                <a class="buttom" href="/manual/GA">Partidas en solitario</a>
+                <a class="buttom" href="/manual/LG">1vs1 local</a>
+                <a class="buttom" href="/manual/OG">Partidas en línea</a>
+            </div>
         </div>
     </div>
         
