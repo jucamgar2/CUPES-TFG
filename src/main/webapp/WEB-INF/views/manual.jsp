@@ -31,9 +31,17 @@
             <div class="pc-view">
                 <img class="manual" src="/images/manual/2.png"/>
             </div>
+            
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/2.jpeg"/>
             </div>
+            Todos los campos del formulario de registro son obligatorios y hay que tener en cuenta las siguientes restricciones:
+            <ul class="manual">
+                <li class="manual">El nombre de usuario debe ser único, debe tener entre cinco y treinta caracteres y no puede contener espacios en blanco.</li>
+                <li class="manual">La contraseña debe tener entre cuatro y treinta caracteres.</li>
+                <li class="manual">El nombre debe tener entre tres y treinta caracteres.</li>
+                <li class="manual">El email debe ser un correo valido y de una longitud menor a treinta caracteres.</li>
+            </ul>
             Una vez registrados podrán iniciar sesión:
             <div class="pc-view">
                 <img class="manual" src="/images/manual/3.png"/>
@@ -61,6 +69,14 @@
             </div>
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/6.jpeg"/>
+            </div>
+            Al editar el perfil no podremos modificar nuestro nombre de usuario y el nombre y el email tendrán las mismas restricciones de longitud que en el formulario de registro.
+	        Si queremos cambiar nuestra contraseña también podremos hacerlo desde el perfil y lo haríamos mediante el siguiente formulario donde deberemos introducir nuestra antigua contraseña y la cadena por la que queramos sustituirla teniendo en cuenta que debe tener entre cuatro y treinta caracteres.
+            <div class="pc-view">
+                <img class="manual" src="/images/manual/35.png"/>
+            </div>
+            <div class="mobile-view">
+                <img class="manual" src="/images/manual/mobile/35.jpeg"/>
             </div>
             Como la aplicación consta de varios modos de juegos, cada modo de juego tendrá su propio manual. En primer lugar, en la siguiente pantalla podemos seleccionar el modo de juego.
             <div class="pc-view">
