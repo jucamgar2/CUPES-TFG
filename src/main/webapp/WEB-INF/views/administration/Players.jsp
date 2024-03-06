@@ -47,7 +47,7 @@
                         <c:forEach var="player" items="${players}">
                             <tr>
                                 <td>
-                                <a href="/players/profile/${player.getUsername()}"><c:out value="${player.getUsername()}"/></a>    
+                                <a href="/players/profile/<c:out value="${player.getUsername()}"/>"><c:out value="${player.getUsername()}"/></a>    
                                 </td>
                                 <td><c:out value="${player.getMail()}"/></td>
                                 <td>
@@ -58,8 +58,8 @@
                                         <a style="color:green"><i class="fa fa-check-circle"></i></a>
                                     </c:if>
                                 </td>
-                                <td><a href="/administration/players/disable/${player.getUsername()}" ><i class="fa fa-exclamation"></i></a></td>
-                                <td><a href="/administration/players/enable/${player.getUsername()}"><i class="fa fa-play"></i></a></td>
+                                <td><a href="/administration/players/disable/<c:out value="${player.getUsername()}"/>" ><i class="fa fa-exclamation"></i></a></td>
+                                <td><a href="/administration/players/enable/<c:out value="${player.getUsername()}"/>"><i class="fa fa-play"></i></a></td>
                             </tr>
                         </c:forEach>
                     </tbody>

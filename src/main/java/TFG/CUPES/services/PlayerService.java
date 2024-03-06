@@ -57,6 +57,9 @@ public class PlayerService {
         if(exists(p.getUsername())){
             errors.add("Ya existe un usuario con ese nombre");
         }
+        if(p.getUsername().contains("/")){
+            errors.add("El nombre de usuario no debe contener el caracter /");
+        }
         if(p.getUsername().length()<5 || p.getUsername().length()>30){
             errors.add("La longitud del nombre de usuario debe tener entre 5 y 30 caracteres");
         }
