@@ -42,7 +42,7 @@
                     <button class="buttom" type="submit">Iniciar Sesión</button>
                 </form:form>
                 <div>
-                <p class="game">¿Aún no tienes cuenta? <a href="/players/new" class="buttom-positive">Iniciar sesión</a></p>
+                <p class="game">¿Aún no tienes cuenta? <a href="/players/new" class="buttom-positive">Registrate</a></p>
                 </div>
             </div>
         <script src="/js/error_script.js"></script>

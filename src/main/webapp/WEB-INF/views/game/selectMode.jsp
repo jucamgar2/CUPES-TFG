@@ -16,11 +16,11 @@
                         </c:forEach>
                     </div>
                 </c:if>
-                <h2>En el modo un jugador, tendrás tres intentos para adivinar un escudo</h2>
+                <h2>En el modo un jugador, tendrás cuatro intentos para adivinar un escudo</h2>
                 <a class="buttom" href="/game/new">Un jugador</a>
                 <h2>En el modo uno contra uno local, podrás jugar con otra persona en tu mismo dispositivo y cada uno tendrá que adivinar un escudo en el menor número posible de intentos y de tiempo</h2>
                 <a class="buttom" href="/game/localGame/new">1vs1 local</a>
-                <h2>En el modo en línea jugarás contra otra persona y ambos tendréis que adivinar un escudo en el menor número de intentos posible, tardando el menor tiempo posible</h2>
+                <h2>En el modo en línea jugarás contra otra persona y ambos tendréis que adivinar un escudo en el menor número posible de intentos y de tiempo</h2>
                 <h2>Actualmente hay 
                     <c:if test="${numOfGames!=null}">
                         <c:out value="${numOfGames}"/>
