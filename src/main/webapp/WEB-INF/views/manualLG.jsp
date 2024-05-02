@@ -9,7 +9,7 @@
         <div class="center-items">
         <div class="manual">
             <h1>Manual de 1vs1 local</h1>
-            Para jugar una partida 1vs1 local, primero tendremos que dirigirnos al selector de modos de juego que anteriormente hemos comentado y pulsar sobre el botón 1vs1 local, es importante recordar que para jugar a este modo tampoco hace falta haber iniciado sesión y que no hay apartado estadístico para este modo. Tras pulsar el botón observaremos la siguiente pantalla:
+            Para jugar una partida 1vs1 local, primero tendremos que dirigirnos al selector de modos de juego que anteriormente hemos comentado y pulsar sobre el botón 1vs1 local. Es importante recordar que para jugar a este modo tampoco hace falta haber iniciado sesión y que no hay apartado estadístico para este modo. Tras pulsar el botón, observaremos la siguiente pantalla:
             <div class="pc-view">
                 <img class="manual" src="/images/manual/13.png"/>
             </div>
@@ -23,8 +23,8 @@
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/14.jpeg"/>
             </div>
-            A partir de este momento el jugador 1 utilizará sus intentos y podrán ocurrir dos cosas, que el jugador consiga acertar el escudo o que el jugador gaste sus cuatro intentos y no consiga adivinar el escudo, por lo tanto, no podrá ganar, como mucho podrá empatar en el caso de que el jugador 2 tampoco sea capaz de adivinar su escudo.
-            <p></p>Cuando el jugador falle se mostrará un nuevo pedazo y se le notificará de que no ha acertado:
+            A partir de este momento, el jugador 1 utilizará sus intentos y podrán ocurrir dos cosas, que el jugador consiga acertar el escudo o que el jugador gaste sus cuatro intentos y no consiga adivinar el escudo. Por lo tanto, no podrá ganar, como mucho podrá empatar en el caso de que el jugador 2 tampoco sea capaz de adivinar su escudo.
+            <p></p>Cuando el jugador falle, se mostrará un nuevo pedazo y se le notificará que no ha acertado:
             <div class="pc-view">
                 <img class="manual" src="/images/manual/15.png"/>
             </div>
@@ -38,11 +38,11 @@
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/16.jpeg"/>
             </div>
-            El escudo de ambos jugadores se escoge de forma simultánea y existe la posibilidad de que el escudo de ambos jugadores sea el mismo, aunque la probabilidad sea muy pequeña.
+            El escudo de ambos jugadores se escoge de forma simultánea y existe la posibilidad de que el escudo de ambos jugadores sea el mismo, aunque la probabilidad sea muy pequeña, concretamente de 1/127.
             <p></p>Una vez que comience el turno del jugador 2, este podrá empezar a intentar adivinar su escudo y cuando adivine el escudo o gaste sus intentos, la aplicación determinará el ganador de la siguiente forma:
             <ul class="manual">
-                <li class="manual">Si solo un jugador adivina el escudo este ganará.</li>
-                <li class="manual">Si ambos jugadores no adivinan su escudo empatarán.</li>
+                <li class="manual">Si solo un jugador adivina el escudo, este ganará.</li>
+                <li class="manual">Si ambos jugadores no adivinan su escudo, empatarán.</li>
                 <li class="manual">Si los dos jugadores adivinan el escudo, ganará quien menos intentos haya necesitado, en caso de empate en el número de intentos, el criterio para determinar el ganador será el tiempo, resultando como ganador quien menos tiempo haya necesitado. En caso de empate en tiempo e intentos, el resultado de la partida será un empate.</li>
             </ul>
             Con la partida terminada y el ganador de esta determinado, se mostrará la siguiente pantalla donde podremos ver las estadísticas de la partida.

@@ -18,7 +18,7 @@
                 Para ver la barra de navegación en dispositivos móviles, se debe pulsar el botón de la esquina superior derecha:
                 <img class="manual" src="/images/manual/mobile/1b.jpeg"/>
             </div>
-            Como se puede ver en tenemos una barra de navegación que siempre estará presente y podemos usarla como acceso rápido a las siguientes secciones:
+            Como se puede ver en la imagen, tenemos una barra de navegación que siempre estará presente y podemos usarla como acceso rápido a las siguientes secciones:
             <ul class="manual">
                 <li class="manual">Inicio, nos lleva a la página principal, aunque para acceder a la pantalla principal también podemos pulsar sobre el logo de CUPES de la barra de navegación.</li>
                 <li class="manual">Estadísticas, nos llevará al apartado de estadísticas, que dependiendo de si hemos iniciado sesión o no, nos mostrará nuestras estadísticas individuales o solo las estadísticas generales de la aplicación.</li>
@@ -40,23 +40,23 @@
                 <li class="manual">El nombre de usuario debe ser único, debe tener entre cinco y treinta caracteres y no puede contener espacios en blanco.</li>
                 <li class="manual">La contraseña debe tener entre cuatro y treinta caracteres.</li>
                 <li class="manual">El nombre debe tener entre tres y treinta caracteres.</li>
-                <li class="manual">El email debe ser un correo valido y de una longitud menor a treinta caracteres.</li>
+                <li class="manual">El email debe ser un correo válido y de una longitud menor a treinta caracteres.</li>
             </ul>
-            Una vez registrados podrán iniciar sesión:
+            Una vez registrados, los usuarios podrán iniciar sesión:
             <div class="pc-view">
                 <img class="manual" src="/images/manual/3.png"/>
             </div>
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/3.jpeg"/>
             </div>
-            En cualquier momento, los usuarios podrán consultar el apartado de estadísticas y si han iniciado sesión, no solo se mostrarán las estadísticas generales, sino que se les mostrará sus propias estadísticas:
+            En cualquier momento, los usuarios podrán consultar el apartado de estadísticas y, en el caso de que hayan iniciado sesión, no solo se mostrarán las estadísticas generales, sino que se les mostrarán sus propias estadísticas:
             <div class="pc-view">
                 <img class="manual" src="/images/manual/4.png"/>
             </div>
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/4.jpeg"/>
             </div>
-            Tras iniciar sesión, los jugadores siempre podrán acceder a su perfil donde se les mostrará sus datos y además sus propias estadísticas:
+            Tras iniciar sesión, los jugadores siempre podrán acceder a su perfil donde se les mostrarán sus datos y además sus propias estadísticas:
             <div class="pc-view">
                 <img class="manual" src="/images/manual/5.png"/>
             </div>
@@ -70,15 +70,15 @@
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/6.jpeg"/>
             </div>
-            Al editar el perfil no podremos modificar nuestro nombre de usuario y el nombre y el email tendrán las mismas restricciones de longitud que en el formulario de registro.
-	        Si queremos cambiar nuestra contraseña también podremos hacerlo desde el perfil y lo haríamos mediante el siguiente formulario donde deberemos introducir nuestra antigua contraseña y la cadena por la que queramos sustituirla teniendo en cuenta que debe tener entre cuatro y treinta caracteres.
+            Al editar el perfil, no podremos modificar nuestro nombre de usuario, por lo que solo podremos editar el nombre y el correo electrónico; dichos campos tendrán las mismas restricciones que en el registro.
+	        Si queremos cambiar nuestra contraseña, también podremos hacerlo desde el perfil y lo haríamos mediante el siguiente formulario donde deberemos introducir nuestra antigua contraseña y la cadena por la que queramos sustituirla, teniendo en cuenta que debe tener entre cuatro y treinta caracteres.
             <div class="pc-view">
                 <img class="manual" src="/images/manual/35.png"/>
             </div>
             <div class="mobile-view">
                 <img class="manual" src="/images/manual/mobile/35.jpeg"/>
             </div>
-            Como la aplicación consta de varios modos de juegos, cada modo de juego tendrá su propio manual. En primer lugar, en la siguiente pantalla podemos seleccionar el modo de juego.
+            Como la aplicación consta de varios modos de juego, cada modo de juego tendrá su propio manual. En primer lugar, en la siguiente pantalla podemos seleccionar el modo de juego.
             <div class="pc-view">
                 <img class="manual" src="/images/manual/7.png"/>
             </div>
